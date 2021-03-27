@@ -1,0 +1,3 @@
+f_blink () {
+	printf "${blink_s}$*${no_blink_s}"
+}
