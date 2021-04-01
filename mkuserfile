@@ -16,10 +16,9 @@ Current $(fg_cyan "${FileName} ") Version: $(fg_green "${OldVer}")
 	rm -f mkuserfile.*	# Delete old .out/.err files
 	printf "Creating $(fg_cyan " UserFiles.tgz")...
 "
-	tar -cvzf UserFiles.tgz -X UserFiles-Exclude -T UserFiles-Include >mkuserfiles.out
+	tar -cvzf UserFiles.tgz -X UserFiles-Exclude -T UserFiles-Include
 	printf "$(fg_white " Done")
 "
 	popd > /dev/null 2>&1
-	dirs -c > /dev/null 2>&1
-	) 2>mkuserfiles.err
+	dirs -c > /dev/null 2>&1) >~/mkuserfiles.out 2>~/mkuserfiles.err
 }

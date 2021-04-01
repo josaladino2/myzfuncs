@@ -1,0 +1,9 @@
+settabcolor () {
+if [ "${USER}" = "root" ]; then
+	tabcolor red
+elif [ "${USER}" = "joe" ]; then
+	tabcolor green
+else
+	tabcolor orange
+fi
+}

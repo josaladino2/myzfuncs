@@ -1,0 +1,19 @@
+tabcolor () {
+	case $1 in
+	green)
+	echo -e "]6;1;bg;red;brightness;57"
+	echo -e "]6;1;bg;green;brightness;197"
+	echo -e "]6;1;bg;blue;brightness;77"
+	;;
+	red)
+	echo -e "]6;1;bg;red;brightness;270"
+	echo -e "]6;1;bg;green;brightness;60"
+	echo -e "]6;1;bg;blue;brightness;83"
+	;;
+	orange)
+	echo -e "]6;1;bg;red;brightness;227"
+	echo -e "]6;1;bg;green;brightness;143"
+	echo -e "]6;1;bg;blue;brightness;10"
+	;;
+	esac
+}

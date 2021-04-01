@@ -1,0 +1,5 @@
+tabreset () {
+  echo -e "]6;1;bg;red;brightness;176"
+  echo -e "]6;1;bg;green;brightness;181"
+  echo -e "]6;1;bg;blue;brightness;175"
+}
