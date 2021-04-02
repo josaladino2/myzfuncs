@@ -1,19 +1,22 @@
 tabcolor () {
 	case $1 in
 	green)
-	echo -e "]6;1;bg;red;brightness;57"
-	echo -e "]6;1;bg;green;brightness;197"
-	echo -e "]6;1;bg;blue;brightness;77"
+	printf -e "]6;1;bg;red;brightness;57]6;1;bg;green;brightness;197]6;1;bg;blue;brightness;77"
+#	printf -e "]6;1;bg;red;brightness;57";
+#	printf -e "]6;1;bg;green;brightness;197";
+#	printf -e "]6;1;bg;blue;brightness;77";
 	;;
 	red)
-	echo -e "]6;1;bg;red;brightness;270"
-	echo -e "]6;1;bg;green;brightness;60"
-	echo -e "]6;1;bg;blue;brightness;83"
+	printf -e "]6;1;bg;red;brightness;270]6;1;bg;green;brightness;60]6;1;bg;blue;brightness;83"
+#	printf -e "]6;1;bg;red;brightness;270";
+#	printf -e "]6;1;bg;green;brightness;60";
+#	printf -e "]6;1;bg;blue;brightness;83";
 	;;
 	orange)
-	echo -e "]6;1;bg;red;brightness;227"
-	echo -e "]6;1;bg;green;brightness;143"
-	echo -e "]6;1;bg;blue;brightness;10"
+	printf -e "]6;1;bg;red;brightness;227]6;1;bg;green;brightness;143]6;1;bg;blue;brightness;10"
+#	printf -e "]6;1;bg;red;brightness;227";
+#	printf -e "]6;1;bg;green;brightness;143";
+#	printf -e "]6;1;bg;blue;brightness;10";
 	;;
 	esac
 }
