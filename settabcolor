@@ -1,9 +1,8 @@
 settabcolor () {
-if [ "${USER}" = "root" ]; then
-	tabcolor red
-elif [ "${USER}" = "joe" ]; then
-	tabcolor green
-else
-	tabcolor orange
-fi
+	case ${USER} in
+		root)	tabcolor red ;;
+     joe)	tabcolor green ;;
+	y4x|elton)	tabcolor orange ;;
+	     *)	tabreset ;;
+	esac
 }
