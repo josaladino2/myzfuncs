@@ -1,5 +1,5 @@
 tabreset () {
-  printf -e "]6;1;bg;red;brightness;176]6;1;bg;green;brightness;181]6;1;bg;blue;brightness;175";
+  printf "]6;1;bg;red;brightness;176]6;1;bg;green;brightness;181]6;1;bg;blue;brightness;175";
 #  printf -e "]6;1;bg;red;brightness;176";
 #  printf -e "]6;1;bg;green;brightness;181";
 #  printf -e "]6;1;bg;blue;brightness;175";
