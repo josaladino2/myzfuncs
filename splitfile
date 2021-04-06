@@ -5,11 +5,12 @@ splitfile () {
 		exit 1
 	else
 		local FileSize=${2:-30G}
+		local fSize=$(echo ${FileSize} | numfmt --from=iec)
 		local FileToCheck=${1}
 		local ThisFileSize=$(stat -c %s "${FileToCheck}")
 		echo "**** Checking File Size"
-		if [ ${ThisFileSize} -gt 32212254720 ]; then
-			echo "	**** File Size > 30G"
+		if [ $ThisFileSize -gt $fSize ]; then
+			echo "	**** File Size > ${FileSize}"
 			printf "	Spliting ${FileToCheck} into ${FileSize} parts..."
 			( cpulimit -l 50 split -d -b ${FileSize} "${FileToCheck}" "${FileToCheck}.part" )
 			results=$?
