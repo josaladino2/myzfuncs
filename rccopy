@@ -15,14 +15,15 @@ rccopy () {
 	ls -d */* > InFile
 	while read line
 	do
-		echo "  rclone $line"
+		echo -e "
+  rclone $line"
 		echo "    to"
 		if [ -z $Progress ]; then
 			printf "  ${Remote}/${line}..." #		--multi-thread-streams 6
 		else
 			echo "  ${Remote}/${line}..." #		--multi-thread-streams 6
 		fi
-		rclone ${Progress} --cache-db-purge --buffer-size 2G copyto ${line} ${Remote}/${line}
+		rclone ${Progress} --dropbox-batch-mode --cache-db-purge --buffer-size 2G copyto ${line} ${Remote}/${line}
 		results=$?
 		if [[ $results -eq 0 ]]; then
 			echo "Done"
