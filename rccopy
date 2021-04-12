@@ -11,6 +11,9 @@ rccopy () {
 	else
 	local Src=${1:-"/ncBackup"} # Full Path to Backup Directory
 	local Remote=${2:-"OneDrive:"}
+	if [ $Remote = "DropBox:" ]; then
+		DropBoxMode="--dropbox-batch-mode"
+	fi
 	cd ${Src}
 	ls -d */* > InFile
 	while read line
@@ -23,7 +26,7 @@ rccopy () {
 		else
 			echo "  ${Remote}/${line}..." #		--multi-thread-streams 6
 		fi
-		rclone ${Progress} --dropbox-batch-mode --cache-db-purge --buffer-size 2G copyto ${line} ${Remote}/${line}
+		rclone ${Progress} ${DropBoxMode} --cache-db-purge --buffer-size 2G copyto ${line} ${Remote}/${line}
 		results=$?
 		if [[ $results -eq 0 ]]; then
 			echo "Done"
