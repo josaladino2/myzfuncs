@@ -2,6 +2,9 @@ rccopy () {
 	if [ "$1" = "-p" ]; then
 		Progress="--progress"
 		shift
+	elif [ "$1" = "-t" ]; then
+		ShowTime="Y"
+		shift
 	else
 		Progress=""
 	fi
@@ -11,6 +14,8 @@ rccopy () {
 	else
 	local Src=${1:-"/ncBackup"} # Full Path to Backup Directory
 	local Remote=${2:-"OneDrive:"}
+	local SECONDS2=$(date +%s)
+	local duration2
 	if [ $Remote = "DropBox:" ]; then
 		DropBoxMode="--dropbox-batch-mode"
 	fi
@@ -18,6 +23,7 @@ rccopy () {
 	ls -d */* > InFile
 	while read line
 	do
+		SECONDS2=$(date +%s)
 		echo -e "
   rclone $line"
 		echo "    to"
@@ -32,6 +38,11 @@ rccopy () {
 			echo "Done"
 		else
 			echo "Errors ($results)"
+		fi
+		duration2=$(($(date +%s)-SECONDS2))
+		if [ $ShowTime = "Y" ]; then
+			echo -e "
+  ** Upload of ${Remote}/${line} completed in $(show_time ${duration2})"
 		fi
 	done < InFile
 	rm -f InFile
