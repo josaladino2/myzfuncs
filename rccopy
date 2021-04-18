@@ -17,7 +17,7 @@ rccopy () {
 	local SECONDS2=$(date +%s)
 	local duration2
 	if [ $Remote = "DropBox:" ]; then
-		DropBoxMode="--dropbox-batch-mode"
+		DropBoxMode="--dropbox-batch-mode --dropbox-chunk-size 128M"
 	fi
 	cd ${Src}
 	ls -d */* > InFile
@@ -25,7 +25,7 @@ rccopy () {
 	do
 		SECONDS2=$(date +%s)
 		echo -e "
-  rclone $line"
+		rclone $line"
 		echo "    to"
 		if [ -z $Progress ]; then
 			printf "  ${Remote}/${line}..." #		--multi-thread-streams 6
