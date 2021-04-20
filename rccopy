@@ -42,7 +42,8 @@ rccopy () {
 		duration2=$(($(date +%s)-SECONDS2))
 		if [ $ShowTime = "Y" ]; then
 			echo -e "
-  ** Upload of ${Remote}/${line} completed in $(show_time ${duration2})"
+  ** Upload of ${Remote}/${line} 
+	completed in $(show_time ${duration2})"
 		fi
 	done < InFile
 	rm -f InFile
