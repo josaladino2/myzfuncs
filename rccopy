@@ -15,6 +15,7 @@ rccopy () {
 	local Src=${1:-"/ncBackup"} # Full Path to Backup Directory
 	local Remote=${2:-"OneDrive:"}
 	local SECONDS2=$(date +%s)
+		duration2=$(($(date +%s)-SECONDS2))
 	local duration2
 	if [ $Remote = "DropBox:" ]; then
 		DropBoxMode="--dropbox-batch-mode --dropbox-chunk-size 128M"
@@ -25,7 +26,7 @@ rccopy () {
 	do
 		SECONDS2=$(date +%s)
 		echo -e "
-		rclone $line"
+  rclone $line"
 		echo "    to"
 		if [ -z $Progress ]; then
 			printf "  ${Remote}/${line}..." #		--multi-thread-streams 6
@@ -42,8 +43,8 @@ rccopy () {
 		duration2=$(($(date +%s)-SECONDS2))
 		if [ $ShowTime = "Y" ]; then
 			echo -e "
-  ** Upload of ${Remote}/${line} 
-	completed in $(show_time ${duration2})"
+  ** Upload of ${Remote}/${line}
+  completed in $(show_time ${duration2})"
 		fi
 	done < InFile
 	rm -f InFile
