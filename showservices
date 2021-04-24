@@ -1,12 +1,12 @@
 showservices () {
-	if [ "$(uname)" == "Darwin" ]; then
-		if [ "${USER}" == "root" ]; then
+	if [ "$(uname)" = "Darwin" ]; then
+		if [ "${USER}" = "root" ]; then
 			launchctl list
 		else
 			sudo launchctl list
 		fi
 	else
-		if [ "${USER}" == "root" ]; then
+		if [ "${USER}" = "root" ]; then
 			systemctl list-unit-files
 		else
 			sudo systemctl list-unit-files

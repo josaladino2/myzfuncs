@@ -1,15 +1,16 @@
 listallapps () {
-	if [ "$(uname)" == "Darwin" ]; then
-		if [ "${USER}" == "root" ]; then
-			dfind 'kMDItemContentTypeTree == "com.apple.application"c'
-		else
-			sudo dfind 'kMDItemContentTypeTree == "com.apple.application"c'
-		fi
+	if [ $(uname) = "Darwin" ]; then
+		echo "brew list"
+		echo "---------------------"
+		brew list
+		echo "---------------------"
+		echo "brew list --cask"
+		echo "---------------------"
 	else
-		if [ "${USER}" == "root" ]; then
-			yum list installed|less
+		if [ "${USER}" = "root" ]; then
+			yum list installed|most
 		else
-			sudo yum list installed|less
+			sudo yum list installed|most
 		fi
 	fi
 }

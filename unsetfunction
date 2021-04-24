@@ -1,7 +1,7 @@
 unsetfunction () {
 	if [ -z ${1} ]; then
 		echo "Usage: ${funcstack[1]} function_name"
-	elif [ "${Comp}" == "bash" ]; then
+	elif [ "${Comp}" = "bash" ]; then
 		unset -f ${1}
 	else
 		disable -f -m ${1}

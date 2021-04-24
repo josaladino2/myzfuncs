@@ -2,7 +2,7 @@ gitalias () {
 	if [ -z ${1} ]; then
 		echo "Usage: ${funcstack[1]} alias_category"
 	else
-		if [ "${1}" == "all" ]; then
+		if [ "${1}" = "all" ]; then
 			echo "########## ALL ##########"
 			git aliases|most
 		else

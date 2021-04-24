@@ -12,7 +12,7 @@ nodupes () {
 			old_PATH=${old_PATH#*:}
 		done
 		Comp=$(act_shell)
-		if [ "${Comp}" == "bash" ]; then
+		if [ "${Comp}" = "bash" ]; then
 			export PATH=${PATH#:}
 		else
 			PATH=${PATH#:}
