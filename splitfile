@@ -1,6 +1,6 @@
 splitfile () {
 	# Assumes current directory
-	if [ "$1" = "-t" ]; then
+	if [ "$1" == "-t" ]; then
 		ShowTime="Y"
 		shift
 	fi
@@ -32,7 +32,7 @@ splitfile () {
 			echo
 		fi
 		duration2=$(($(date +%s)-SECONDS2))
-		if [ $ShowTime = "Y" ]; then
+		if [ "$ShowTime" == "Y" ]; then
 			echo -e "
   ** Spliting ${FileToCheck}
     completed in $(show_time ${duration2})"

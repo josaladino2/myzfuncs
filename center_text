@@ -1,5 +1,5 @@
 center_text () {
-	if [[ $# == 0 ]]; then
+	if [[ $# = 0 ]]; then
 		echo "Usage: ${funcstack[1]} text columns"
 		return 1
 	else

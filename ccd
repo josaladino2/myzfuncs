@@ -1,5 +1,5 @@
 ccd () {
-	if [ "$1" = "" ]; then
+	if [ "$1" == "" ]; then
 		echo "Usage: ccd location"
 		shift
 	elif [ -d "$1" ]; then

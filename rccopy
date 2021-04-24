@@ -1,8 +1,8 @@
 rccopy () {
-	if [ "$1" = "-p" ]; then
+	if [ "$1" == "-p" ]; then
 		Progress="--progress"
 		shift
-	elif [ "$1" = "-t" ]; then
+	elif [ "$1" == "-t" ]; then
 		ShowTime="Y"
 		shift
 	else
@@ -17,11 +17,11 @@ rccopy () {
 	local SECONDS2=$(date +%s)
 	local duration2
 	local DropBoxMode
-	if [ $Remote = "DropBox:" ]; then
+	if [ "$Remote" == "DropBox:" ]; then
 		DropBoxMode="--dropbox-batch-mode --dropbox-chunk-size 128M"
 	fi
 	cd ${Src}
-	ls -d */ > InFile
+	ls -d */* > InFile
 	while read line
 	do
 		SECONDS2=$(date +%s)
@@ -41,7 +41,7 @@ rccopy () {
 			echo "Errors ($results)"
 		fi
 		duration2=$(($(date +%s)-SECONDS2))
-		if [ $ShowTime = "Y" ]; then
+		if [ "$ShowTime" == "Y" ]; then
 			echo -e "
   ** ${Remote}/${line} Upload
   completed in $(show_time ${duration2})"

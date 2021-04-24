@@ -1,6 +1,6 @@
 fromhex () {
   hex=$1
-  if [[ $hex == "#"* ]]; then
+  if [[ $hex = "#"* ]]; then
     hex=$(echo $1 | awk '{print substr($0,2)}')
   fi
   r=$(printf '0x%0.2s' "$hex")
