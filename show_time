@@ -10,6 +10,5 @@ show_time () {
   (( $M = 1 )) && My="min." || My="mins."
   (( $S = 1 )) && Sy="sec." || Sy="secs."
   printf "${Prompt}: "
-  #printf '%d %s %d %s %d %s %d %s' $D $Dy $H $Hy $M $My $S $Sy
   echo "$D $Dy $H $Hy $M $My $S $Sy"
 }
