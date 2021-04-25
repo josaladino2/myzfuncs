@@ -5,10 +5,14 @@ show_time () {
   local H=$((T/60/60%24))
   local M=$((T/60%60))
   local S=$((T%60))
-  (( $D = 1 )) && Dy="day" || Dy="days"
-  (( $H = 1 )) && Hy="hr." || Hy="hrs."
-  (( $M = 1 )) && My="min." || My="mins."
-  (( $S = 1 )) && Sy="sec." || Sy="secs."
+  (( $D == 1 )) && Dy="day" || Dy="days"
+  (( $H == 1 )) && Hy="hr." || Hy="hrs."
+  (( $M == 1 )) && My="min." || My="mins."
+  (( $S == 1 )) && Sy="sec." || Sy="secs."
   printf "${Prompt}: "
-  echo "$D $Dy $H $Hy $M $My $S $Sy"
+  (( $D > 0 )) && printf "$D $Dy "
+  (( $H > 0 )) && printf "$H $Hy "
+  (( $M > 0 )) && printf "$M $My "
+  (( $S > 0 )) && printf "$S $Sy"
+  echo
 }
