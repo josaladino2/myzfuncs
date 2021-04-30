@@ -1,12 +1,13 @@
 rccopy () {
+	local Progress=""
+	local ShowTime=""
 	if [ "$1" = "-p" ]; then
 		Progress="--progress"
 		shift
-	elif [ "$1" = "-t" ]; then
+	fi
+	if [ "$1" = "-t" ]; then
 		ShowTime="Y"
 		shift
-	else
-		Progress=""
 	fi
 	if [ -z ${2} ]; then
 		echo "Usage: rccopy [-p] Src Remote"
