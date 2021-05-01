@@ -1,16 +1,21 @@
 rccopy () {
-	local Progress=""
-	local ShowTime=""
-	if [ "$1" = "-p" ]; then
-		Progress="--progress"
-		shift
-	fi
-	if [ "$1" = "-t" ]; then
-		ShowTime="Y"
-		shift
-	fi
+	local Progress
+	local ShowTime
+	local CMD="copyto"
+	while [[ ${1:0:1} = "-" ]]; do
+		if [ $1 = "-p" ]; then
+			Progress="--progress"
+			shift
+		elif [ $1 = "-s" ]; then
+			CMD="rsync"
+			shift
+		elif [ $1 = "-t" ]; then
+			ShowTime="Y"
+			shift
+		fi
+	done
 	if [ -z ${2} ]; then
-		echo "Usage: rccopy [-p] Src Remote"
+		echo "Usage: rccopy [-p -s -t] Src Remote"
 		exit 1
 	else
 	local Src=${1:-"/ncBackup"} # Full Path to Backup Directory
@@ -34,7 +39,7 @@ rccopy () {
 		else
 			echo "  ${Remote}/${line}..." #		--multi-thread-streams 6
 		fi
-		rclone ${Progress} ${DropBoxMode} --cache-db-purge --buffer-size 2G copyto ${line} ${Remote}/${line}
+		rclone ${Progress} ${DropBoxMode} --cache-db-purge --buffer-size 2G ${CMD} ${line} ${Remote}/${line}
 		results=$?
 		if [[ $results -eq 0 ]]; then
 			echo "Done"
