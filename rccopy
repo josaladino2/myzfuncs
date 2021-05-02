@@ -7,7 +7,7 @@ rccopy () {
 			Progress="--progress"
 			shift
 		elif [ $1 = "-s" ]; then
-			CMD="rsync"
+			CMD="sync"
 			shift
 		elif [ $1 = "-t" ]; then
 			ShowTime="Y"
