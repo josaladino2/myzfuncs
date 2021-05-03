@@ -53,6 +53,8 @@ rccopy () {
   completed in $(show_time ${duration2})"
 		fi
 	done < InFile
-	rm -f InFile
+	results=$?
+	if [[ $results -eq 0 ]]; then
+		rm -f InFile
 	fi
 }
