@@ -39,7 +39,7 @@ rccopy () {
 		else
 			echo "  ${Remote}/${line}..." #		--multi-thread-streams 6
 		fi
-		rclone ${CMD} ${line} ${Remote} ${Progress} ${DropBoxMode} --cache-db-purge --create-empty-src-dirs
+		rclone ${CMD} ${line} ${Remote}/$(dirname ${line}) ${Progress} ${DropBoxMode} --cache-db-purge --create-empty-src-dirs
 		results=$?
 		if [[ $results -eq 0 ]]; then
 			echo "Done"
