@@ -18,7 +18,8 @@ splitfile () {
 		if [ $ThisFileSize -gt $fSize ]; then
 			echo "  **** File Size > ${FileSize}"
 			printf "  Spliting ${FileToCheck} into ${FileSize} parts..."
-			( cpulimit -l 50 split -d -b ${FileSize} "${FileToCheck}" "${FileToCheck}.part" )
+			( split -d -b ${FileSize} "${FileToCheck}" "${FileToCheck}.part" )
+#			( cpulimit -l 50 split -d -b ${FileSize} "${FileToCheck}" "${FileToCheck}.part" )
 			results=$?
 			if [ $results = 0 ]; then
 				echo "Done"
