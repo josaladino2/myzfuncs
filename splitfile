@@ -29,7 +29,7 @@ splitfile () {
 				echo "${FileToCheck} NOT Removed!"
 			fi
 			echo
-			ls -hl *
+			ls -hl ${FileToCheck}*
 			echo
 		fi
 		duration2=$(($(date +%s)-SECONDS2))
