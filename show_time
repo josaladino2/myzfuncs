@@ -13,6 +13,6 @@ show_time () {
   (( $D > 0 )) && printf "$D $Dy "
   (( $H > 0 )) && printf "$H $Hy "
   (( $M > 0 )) && printf "$M $My "
-  (( $S > 0 )) && printf "$S $Sy"
+  printf "$S $Sy"
   echo
 }
