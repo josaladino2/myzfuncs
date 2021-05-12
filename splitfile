@@ -9,34 +9,32 @@ splitfile () {
 		exit 1
 	else
 		local FileSize=${2:-30G}
+		local SplitText=${2:-"** Checking File Size"}
 		local fSize=$(echo ${FileSize} | numfmt --from=iec)
 		local FileToCheck=${1}
 		local ThisFileSize=$(stat -c %s "${FileToCheck}")
 		local SECONDS2=$(date +%s)
 		local duration2
-		echo "**** Checking File Size"
+		echo "${SplitText}"
 		if [ $ThisFileSize -gt $fSize ]; then
-			echo "  **** File Size > ${FileSize}"
+			echo "    ** File Size > ${FileSize}"
 			printf "  Spliting ${FileToCheck} into ${FileSize} parts..."
 			( split -d -b ${FileSize} "${FileToCheck}" "${FileToCheck}.part" )
-#			( cpulimit -l 50 split -d -b ${FileSize} "${FileToCheck}" "${FileToCheck}.part" )
 			results=$?
 			if [ $results = 0 ]; then
 				echo "Done"
 				rm -f ${FileToCheck} >/dev/null 2>&1
 			else
 				echo "Errors"
-				echo "${FileToCheck} NOT Removed!"
+				echo "  ${FileToCheck} NOT Removed!"
 			fi
 			echo
-			ls -hl ${FileToCheck}*
+			ls -hl ${FileToCheck}* | indent
 			echo
 		fi
 		duration2=$(($(date +%s)-SECONDS2))
 		if [ "$ShowTime" = "Y" ]; then
-			echo -e "
-  ** Spliting ${FileToCheck}
-    completed in $(show_time ${duration2})"
+			echo "  ** Spliting ${FileToCheck} completed in $(show_time ${duration2})"
 		fi
 	fi
 }
