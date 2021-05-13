@@ -9,7 +9,7 @@ splitfile () {
 		exit 1
 	else
 		local FileSize=${2:-30G}
-		local SplitText=${2:-"** Checking File Size"}
+		local SplitText=${3:-"** Checking File Size"}
 		local fSize=$(echo ${FileSize} | numfmt --from=iec)
 		local FileToCheck=${1}
 		local ThisFileSize=$(stat -c %s "${FileToCheck}")
@@ -17,7 +17,7 @@ splitfile () {
 		local duration2
 		echo "${SplitText}"
 		if [ $ThisFileSize -gt $fSize ]; then
-			echo "    ** File Size > ${FileSize}"
+			echo "  ** File Size > ${FileSize}"
 			printf "  Spliting ${FileToCheck} into ${FileSize} parts..."
 			( split -d -b ${FileSize} "${FileToCheck}" "${FileToCheck}.part" )
 			results=$?
