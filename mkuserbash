@@ -1,7 +1,7 @@
 mkuserbash () {
 ( pushd ~ > /dev/null 2>&1
 	printf "$(fg_cyan "	UserFilesbash.tgz")..."
-	tar -cvzf UserFilesbash.tgz -X UserFiles-bashExclude -T UserFiles-bashInclude >mkuserfilesbash.out
+	tar -cvzhf UserFilesbash.tgz -X UserFiles-bashExclude -T UserFiles-bashInclude >mkuserfilesbash.out
 	printf "$(fg_white " Done")
 "
 	popd > /dev/null 2>&1

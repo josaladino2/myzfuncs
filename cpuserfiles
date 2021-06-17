@@ -59,14 +59,14 @@ Increment Version:$(fg_green "${OldVer}") to $(fg_red "${NewVer}:") (Y/N)? "
 					fg_green "."
 					ssh ${DestUserHost} "trash ${RFolder}.vim >/dev/null"
 					fg_green "."
-					cat ${FileName}|ssh ${DestUserHost} "tar xzf - -C ${RFolder}"
+					cat ${FileName}|ssh ${DestUserHost} "tar xzhf - -C ${RFolder}"
 					fg_green "."
 					CatVersion=$(ssh ${DestUserHost} "cat ${RFolder}${VerFile}")
 					printf "($(fg_cyan "v:")${CatVersion} (skel)"
 					if [[ ${SITES2} =~ "${DestUserHost}" ]] && [ ${DestUser} = "root" ]; then
 						ssh ${DestUserHost} "cp -a ${RFolder}${FileName} ${SkelDir}"
 						fg_green "."
-						cat ${FileName}|ssh ${DestUserHost} "tar xzf - -C ${SkelDir}"
+						cat ${FileName}|ssh ${DestUserHost} "tar xzhf - -C ${SkelDir}"
 						fg_green "."
 						CatVersion=$(ssh ${DestUserHost} "cat ${SkelDir}${VerFile}")
 						fg_green "."
