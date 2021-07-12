@@ -1,5 +1,11 @@
 mkuserfile () {
 ( pushd ~ > /dev/null 2>&1
+	if [ $1 = "-v" ]; then
+		Progress="/dev/null 2>&1"
+		shift
+	else
+		Progress="${HOME}/mkuserfiles.out 2>${HOME}/mkuserfiles.err"
+	fi
 	FileName="UserFiles.tgz"
 	BackupDir="ufBackup"
 	VerFile=".zsh_shver"
@@ -16,5 +22,5 @@ echo $PWD
 	fg_white "Done"
 	popd > /dev/null 2>&1
 	dirs -c > /dev/null 2>&1
-) >~/mkuserfiles.out 2>~/mkuserfiles.err
+) > ${Progress}
 }
