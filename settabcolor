@@ -2,7 +2,9 @@ settabcolor () {
 	case ${USER} in
 		root)	printf "]6;1;bg;red;brightness;270]6;1;bg;green;brightness;60]6;1;bg;blue;brightness;83"
 		 ;;
-     joe)	printf "]6;1;bg;red;brightness;57]6;1;bg;green;brightness;197]6;1;bg;blue;brightness;77"
+     joe)	printf "]6;1;bg;red;brightness;226]6;1;bg;green;brightness;56]6;1;bg;blue;brightness;236"
+		 ;;
+     tim)	"]6;1;bg;red;brightness;0]6;1;bg;green;brightness;218]6;1;bg;blue;brightness;255"
 		 ;;
 	y4x|elton) printf "]6;1;bg;red;brightness;227]6;1;bg;green;brightness;143]6;1;bg;blue;brightness;10"
 		 ;;
