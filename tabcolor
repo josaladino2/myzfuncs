@@ -6,6 +6,8 @@ tabcolor () {
 #	printf -e "]6;1;bg;green;brightness;197";
 #	printf -e "]6;1;bg;blue;brightness;77";
 	;;
+ pink)	 "]6;1;bg;red;brightness;245]6;1;bg;green;brightness;66]6;1;bg;blue;brightness;239"
+	;;
 	green)
 	printf "]6;1;bg;red;brightness;57]6;1;bg;green;brightness;197]6;1;bg;blue;brightness;77"
 #	printf -e "]6;1;bg;red;brightness;57";
