@@ -1,5 +1,11 @@
 tabcolor () {
 	case $1 in
+	blue)
+	printf "]6;1;bg;red;brightness;0]6;1;bg;green;brightness;218]6;1;bg;blue;brightness;255"
+#	printf -e "]6;1;bg;red;brightness;57";
+#	printf -e "]6;1;bg;green;brightness;197";
+#	printf -e "]6;1;bg;blue;brightness;77";
+	;;
 	green)
 	printf "]6;1;bg;red;brightness;57]6;1;bg;green;brightness;197]6;1;bg;blue;brightness;77"
 #	printf -e "]6;1;bg;red;brightness;57";
