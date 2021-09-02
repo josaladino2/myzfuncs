@@ -1,5 +1,6 @@
 settabcolor () {
-	case ${USER} in
+	CheckUser=$(echo ${USER} | tr '[:upper:]' '[:lower:]')
+	case ${CheckUser} in
 		root)	printf "]6;1;bg;red;brightness;201]6;1;bg;green;brightness;42]6;1;bg;blue;brightness;42"
 		 ;;
      [cC]issa)	printf "]6;1;bg;red;brightness;245]6;1;bg;green;brightness;66]6;1;bg;blue;brightness;239"
