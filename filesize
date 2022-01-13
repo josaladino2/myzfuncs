@@ -1,0 +1,3 @@
+filesize () {
+	printf "$(echo $(stat -c %s ${1}))"
+}
