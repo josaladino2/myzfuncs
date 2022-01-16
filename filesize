@@ -1,3 +1,4 @@
 filesize () {
-	printf "$(echo $(stat -c %s ${1}))"
+	echo $(\ls -lh vim.tgz | awk '{print $5}')
+#	echo $(stat -c %s ${1})
 }
