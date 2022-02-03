@@ -1,30 +1,18 @@
 tabcolor () {
 	case $1 in 
-	blue)
-	printf "]6;1;bg;red;brightness;0]6;1;bg;green;brightness;218]6;1;bg;blue;brightness;255"
-#	printf -e "]6;1;bg;red;brightness;57";
-#	printf -e "]6;1;bg;green;brightness;197";
-#	printf -e "]6;1;bg;blue;brightness;77";
+	blue) printf "]6;1;bg;red;brightness;0]6;1;bg;green;brightness;218]6;1;bg;blue;brightness;255"
 	;;
- pink)	 "]6;1;bg;red;brightness;245]6;1;bg;green;brightness;66]6;1;bg;blue;brightness;239"
+	pink)	printf "]6;1;bg;red;brightness;245]6;1;bg;green;brightness;66]6;1;bg;blue;brightness;239"
 	;;
-	green)
-	printf "]6;1;bg;red;brightness;57]6;1;bg;green;brightness;197]6;1;bg;blue;brightness;77"
-#	printf -e "]6;1;bg;red;brightness;57";
-#	printf -e "]6;1;bg;green;brightness;197";
-#	printf -e "]6;1;bg;blue;brightness;77";
+	green) printf "]6;1;bg;red;brightness;57]6;1;bg;green;brightness;197]6;1;bg;blue;brightness;77"
 	;;
-	red)
-	printf "]6;1;bg;red;brightness;270]6;1;bg;green;brightness;60]6;1;bg;blue;brightness;83"
-#	printf -e "]6;1;bg;red;brightness;270";
-#	printf -e "]6;1;bg;green;brightness;60";
-#	printf -e "]6;1;bg;blue;brightness;83";
+#	red) printf "]6;1;bg;red;brightness;270]6;1;bg;green;brightness;60]6;1;bg;blue;brightness;83"
+	red) printf "]6;1;bg;red;brightness;201]6;1;bg;green;brightness;42]6;1;bg;blue;brightness;42"
 	;;
-	orange)
-	printf "]6;1;bg;red;brightness;227]6;1;bg;green;brightness;143]6;1;bg;blue;brightness;10"
-#	printf -e "]6;1;bg;red;brightness;227";
-#	printf -e "]6;1;bg;green;brightness;143";
-#	printf -e "]6;1;bg;blue;brightness;10";
+	orange) printf "]6;1;bg;red;brightness;227]6;1;bg;green;brightness;143]6;1;bg;blue;brightness;10"
 	;;
+	purple) printf "]6;1;bg;blue;brightness;255"
+	;;
+	gray)	printf "]6;1;bg;red;brightness;176]6;1;bg;green;brightness;181]6;1;bg;blue;brightness;175"
 	esac
 }
