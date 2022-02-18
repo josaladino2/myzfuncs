@@ -3,11 +3,11 @@ web_search () {
 	# define search engine URLS
 	typeset -A urls
 	urls=(
-	  google    "https://www.google.com/search?q="
-	  ddg       "https://www.duckduckgo.com/?q="
-		bing			"https://www.bing.com/?q="
-		yahoo			"https://search.yahoo.com/search?p="
-	  github    "https://github.com/search?q="
+		google	"https://www.google.com/search?q="
+		ddg	"https://www.duckduckgo.com/?q="
+		bing	"https://www.bing.com/?q="
+		yahoo	"https://search.yahoo.com/search?p="
+		github	"https://github.com/search?q="
 	)
 	# check whether the search engine is supported
 	if [[ -z "$urls[$1]" ]]; then
