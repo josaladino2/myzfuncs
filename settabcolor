@@ -2,25 +2,18 @@ settabcolor () {
 #	CheckUser=$(echo ${USER} | tr '[:upper:]' '[:lower:]')
 CheckUser=$(echo ${1:-${USER}} | tr '[:upper:]' '[:lower:]')
 	case ${CheckUser} in
-		#root)	printf "]6;1;bg;red;brightness;201]6;1;bg;green;brightness;42]6;1;bg;blue;brightness;42"
 		root)	tabcolor red
 		 ;;
-#     cissa)	printf "]6;1;bg;red;brightness;245]6;1;bg;green;brightness;66]6;1;bg;blue;brightness;239"
     cissa)	tabcolor pink
 		 ;;
-#    joe)	printf "]6;1;bg;red;brightness;0]6;1;bg;green;brightness;255]6;1;bg;blue;brightness;0"
     joe)	tabcolor blue
 		 ;;
-#    tim)	printf "]6;1;bg;red;brightness;0]6;1;bg;green;brightness;218]6;1;bg;blue;brightness;255"
     tim)	tabcolor orange
 		 ;;
-#	y4x) printf "]6;1;bg;red;brightness;227]6;1;bg;green;brightness;143]6;1;bg;blue;brightness;10"
 		y4x) tabcolor purple
 		 ;;
-#		elton) printf "]6;1;bg;red;brightness;227]6;1;bg;green;brightness;143]6;1;bg;blue;brightness;10"
 		elton) tabcolor green
 		 ;;
-#		 *)	printf "]6;1;bg;red;brightness;176]6;1;bg;green;brightness;181]6;1;bg;blue;brightness;175"
 		 *)	tabcolor gray
 		 ;;
 	esac
