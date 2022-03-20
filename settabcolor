@@ -6,13 +6,13 @@ CheckUser=$(echo ${1:-${USER}} | tr '[:upper:]' '[:lower:]')
 		 ;;
     cissa)	tabcolor pink
 		 ;;
-    joe)	tabcolor blue
+    joe)	tabcolor green
 		 ;;
     tim)	tabcolor orange
 		 ;;
 		y4x) tabcolor purple
 		 ;;
-		elton) tabcolor green
+		elton) tabcolor blue
 		 ;;
 		 *)	tabcolor gray
 		 ;;
