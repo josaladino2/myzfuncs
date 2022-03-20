@@ -2,19 +2,19 @@ settabcolor () {
 #	CheckUser=$(echo ${USER} | tr '[:upper:]' '[:lower:]')
 CheckUser=$(echo ${1:-${USER}} | tr '[:upper:]' '[:lower:]')
 	case ${CheckUser} in
-		root)	tabcolor red
-		 ;;
-  	cissa)	tabcolor pink
-		 ;;
-  	joe)	tabcolor green
-		 ;;
-  	tim)	tabcolor orange
-		 ;;
-		y4x) tabcolor purple
-		 ;;
-		elton) tabcolor blue
-		 ;;
-		 *)	tabcolor gray
-		 ;;
+	root)	tabcolor red
+	;;
+  cissa)	tabcolor pink
+	;;
+  joe)	tabcolor green
+	;;
+  tim)	tabcolor orange
+	;;
+	y4x) tabcolor purple
+	;;
+	elton) tabcolor blue
+	;;
+	*)	tabcolor gray
+	;;
 	esac
 }
