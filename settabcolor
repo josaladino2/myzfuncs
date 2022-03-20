@@ -4,15 +4,15 @@ CheckUser=$(echo ${1:-${USER}} | tr '[:upper:]' '[:lower:]')
 	case ${CheckUser} in
 		root)	tabcolor red
 		 ;;
-    cissa)	tabcolor pink
+  	cissa)	tabcolor pink
 		 ;;
-    joe)	tabcolor blue
+  	joe)	tabcolor green
 		 ;;
-    tim)	tabcolor orange
+  	tim)	tabcolor orange
 		 ;;
 		y4x) tabcolor purple
 		 ;;
-		elton) tabcolor green
+		elton) tabcolor blue
 		 ;;
 		 *)	tabcolor gray
 		 ;;
