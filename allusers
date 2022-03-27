@@ -1,0 +1,4 @@
+allusers () {
+	l=$(grep "^UID_MIN" /etc/login.defs)
+	awk -F':' -v "limit=${l##UID_MIN}" '{ if ( $3 >= limit ) print $1}' /etc/passwd
+}
