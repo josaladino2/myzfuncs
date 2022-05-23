@@ -1,18 +1,22 @@
 show_time () {
   local Prompt=${2:-"Total elapst time"}
+  local Prompt2=${3:-""}
   local T=${1}
   local D=$((T/60/60/24))
   local H=$((T/60/60%24))
   local M=$((T/60%60))
   local S=$((T%60))
   (( $D == 1 )) && Dy="day" || Dy="days"
-  (( $H == 1 )) && Hy="hr." || Hy="hrs."
-  (( $M == 1 )) && My="min." || My="mins."
-  (( $S == 1 )) && Sy="sec." || Sy="secs."
+  (( $H == 1 )) && Hy="hour" || Hy="hours"
+  (( $M == 1 )) && My="minute" || My="minutes"
+  (( $S == 1 )) && Sy="second" || Sy="seconds"
   printf "${Prompt}: "
   (( $D > 0 )) && printf "$D $Dy "
   (( $H > 0 )) && printf "$H $Hy "
   (( $M > 0 )) && printf "$M $My "
-  printf "$S $Sy"
+	printf "$S $Sy"
+	printf "$Prompt2"
+	printf "$Prompt2"
+	printf "."
   echo
 }
