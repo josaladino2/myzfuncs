@@ -16,7 +16,6 @@ show_time () {
   (( $M > 0 )) && printf "$M $My "
 	printf "$S $Sy"
 	printf "$Prompt2"
-	printf "$Prompt2"
 	printf "."
   echo
 }
