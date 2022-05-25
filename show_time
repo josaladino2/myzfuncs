@@ -1,16 +1,29 @@
 show_time () {
+	RIGHTNOW=$(date +%s)
+	if [ "${1}" = "-age" ]; then
+		local age="Y"
+		shift
+		local T=$((RIGHTNOW-${1}))
+	else
+		local T=${1}
+	fi
   local Prompt=${2:-"Total elapst time"}
   local Prompt2=${3:-""}
-  local T=${1}
-  local D=$((T/60/60/24))
+	local Y=$((T/31556926))
+  local MM=$((T%31556926/2629743))
+  local D=$((T%31556926%2629743/86400))
   local H=$((T/60/60%24))
   local M=$((T/60%60))
   local S=$((T%60))
+  (( $Y == 1 )) && Yy="year" || Yy="years"
+  (( $MM == 1 )) && MMy="month" || MMy="months"
   (( $D == 1 )) && Dy="day" || Dy="days"
   (( $H == 1 )) && Hy="hour" || Hy="hours"
   (( $M == 1 )) && My="minute" || My="minutes"
   (( $S == 1 )) && Sy="second" || Sy="seconds"
   printf "${Prompt}: "
+  (( $Y > 0 )) && printf "$Y $Yy "
+  (( $MM > 0 )) && printf "$MM $MMy "
   (( $D > 0 )) && printf "$D $Dy "
   (( $H > 0 )) && printf "$H $Hy "
   (( $M > 0 )) && printf "$M $My "

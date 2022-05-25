@@ -1,0 +1,107 @@
+formatdate () {
+local FromDate=$(date)
+local ToFormat
+echo -ne "
+                      MAIN MENU
+
+  1)  $(fg_green "Month D, Yr") Month name-Day-Year with no leading zeros (February 17, 2021)
+  2)  $(fg_green "MM/DD/YY") Month-Day-Year with leading zeros (02/17/21)
+  3)  $(fg_green "DD/MM/YY") Day-Month-Year with leading zeros (17/02/21)
+  4)  $(fg_green "YY/MM/DD") Year-Month-Day with leading zeros (21/02/17)
+  5)  $(fg_green "MM/DD/YY") Month-Day-Year with leading zeros (02/17/2021)
+  6)  $(fg_green "DD/MM/YY") Day-Month-Year with leading zeros (17/02/2021)
+  7)  $(fg_green "YY/MM/DD") Year-Month-Day with leading zeros (2021/02/17)
+  8)  $(fg_green "MM-DD-YY") Month-Day-Year with leading zeros (02-17-21)
+  9)  $(fg_green "DD-MM-YY") Day-Month-Year with leading zeros (17-02-21)
+  a)  $(fg_green "YY-MM-DD") Year-Month-Day with leading zeros (21-02-17)
+  b)  $(fg_green "MM-DD-YY") Month-Day-Year with leading zeros (02-17-2021)
+  c)  $(fg_green "DD-MM-YY") Day-Month-Year with leading zeros (17-02-2021)
+  d)  $(fg_green "YY-MM-DD") Year-Month-Day with leading zeros (2021-02-17)
+  e)  $(fg_green "MMDDYY") Month-Day-Year with no separators (02172021)
+  f)  $(fg_green "DDMMYY") Day-Month-Year with no separators (17022021)
+  g)  $(fg_green "YYMMDD") Year-Month-Day with no separators (20210217)
+  h)  $(fg_green "MonDDYY") Month abbreviation-Day-Year with leading zeros (Feb172021)
+  i)  $(fg_green "DDMonYY") Day-Month abbreviation-Year with leading zeros (17Feb2021)
+  j)  $(fg_green "YYMonDD") Year-Month abbreviation-Day with leading zeros (2021Feb17)
+  k)  $(fg_green "day/YY") Day of year (counting consecutively from January 1/Year (48/2021)
+  l)  $(fg_green "YY/day") Year-Day of Year (counting consecutively from January 1 — Julian date format) (2021/48)
+  m)  $(fg_green "D Month, Yr") Day-Month name-Year (17 February, 2021)
+  n)  $(fg_green "Yr, Month D") Year-Month name-Day (2021, February 17)
+  o)  $(fg_green "Mon DD, YYYY") Month abbreviation, Day with leading zeros, Year (Feb 17, 2021)
+	p)  $(fg_green "DD Mon, YYYY") Day with leading zeros, Month abbreviation, Year (17 Feb, 2021)
+  q)  $(fg_green "YYYY, Mon DD") Year, Month abbreviation, Day with leading zeros (2021, Feb 17)
+  r)  $(fg_green "Mon-DD-YYYY") Month abbreviation, Day with leading zeros, Year (Feb-17-2021)
+	s)  $(fg_green "DD-Mon-YYYY") Day with leading zeros, Month abbreviation, Year (17-Feb-2021)
+  t)  $(fg_green "YYYY-Mon-DD") Year, Month abbreviation, Day with leading zeros (2021-Feb-17)
+	99)  $(fg_red1 "Exit")
+  Choose an option: "
+	read -r ans
+	case $ans in
+	1) ToFormat="%B %_d, %Y"
+			;;
+	2) ToFormat="%m/%d/%y" 
+			;;
+	3) ToFormat="%d/%m/%y"
+			;;
+	4) ToFormat="%y/%m/%d"
+			;;
+	5) ToFormat="%m/%d/%Y" 
+			;;
+	6) ToFormat="%d/%m/%Y"
+			;;
+	7) ToFormat="%Y/%m/%d"
+			;;
+	8) ToFormat="%m-%d-%y" 
+			;;
+	9) ToFormat="%d-%m-%y"
+			;;
+	a) ToFormat="%y-%m-%d"
+			;;
+	b) ToFormat="%m-%d-%Y" 
+			;;
+	c) ToFormat="%d-%m-%Y"
+			;;
+	d) ToFormat="%Y-%m-%d"
+			;;
+	e) ToFormat="%m%d%Y"
+			;;
+	f) ToFormat="%d%m%Y"
+			;;
+	g) ToFormat="%Y%m%d"
+			;;
+	h) ToFormat="%a%d%Y"
+			;;
+	i) ToFormat="%d%a%Y"
+			;;
+	j) ToFormat="%Y%a%d"
+			;;
+	k) ToFormat="%j/%Y"
+			;;
+	l) ToFormat="%Y/%j"
+			;;
+	m) ToFormat="%d %B, %Y"
+			;;
+	n) ToFormat="%Y, %B %_d"
+			;;
+	o) ToFormat="%b %_d, %Y"
+			;;
+	p) ToFormat="%d %b, %Y"
+			;;
+	q) ToFormat="%Y, %b %_d"
+			;;
+	r) ToFormat="%b-%d-%Y"
+			;;
+	s) ToFormat="%d-%b-%Y"
+			;;
+	t) ToFormat="%Y-%b-%d"
+			;;
+	99) fg_green "Goodbye."
+			exit
+			;;
+	*) fg_red1 "Invalid Option."
+			exit
+			;;
+	esac
+	printf "From: ${FromDate} $(fg_green "to ")"; echo "$(date -d "$FromDate" +"${ToFormat}")"
+	echo
+}
