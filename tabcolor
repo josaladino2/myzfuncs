@@ -6,7 +6,6 @@ tabcolor () {
 	;;
 	green) printf "]6;1;bg;red;brightness;57]6;1;bg;green;brightness;197]6;1;bg;blue;brightness;77"
 	;;
-#	red) printf "]6;1;bg;red;brightness;270]6;1;bg;green;brightness;60]6;1;bg;blue;brightness;83"
 	red) printf "]6;1;bg;red;brightness;201]6;1;bg;green;brightness;42]6;1;bg;blue;brightness;42"
 	;;
 	orange) printf "]6;1;bg;red;brightness;227]6;1;bg;green;brightness;143]6;1;bg;blue;brightness;10"
