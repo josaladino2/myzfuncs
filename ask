@@ -11,10 +11,12 @@ local prompt2 default reply
 			default=N
 		else
 			prompt2="y/n"
-			default=
+			default=n
 		fi
 	echo -n "${prompt} [$prompt2] "
-	read reply </dev/tty
+#	read -p "${prompt} [${prompt2}] " -i "${default}"
+vared -p "${prompt} [${prompt2}]:" -c reply 
+#	read reply </dev/tty
 	if [ -z "$reply" ]; then
 		reply=$default
 	fi
