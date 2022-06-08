@@ -1,4 +1,4 @@
-compress_ () {
+compressit () {
 	if [ -z ${1} ]; then
 		printf "Usage: ${Funcstack[1]} tarfile.ext [File-Folder]
 "
