@@ -3,31 +3,52 @@ show_time () {
 	if [ "${1}" = "-age" ]; then
 		local age="Y"
 		shift
-		local T=$((RIGHTNOW-${1}))
+		local secs=$((RIGHTNOW-${1}))
 	else
-		local T=${1}
+		local secs=${1}
 	fi
-  local Prompt=${2:-"Total elapst time"}
-  local Prompt2=${3:-""}
-	local Y=$((T/31556926))
-  local MM=$((T%31556926/2629743))
-  local D=$((T%31556926%2629743/86400))
-  local H=$((T/60/60%24))
-  local M=$((T/60%60))
-  local S=$((T%60))
-  (( $Y == 1 )) && Yy="year" || Yy="years"
-  (( $MM == 1 )) && MMy="month" || MMy="months"
-  (( $D == 1 )) && Dy="day" || Dy="days"
-  (( $H == 1 )) && Hy="hour" || Hy="hours"
-  (( $M == 1 )) && My="minute" || My="minutes"
-  (( $S == 1 )) && Sy="second" || Sy="seconds"
-  printf "${Prompt}: "
-  (( $Y > 0 )) && printf "$Y $Yy "
-  (( $MM > 0 )) && printf "$MM $MMy "
-  (( $D > 0 )) && printf "$D $Dy "
-  (( $H > 0 )) && printf "$H $Hy "
-  (( $M > 0 )) && printf "$M $My "
-	printf "$S $Sy"
+	local  millennia
+	local  centuries
+	local  years
+	local  months
+	local  days
+	local  hours
+	local  minutes
+	local  seconds
+  local Prompt=${2:-"Total elapst time:"}
+  local Prompt2=${3:-"."}
+	(( secs >= 31536000000 )) && millennia=$((secs / 31536000000)); secs=$((secs % 31536000000))
+	echo $millennia $secs
+	(( secs >= 3153600000 )) && centuries=$((secs / 3153600000)); secs=$((secs % 3153600000 ))
+	echo $centuries $secs
+	(( secs >= 31536000)) && years=$((secs / 31536000)); secs=$((secs %31536000))
+	echo $years $secs
+  (( secs >= 2629743)) && months=$((secs / 2629743)); secs=$((secs % 2629743))
+	echo $months $secs
+	(( secs >= 86400)) && days=$((secs / 86400)); secs=$((secs % 86400))
+	echo $days $secs
+	(( secs >= 3600)) && hours=$((secs / 3600)); secs=$((secs % 3600))
+	echo $hours $secs
+	(( secs >= 60)) && minutes=$((secs / 60)); seconds=$((secs % 60))
+	echo $minutes $secs
+	echo $seconds
+	printf "${Prompt} "
+  (( millennia == 1 )) && MLy="millennium" || MLy="millennia"
+  (( centuries == 1 )) && Cy="century" || Cy="centuries"
+  (( years == 1 )) && Yy="year" || Yy="years"
+  (( months == 1 )) && MMy="month" || MMy="months"
+  (( days == 1 )) && Dy="day" || Dy="days"
+  (( hours == 1 )) && Hy="hour" || Hy="hours"
+  (( minutes == 1 )) && My="minute" || My="minutes"
+  (( seconds == 1 )) && Sy="second" || Sy="seconds"
+  (( millennia > 0 )) && printf "$millennia $MLy "
+  (( centuries > 0 )) && printf "$centuries $Cy "
+  (( years > 0 )) && printf "$years`` $Yy "
+  (( months > 0 )) && printf "$months $MMy "
+  (( days > 0 )) && printf "$days $Dy "
+  (( hours > 0 )) && printf "$hours $Hy "
+  (( minutes > 0 )) && printf "$minutes $My "
+	printf "$seconds $Sy"
 	printf "$Prompt2"
   echo
 }
