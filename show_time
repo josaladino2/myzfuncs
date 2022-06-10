@@ -18,20 +18,12 @@ show_time () {
   local Prompt=${2:-"Total elapst time:"}
   local Prompt2=${3:-"."}
 	(( secs >= 31536000000 )) && millennia=$((secs / 31536000000)); secs=$((secs % 31536000000))
-	echo $millennia $secs
 	(( secs >= 3153600000 )) && centuries=$((secs / 3153600000)); secs=$((secs % 3153600000 ))
-	echo $centuries $secs
 	(( secs >= 31536000)) && years=$((secs / 31536000)); secs=$((secs %31536000))
-	echo $years $secs
   (( secs >= 2629743)) && months=$((secs / 2629743)); secs=$((secs % 2629743))
-	echo $months $secs
 	(( secs >= 86400)) && days=$((secs / 86400)); secs=$((secs % 86400))
-	echo $days $secs
 	(( secs >= 3600)) && hours=$((secs / 3600)); secs=$((secs % 3600))
-	echo $hours $secs
 	(( secs >= 60)) && minutes=$((secs / 60)); seconds=$((secs % 60))
-	echo $minutes $secs
-	echo $seconds
 	printf "${Prompt} "
   (( millennia == 1 )) && MLy="millennium" || MLy="millennia"
   (( centuries == 1 )) && Cy="century" || Cy="centuries"
