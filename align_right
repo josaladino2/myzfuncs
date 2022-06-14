@@ -1,3 +1,5 @@
 align_right () {
-	l="$(cat -)"; [ -n "$1" ] && s=$1 || s=$(echo -e "$l"| wc -L); echo "$l" | while read l;do j=$(((s-${#l})));echo "$(while ((j-->0)); do printf " ";done;)$l";done
+	STR=${1:-$(cat -)}
+	printf "%${COLUMNS}s
+" "${STR}"
 }

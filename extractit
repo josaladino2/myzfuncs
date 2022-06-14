@@ -1,14 +1,14 @@
-extract () {	
+extractit () {	
 	if [ -z ${2} ]; then
-		printf "Usage: extract CompressedFile DirPath"
+		printf "Usage: extractit CompressedFile DirPath"
 	else
 		file=$1
 		dir=$2
-		if [[ -n $dir ]]; then
+		if [[ -d $dir ]]; then
+			echo Extracting $1 ...
+		else 
 			mkdir -p $dir; 
 			echo Extracting $1 into $2 ...
-		else 
-			echo Extracting $1 ...
 		fi
 		if [[ ! -f $1 ]] ; then
 			echo "'$1' is not a valid file"
@@ -91,7 +91,7 @@ extract () {
 	#				eval ${cmd}
 	#			 ;;
 				*)
-					echo "'$1' cannot be extracted via extract()" 
+					echo "'$1' cannot be extracted via extractit()" 
 				;;
 			esac
 		fi
