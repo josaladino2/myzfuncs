@@ -1,0 +1,3 @@
+conncheck () {
+	netstat -ntu | awk '{print $5}' | egrep -v 'Address|servers'| cut -d: -f1 | sort | uniq -c | sort -n
+}
