@@ -1,6 +1,6 @@
 indent () {
-	# Usage: multiplier] indent
-  local indent=1
+	# Usage: [indentSize=2] [multiplier=1]
   local indentSize=${1:-2}
-  pr -to $((indent * indentSize))
+  local indent=${2:-1}
+  pr -to $((indentSize * indent))
 }
