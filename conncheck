@@ -5,6 +5,5 @@ conncheck () {
 			printf "$num	$ipadd"
 			printf ", $(whois $ipadd|egrep '[C|c]ountry:'|sed -e 's/^[C|c]ountry: *//'|head -n1), "
 			echo "$(coco $(whois $ipadd|egrep '[C|c]ountry:'|sed -e 's/^[C|c]ountry: *//'|head -n1))"
-#			sleep 3
 		done
 }
