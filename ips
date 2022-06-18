@@ -1,13 +1,13 @@
 ips () {
   if [ "$OS" = "Linux" ]; then
-		for i in $( /sbin/ifconfig | grep ^e | awk '{print $1}' | sed 's/://' )
-		do
-			echo -n "$i: "; /sbin/ifconfig $i | perl -nle' /dr:(\S+)/ && print $1'
-		done
-	elif [ "$OS" = "Darwin" ]; then
-		for i in $( /sbin/ifconfig | grep ^e | awk '{print $1}' | sed 's/://' )
-		do
-			echo -n "$i: "; /sbin/ifconfig $i | perl -nle' /inet (\S+)/ && print $1'
-		done
-	fi
+  	for i in $( /sbin/ifconfig | grep ^e | awk '{print $1}' | sed 's/://' )
+  	do
+  		echo -n "$i: "; /sbin/ifconfig $i | perl -nle' /dr:(\S+)/ && print $1'
+  	done
+  elif [ "$OS" = "Darwin" ]; then
+  	for i in $( /sbin/ifconfig | grep ^e | awk '{print $1}' | sed 's/://' )
+  	do
+  		echo -n "$i: "; /sbin/ifconfig $i | perl -nle' /inet (\S+)/ && print $1'
+  	done
+  fi
 }
