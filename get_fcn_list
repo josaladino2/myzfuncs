@@ -1,4 +1,13 @@
 get_fcn_list () {
-#	echo ${myzfuncsfile}
-	awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }'|sort
+	if [[ "${1}" =~ .*"-".* ]]; then
+		if [ "${1}" = "-c" ]; then
+			Cols="Y"
+		fi
+	shift
+	fi
+	if [ "${Cols}" = "Y" ]; then
+		awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }'|sort
+	else
+		awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }'|sort|rs 0 5
+	fi
 }
