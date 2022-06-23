@@ -1,13 +1,14 @@
 indent () {
 	# Usage: [indentSize=2] [multiplier=1]
-	if [ "${1}" = "-" ]; then
+	if [[ "${1}" =~ .*"-".* ]]; then
 		if [ "${1}" = "-h" ]; then
-			echo "$(fg_red1) "Usage"): ${funcstack[1]} [indentSize] [indent]"
+			echo "$(fg_red1 \"Usage\"): ${funcstack[1]} [indentSize] [indentNum]"
 			echo "Default: ${funcstack[1]} 2 1"
 		fi
 		shift
 	else
-  local indentSize=${1:-2}
-  local indent=${2:-1}
-  pr -to $((indentSize * indent))
+		local indentSize=${1:-2}
+		local indentNum=${2:-1}
+		pr -to $((indentSize * indentNum))
+	fi
 }

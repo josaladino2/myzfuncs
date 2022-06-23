@@ -7,8 +7,8 @@ get_fcn_list () {
 	fi
 	NumCols=${1:-5}
 	if [ "${Cols}" = "Y" ]; then
-		awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }'|sort
-	else
 		awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }'|sort|/usr/local/bin/rs 0 ${NumCols}
+	else
+		awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }'|sort
 	fi
 }
