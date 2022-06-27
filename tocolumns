@@ -1,0 +1,6 @@
+tocolumns () {
+	NumCols=${1:-5}
+	local LST="$(cat -)"
+#	echo "${LST}"| /usr/local/bin/rs 0 ${NumCols}
+	echo "${LST}" | columns -w 2 -W ${COLUMNS} --columns=${NumCols}
+}
