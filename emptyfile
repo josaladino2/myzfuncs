@@ -1,0 +1,12 @@
+emptyfile () {
+	if [ -z ${1} ]; then
+		echo "Usage: ${funcstack[1]} Filename"
+		return 0
+	else
+		if [ -e ${1} ]; then
+			true > ${1}
+		else
+			echo "No Such File."
+		fi
+	fi
+}
