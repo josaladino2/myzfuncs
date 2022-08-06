@@ -5,8 +5,5 @@ isalive () {
 	fi
 	IP=${1}
 	ServerStatus=$(ping -c1 -W1 ${IP} > /dev/null && echo "up" || echo "down")
-	printf "
-Server: ${IP} is ${ServerStatus}.
-
-"
+	echo "Server: ${IP} is ${ServerStatus}."
 }
