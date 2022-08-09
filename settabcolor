@@ -1,5 +1,4 @@
 settabcolor () {
-#	CheckUser=$(echo ${USER} | tr '[:upper:]' '[:lower:]')
 CheckUser=$(echo ${1:-${USER}} | tr '[:upper:]' '[:lower:]')
 	case ${CheckUser} in
 	root)	tabcolor red
@@ -15,6 +14,5 @@ CheckUser=$(echo ${1:-${USER}} | tr '[:upper:]' '[:lower:]')
 	elton) tabcolor blue
 	;;
 	*)	tabcolor gray
-	;;
 	esac
 }
