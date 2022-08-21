@@ -2,7 +2,7 @@ showfgcolors () {
 	pushd ~/.myzfuncs > /dev/null 2>&1
 	for i in fg_*
 	do
-		echo "$(${i} "${i}")" | sort | column
+		echo "$(${i} "${i}")" |egrep -v 'Usage|blink'| sort
 	done
 	popd >/dev/null 2>&1
 }
