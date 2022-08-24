@@ -1,7 +1,0 @@
-show_function_f () {
-	if [[ -n ${1} && -n $(sed -n "/^${1} \(\)/,/^}/p" ${myzfuncsfile}) ]]; then
-		sed -n "/^${1} \(\)/,/^}/p" ${myzfuncsfile}
-	else
-		return 1
-	fi
-}

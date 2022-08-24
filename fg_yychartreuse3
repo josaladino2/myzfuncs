@@ -1,3 +1,0 @@
-fg_yychartreuse3 () {
-	print -P %F{076}$*%f
-}
