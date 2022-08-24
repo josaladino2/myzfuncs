@@ -1,0 +1,3 @@
+bg_paleturquoise () {
+	print -P %K{159}$*%k
+}

@@ -1,0 +1,3 @@
+fg_darkseagreen8 () {
+	print -P %F{065}$*%f
+}

@@ -1,3 +1,3 @@
 bg_blue () {
-	print -P %K{004}$*%k
+	print -P %K{021}$*%k
 }

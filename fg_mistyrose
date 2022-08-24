@@ -1,0 +1,3 @@
+fg_mistyrose () {
+	print -P %F{224}$*%f
+}

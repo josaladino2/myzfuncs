@@ -1,0 +1,3 @@
+bg_yellow5 () {
+	print -P %K{106}$*%k
+}

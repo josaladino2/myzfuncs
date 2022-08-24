@@ -1,0 +1,3 @@
+fg_khaki () {
+	print -P %F{228}$*%f
+}

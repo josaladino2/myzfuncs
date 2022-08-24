@@ -1,0 +1,3 @@
+fg_mediumpurple5 () {
+	print -P %F{060}$*%f
+}

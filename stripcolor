@@ -1,0 +1,3 @@
+stripcolor () {
+	cat - | sed 's/\[[0-9;]\{1,\}[A-Za-z]//g'
+}

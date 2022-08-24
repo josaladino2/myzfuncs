@@ -1,0 +1,3 @@
+fg_lightsalmon2 () {
+	print -P %F{137}$*%f
+}

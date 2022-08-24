@@ -1,3 +1,3 @@
 bg_teal () {
-	print -P %K{014}$*%k
+	print -P %K{006}$*%k
 }

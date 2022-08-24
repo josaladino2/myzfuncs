@@ -1,5 +1,5 @@
 settabcolor () {
-CheckUser=$(echo ${1:-${USER}} | tr '[:upper:]' '[:lower:]')
+	CheckUser=$(echo ${1:-${USER}} | tr '[:upper:]' '[:lower:]')
 	case ${CheckUser} in
 	root)	tabcolor red
 	;;

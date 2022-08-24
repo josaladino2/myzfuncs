@@ -1,0 +1,3 @@
+bg_lightsalmon () {
+	print -P %K{216}$*%k
+}

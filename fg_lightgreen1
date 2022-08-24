@@ -1,0 +1,3 @@
+fg_lightgreen1 () {
+	print -P %F{119}$*%f
+}

@@ -1,0 +1,3 @@
+bg_thistle () {
+	print -P %K{182}$*%k
+}

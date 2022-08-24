@@ -1,0 +1,3 @@
+bg_lightcyan () {
+	print -P %K{195}$*%k
+}

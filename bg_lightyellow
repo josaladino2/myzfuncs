@@ -1,0 +1,3 @@
+bg_lightyellow () {
+	print -P %K{187}$*%k
+}

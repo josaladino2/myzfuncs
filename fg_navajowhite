@@ -1,0 +1,3 @@
+fg_navajowhite () {
+	print -P %F{144}$*%f
+}

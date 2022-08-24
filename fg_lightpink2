@@ -1,0 +1,3 @@
+fg_lightpink2 () {
+	print -P %F{095}$*%f
+}

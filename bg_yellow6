@@ -1,0 +1,3 @@
+bg_yellow6 () {
+	print -P %K{100}$*%k
+}

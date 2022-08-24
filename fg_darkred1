@@ -1,0 +1,3 @@
+fg_darkred1 () {
+	print -P %F{052}$*%f
+}

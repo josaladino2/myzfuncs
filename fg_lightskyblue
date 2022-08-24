@@ -1,0 +1,3 @@
+fg_lightskyblue () {
+	print -P %F{153}$*%f
+}

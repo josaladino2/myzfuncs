@@ -3,6 +3,6 @@ function_exists () {
 		[[ -n $(show_function_f ${1}) ]]; then
 		return 0
 	else
-		return $?
+		return 1
 	fi
 }

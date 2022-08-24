@@ -1,0 +1,3 @@
+fg_magenta5 () {
+	print -P %F{127}$*%f
+}

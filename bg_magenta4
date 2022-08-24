@@ -1,0 +1,3 @@
+bg_magenta4 () {
+	print -P %K{163}$*%k
+}

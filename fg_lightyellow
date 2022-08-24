@@ -1,0 +1,3 @@
+fg_lightyellow () {
+	print -P %F{187}$*%f
+}

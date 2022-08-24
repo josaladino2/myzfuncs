@@ -1,0 +1,3 @@
+bg_aquamarine () {
+	print -P %K{122}$*%k
+}

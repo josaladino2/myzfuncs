@@ -1,0 +1,3 @@
+bg_lightskyblue2 () {
+	print -P %K{109}$*%k
+}

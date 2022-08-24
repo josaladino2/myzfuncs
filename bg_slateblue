@@ -1,0 +1,3 @@
+bg_slateblue () {
+	print -P %K{099}$*%k
+}

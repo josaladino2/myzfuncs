@@ -1,0 +1,3 @@
+fg_darkorange1 () {
+	print -P %F{166}$*%f
+}

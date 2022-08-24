@@ -1,0 +1,3 @@
+fg_darkseagreen6 () {
+	print -P %F{107}$*%f
+}

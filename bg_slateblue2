@@ -1,0 +1,3 @@
+bg_slateblue2 () {
+	print -P %K{061}$*%k
+}

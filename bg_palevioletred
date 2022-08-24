@@ -1,0 +1,3 @@
+bg_palevioletred () {
+	print -P %K{211}$*%k
+}

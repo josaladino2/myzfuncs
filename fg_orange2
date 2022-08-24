@@ -1,0 +1,3 @@
+fg_orange2 () {
+	print -P %F{094}$*%f
+}

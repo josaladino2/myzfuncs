@@ -1,69 +1,82 @@
 checkit () {
-if [ ! -d ".git" ]; then
-  echo "Not a $(fg_green ".git/") repository."
-  return
-fi
-git fetch origin >/dev/null 2>&1
-fg_white "
+	if [ ! -d ".git" ]; then
+		echo "Not a $(fg_green ".git/") repository."
+		return
+	fi
+	git fetch origin >/dev/null 2>&1
+	fg_white "
 **** $(fg_orange1 "${1}") Working Tree Status ****"
-# Check for Stashes
-output=$(git stash list)
-if [ -z "$output" ]; then
-  fg_green "No Stashes saved."
-else 
-  NumStashes=${$(echo $output|wc -l)##*( )}
-  if (( NumStashes > 1 )); then
-    stashes="Stashes"
-  else
-    stashes="Stash"
-  fi
-  fg_red1 "Yes, ${NumStashes} $stashes saved."
-  fg_yellow "  git stash list [to view them]"
-fi
-# Check for Untracked Files
-output="$(git ls-files --others --exclude-standard)"
-if [ -z "$output" ]; then
-  fg_green "No Untracked files."
-else 
-  fg_red1 "Yes, Untracked files."
-  fg_white "$(showuntracked)" | indent
-fi
-# Check for Staged Files
-output=$(git diff --exit-code)
-if [ -z "$output" ]; then
-  fg_green "No changes to be Staged."
-else 
-  fg_red1 "Yes, changes to be Staged."
-  fg_yellow "  git diff [to view them]"
-fi
-# Check for changes to Commit
-output=$(git diff --cached --exit-code)
-if [ -z "$output" ]; then
-  fg_green "No staged changes to Commit."
-else 
-  fg_red1 "Yes, staged changes to Commit."
-  fg_yellow "  git diff --cached [to view them]"
-fi
-# Check for changes to Push
-output=$(git cherry -v)
-if [ -z "$output" ]; then
-  fg_green "No commits to Push."
-else 
-  NumChanges=${$(echo $output|wc -l)##*( )}
-  if (( NumChanges > 1 )); then
-    changes="Changes"
-  else
-    changes="Change"
-  fi
-  fg_red1 "Yes, ${NumChanges} $changes to Push."
-  fg_yellow "  git cherry -v [to view them]"
-fi
-# Check for changes to Pull
-output=$(git log HEAD..origin/master --oneline)
-if [ -z "$output" ]; then
-  fg_green "No changes to Pull."
-else
-  fg_red1 "Yes, changes to Pull."
-  fg_yellow "  git diff origin/master [to view them]"
-fi
+	# Check for Stashes
+	output=$(git stash list)
+	if [ -z "$output" ]; then
+		fg_green "No Stashes saved."
+	else 
+		NumStashes=${$(echo $output|wc -l)##*( )}
+		if (( NumStashes > 1 )); then
+			stashes="Stashes"
+		else
+			stashes="Stash"
+		fi
+		fg_red1 "Yes, ${NumStashes} $stashes saved."
+		fg_yellow "  git stash list [to view them]"
+	fi
+	# Check for Untracked Files
+	output="$(git ls-files --others --exclude-standard)"
+	if [ -z "$output" ]; then
+		fg_green "No Untracked files."
+	else 
+		fg_red1 "Yes, Untracked files."
+		fg_white "$(showuntracked)" | indent
+	fi
+	# Check for Staged Files
+	output=$(git diff --exit-code)
+	if [ -z "$output" ]; then
+		fg_green "No changes to be Staged."
+	else 
+		fg_red1 "Yes, changes to be Staged."
+		fg_yellow "  git diff [to view them]"
+	fi
+	# Check for changes to Commit
+	output=$(git diff --cached --exit-code)
+	if [ -z "$output" ]; then
+		fg_green "No staged changes to Commit."
+	else 
+		fg_red1 "Yes, staged changes to Commit."
+		fg_yellow "  git diff --cached [to view them]"
+	fi
+	# Check for changes to Push
+	output=$(git cherry -v)
+	if [ -z "$output" ]; then
+		fg_green "No commits to Push."
+	else 
+		NumChanges=${$(echo $output|wc -l)##*( )}
+		if (( NumChanges > 1 )); then
+			changes="Changes"
+		else
+			changes="Change"
+		fi
+		fg_red1 "Yes, ${NumChanges} $changes to Push."
+		fg_yellow "  git cherry -v [to view them]"
+	fi
+	# Check for changes to Pull
+	output=$(git log HEAD..origin/master --oneline)
+	if [ -z "$output" ]; then
+		fg_green "No changes to Pull."
+	else
+		fg_red1 "Yes, changes to Pull."
+		fg_yellow "  git diff origin/master [to view them]"
+	fi
+	}
+
+################################
+# fromhex A52A2A
+fromhex () {
+	hex=$1
+	if [[ $hex = "#"* ]]; then
+		hex=$(echo $1 | awk '{print substr($0,2)}')
+	fi
+	r=$(printf '0x%0.2s' "$hex")
+	g=$(printf '0x%0.2s' ${hex#??})
+	b=$(printf '0x%0.2s' ${hex#????})
+	echo -e `printf "%03d" "$(((r<75?0:(r-35)/40)*6*6+(g<75?0:(g-35)/40)*6+(b<75?0:(b-35)/40)+16))"`
 }

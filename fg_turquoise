@@ -1,0 +1,3 @@
+fg_turquoise () {
+	print -P %F{045}$*%f
+}

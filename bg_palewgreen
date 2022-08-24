@@ -1,0 +1,3 @@
+bg_palewgreen () {
+	print -P %K{077}$*%k
+}

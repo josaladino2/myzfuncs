@@ -1,0 +1,3 @@
+bg_mistyrose () {
+	print -P %K{224}$*%k
+}

@@ -17,9 +17,8 @@ fg_sp () {
 		;;
 		Reverse|Rev|reverse|rev) Style="[7m"
 		;;
-		*) echo "Usage: fg_sp \"Nor|Bold|Dim|Ital|Under|Blink|Rev,String\""
+		*) echo "Usage: fg_sp 'Nor|Bold|Dim|Ital|Under|Blink|Rev,String'"
 			return 1
-		;;
 	esac
 	echo -e "${Style}${Str}${Normal}"
 }

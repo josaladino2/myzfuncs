@@ -1,0 +1,3 @@
+fg_darkviolet1 () {
+	print -P %F{092}$*%f
+}

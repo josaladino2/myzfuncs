@@ -1,0 +1,3 @@
+bg_mediumpurble4 () {
+	print -P %K{135}$*%k
+}

@@ -1,0 +1,3 @@
+bg_pink () {
+	print -P %K{218}$*%k
+}

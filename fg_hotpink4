@@ -1,0 +1,3 @@
+fg_hotpink4 () {
+	print -P %F{205}$*%f
+}

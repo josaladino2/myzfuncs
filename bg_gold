@@ -1,0 +1,3 @@
+bg_gold () {
+	print -P %K{220}$*%k
+}

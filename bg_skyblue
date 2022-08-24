@@ -1,0 +1,3 @@
+bg_skyblue () {
+	print -P %K{117}$*%k
+}

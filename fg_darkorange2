@@ -1,0 +1,3 @@
+fg_darkorange2 () {
+	print -P %F{130}$*%f
+}

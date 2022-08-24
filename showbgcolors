@@ -1,8 +1,30 @@
 showbgcolors () {
 	pushd ~/.myzfuncs > /dev/null 2>&1
+	local maxLength=0
+	for i in bg_*; do
+		if [[ ${#i} -gt $maxLength ]]; then
+			maxLength=${#i}
+		fi
+	done
+#	echo "$maxLength"
+	((maxLength=maxLength+1))
+	local NumColumns=${1:-1}
+	local x=0
 	for i in bg_*
 	do
-		echo "$(${i} "${i}")" | sort | column
+		if [[ ${i} = bg_sp ]] || [[ ${i} = bg_blink ]]; then
+			:
+		else
+			local rLength=$(expr length ${i})
+			local spaces=$(printf "%.0s " $(seq $((maxLength-rLength)) ))
+			printf "$(${i} "${i}")${spaces}"
+			((x=x+1))
+			if [[ x -eq ${NumColumns} ]]; then
+				x=0
+				echo
+			fi
+		fi
 	done
+	echo
 	popd >/dev/null 2>&1
 }

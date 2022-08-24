@@ -6,8 +6,9 @@ showcolor () {
 			all)
 				for i in {000..255}
 				do
-					echo -e "$(fg_nc)$(tput setaf ${1}) - $i"
-					echo -e "$(fg_nc)$(tput setab ${1}) - $i"
+					print -P %F{i}${i}%f
+#					echo -e "$(fg_nc)$(tput setaf ${1}) - $i"
+#					echo -e "$(fg_nc)$(tput setab ${1}) - $i"
 				done
 			;;
 			[0-9].*)

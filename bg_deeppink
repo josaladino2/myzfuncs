@@ -1,0 +1,3 @@
+bg_deeppink () {
+	print -P %K{199}$*%k
+}

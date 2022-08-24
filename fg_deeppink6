@@ -1,0 +1,3 @@
+fg_deeppink6 () {
+	print -P %F{053}$*%f
+}

@@ -1,0 +1,3 @@
+fg_chartreuse () {
+	print -P %F{118}$*%f
+}

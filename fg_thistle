@@ -1,0 +1,3 @@
+fg_thistle () {
+	print -P %F{182}$*%f
+}

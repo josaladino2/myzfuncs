@@ -1,0 +1,3 @@
+bg_darkorange2 () {
+	print -P %K{130}$*%k
+}

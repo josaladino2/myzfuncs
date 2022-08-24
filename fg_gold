@@ -1,0 +1,3 @@
+fg_gold () {
+	print -P %F{220}$*%f
+}

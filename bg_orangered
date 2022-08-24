@@ -1,0 +1,3 @@
+bg_orangered () {
+	print -P %K{202}$*%k
+}

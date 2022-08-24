@@ -1,0 +1,3 @@
+fg_pink () {
+	print -P %F{218}$*%f
+}

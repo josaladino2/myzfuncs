@@ -1,0 +1,3 @@
+fg_royalblue () {
+	print -P %F{063}$*%f
+}

@@ -1,0 +1,3 @@
+fg_yellow5 () {
+	print -P %F{106}$*%f
+}

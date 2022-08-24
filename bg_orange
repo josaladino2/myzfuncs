@@ -1,0 +1,3 @@
+bg_orange () {
+	print -P %K{214}$*%k
+}

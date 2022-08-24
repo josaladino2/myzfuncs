@@ -1,0 +1,3 @@
+bg_deepskyblue () {
+	print -P %K{039}$*%k
+}
