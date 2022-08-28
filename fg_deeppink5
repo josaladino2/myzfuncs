@@ -1,3 +1,3 @@
 fg_deeppink5 () {
-	print -P %F{089}$*%f
+	print -P %F{125}$*%f
 }

@@ -1,3 +1,6 @@
 bg_hotpink4 () {
+	print -P %K{132}$*%k
+}
+bg_hotpink4 () {
 	print -P %K{205}$*%k
 }

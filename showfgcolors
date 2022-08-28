@@ -1,24 +1,34 @@
 showfgcolors () {
 	pushd ~/.myzfuncs > /dev/null 2>&1
 	local maxLength=0
+	local Sort=''
+	local Cols=5
+	while [[ "${1:0:2}" =~ .*"-".* ]]; do
+		case ${1:0:2} in
+			'-n')	Sort='-n'
+						shift
+			;;
+			'-c') Cols=${1:2}
+						shift
+		esac
+	done
 	for i in $(get_fcn_list|egrep --color=never '^fg_'); do
 		if [[ ${#i} -gt $maxLength ]]; then
 			maxLength=${#i}
 		fi
 	done
-#	echo "$maxLength"
+	echo "$maxLength"
 	((maxLength=maxLength+1))
-	local NumColumns=${1:-5}
 	local x=0
-	for i in $(get_fcn_list|egrep --color=never '^fg_'); do
+	for i in $(get_fcn_list ${Sort}|egrep --color=never '^fg_'); do
 		if [[ ${i} = fg_sp ]] || [[ ${i} = fg_blink ]]; then
 			:
 		else
 			local rLength=$(expr length ${i})
-			local spaces=$(printf "%.0s " $(seq $((maxLength-rLength)) ))
+			local spaces="$(printf "%.0s " $(seq $((maxLength-rLength)) ))"
 			printf "$(${i} "${i}")${spaces}"
 			((x=x+1))
-			if [[ x -eq ${NumColumns} ]]; then
+			if [[ x -eq ${Cols} ]]; then
 				x=0
 				echo
 			fi
