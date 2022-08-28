@@ -1,3 +1,6 @@
 fg_deeppink2 () {
 	print -P %F{162}$*%f
 }
+fg_deeppink2 () {
+	print -P %F{198}$*%f
+}

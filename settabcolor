@@ -5,7 +5,12 @@ settabcolor () {
 	;;
   cissa)	tabcolor pink
 	;;
-  joe)	tabcolor green
+	joe)
+		if [ $(uname) == "dopey" ]; then
+			tabcolor blue
+		else
+			tabcolor green
+		fi
 	;;
   tim)	tabcolor orange
 	;;
