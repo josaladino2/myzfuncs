@@ -1,9 +1,13 @@
 get_fcn_list () {
-	NumCols=1
+	local NumCols=1
+	local Sort='Y'
 	while [[ "${1:0:2}" =~ .*"-".* ]]; do
 		case ${1:0:2} in
 			'-h')	echo "$(fg_red1 \"Usage:\") ${funcstack[1]} [-h] [-c6] [-v'^bg_\|^fg_']"
 						return 0
+			;;
+			'-n')	Sort=''
+						shift
 			;;
 			'-c')	Cols="Y"
 						NumCols=${1:2}
@@ -14,19 +18,21 @@ get_fcn_list () {
 		esac
 	done
 	ExText="${ExText:-''}"
-	if [ "${Cols}" = "Y" ]; then
+	if [ -z ${Sort} ]; then
 		if [ -n ${ExText} ]; then
-			awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }' | grep -v ${ExText} \
-				| sort | tocolumns ${NumCols}
+			awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }'|grep -v ${ExText}| \
+				tocolumns ${NumCols}
 		else
-			awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }' \
-				| sort |  tocolumns ${NumCols}
+			awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }'| \
+				tocolumns ${NumCols}
 		fi
 	else
 		if [ -n ${ExText} ]; then
-			awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }' | grep -v ${ExText} | sort
+			awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }'|grep -v ${ExText}| \
+				sort | tocolumns ${NumCols}
 		else
-			awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }' | sort
+			awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }'| \
+				sort | tocolumns ${NumCols}
 		fi
 	fi
 }

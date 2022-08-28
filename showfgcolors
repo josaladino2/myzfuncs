@@ -7,7 +7,7 @@ showfgcolors () {
 		fi
 	done
 #	echo "$maxLength"
-	((maxLength=maxLength+2))
+	((maxLength=maxLength+1))
 	local NumColumns=${1:-5}
 	local x=0
 	for i in $(get_fcn_list|egrep --color=never '^fg_'); do
