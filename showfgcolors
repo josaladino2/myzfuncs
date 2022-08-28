@@ -17,7 +17,7 @@ showfgcolors () {
 			maxLength=${#i}
 		fi
 	done
-	echo "$maxLength"
+#	echo "$maxLength"
 	((maxLength=maxLength+1))
 	local x=0
 	for i in $(get_fcn_list ${Sort}|egrep --color=never '^fg_'); do
@@ -25,7 +25,7 @@ showfgcolors () {
 			:
 		else
 			local rLength=$(expr length ${i})
-			local spaces="$(printf "%.0s " $(seq $((maxLength-rLength)) ))"
+			local spaces=$(printf "%.0s " $(seq $((maxLength-rLength)) ))
 			printf "$(${i} "${i}")${spaces}"
 			((x=x+1))
 			if [[ x -eq ${Cols} ]]; then
