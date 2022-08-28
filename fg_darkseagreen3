@@ -1,3 +1,6 @@
 fg_darkseagreen3 () {
+	print -P %F{115}$*%f
+}
+fg_darkseagreen3 () {
 	print -P %F{157}$*%f
 }
