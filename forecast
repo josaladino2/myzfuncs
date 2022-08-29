@@ -1,9 +1,9 @@
 forecast () {
-LOCATION="${1:-Boise,Idaho}"
-echo "Your Current and 3 Day Weather Forecast is:"
-curl wttr.in/${LOCATION}
-results=$?
-if [ $results != 0 ];then
-	fg_red1 "Error."
-fi
+	LOCATION="${1:-Boise,Idaho}"
+	echo "Your Current and 3 Day Weather Forecast is:"
+	curl wttr.in/${LOCATION}
+	results=$?
+	if [ $results != 0 ];then
+		fg_red1 "Error."
+	fi
 }

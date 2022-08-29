@@ -91,7 +91,7 @@ extractit () {
 	#				eval ${cmd}
 	#			 ;;
 				*)
-					echo "'$1' cannot be extracted via extractit()" 
+					echo "'$1' cannot be extracted via extractit" 
 				;;
 			esac
 		fi

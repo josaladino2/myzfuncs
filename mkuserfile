@@ -11,7 +11,7 @@ mkuserfile () {
 	( cd ${BackupDir};ls -1tr | head -n -20 | rm -f -- )
 	rm -f ${HOME}/mkuserfile.* 2>/dev/null # Delete old .out/.err files
 	printf "Creating $(fg_cyan " UserFiles.tgz")..."
-echo $PWD
+	echo $PWD
 	tar -czhf UserFiles.tgz --wildcards -X UserFiles-Exclude -T UserFiles-Include
 	fg_white "Done"
 	popd > /dev/null 2>&1
