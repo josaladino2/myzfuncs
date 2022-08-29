@@ -13,25 +13,23 @@ get_fcn_list () {
 			'-c') Cols=${1:2}
 						shift
 			;;
-			'-v')	ExText="${1:2}"
+			'-s')	ExText="${1:2}"
 						shift
 		esac
 	done
 	if [ -z ${Sort} ]; then
+		echo "ExText=\"x${ExText}x\""
 		if [ -z ${ExText} ]; then
-			awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }'| \
-				tocolumns ${Cols}
+			awk '/^.*\(\)/{print $1}' ${myzfuncsfile} | egrep -v '^#' | tocolumns ${Cols}
 		else
-			awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }'|egrep "${ExText}"| \
-				tocolumns ${Cols}
+			awk '/^.*\(\)/{print $1}' ${myzfuncsfile} | egrep "${ExText}" | egrep -v '^#' | tocolumns ${Cols}
 		fi
 	else
-		if [ -n ${ExText} ]; then
-			awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }'|egrep "${ExText}"| \
-				sort | tocolumns ${Cols}
+		echo "ExText=\"x${ExText}x\""
+		if [ -z ${ExText} ]; then
+			awk '/^.*\(\)/{print $1}' ${myzfuncsfile} | egrep -v '^#' | sort | tocolumns ${Cols}
 		else
-			awk '{$1=$1};1' ${myzfuncsfile}|egrep '^.* \(\) {'|egrep -v '^#'|awk '{ print $1 }'| \
-				sort | tocolumns ${Cols}
+			awk '/^.*\(\)/{print $1}' ${myzfuncsfile} | egrep "${ExText}" | egrep -v '^#' | sort | tocolumns ${Cols}
 		fi
 	fi
 }
