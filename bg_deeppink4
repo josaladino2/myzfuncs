@@ -1,3 +1,3 @@
 bg_deeppink4 () {
-	print -P %K{125}$*%k
+	print -P %K{161}$*%k
 }

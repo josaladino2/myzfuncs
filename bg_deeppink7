@@ -1,0 +1,3 @@
+bg_deeppink7 () {
+	print -P %K{053}$*%k
+}

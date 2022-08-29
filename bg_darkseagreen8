@@ -1,3 +1,3 @@
 bg_darkseagreen8 () {
-	print -P %K{065}$*%k
+	print -P %K{071}$*%k
 }
