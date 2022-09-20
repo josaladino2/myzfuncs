@@ -1,10 +1,10 @@
 conncheck () {
-	netstat -ntu | awk '{print $5}' | egrep -v 'Address|servers|127\.0\.0\.1|^159.118'| cut -d: -f1 | \
+	netstat -ntu | awk '{print $5}' | ggrep -E -v 'Address|servers|127\.0\.0\.1|^159.118'| cut -d: -f1 | \
 		sort | uniq -c | sort -n | \
 		while read num ipadd; do
 			printf "$num	$ipadd"
-			printf ", $(whois $ipadd|egrep '[C|c]ountry:'|sed -e 's/^[C|c]ountry: *//'|head -n1), "
-			echo "$(coco $(whois $ipadd|egrep '[C|c]ountry:'|sed -e 's/^[C|c]ountry: *//'|head -n1))"
+			printf ", $(whois $ipadd|ggrep -E '[C|c]ountry:'|sed -e 's/^[C|c]ountry: *//'|head -n1), "
+			echo "$(coco $(whois $ipadd|ggrep -E '[C|c]ountry:'|sed -e 's/^[C|c]ountry: *//'|head -n1))"
 #			sleep 3
 		done
 }

@@ -19,7 +19,7 @@ Querying individual IPs"
     for j in ${_ip[*]}; do
       echo -e "
 $j results:"
-      whois $j |egrep -w 'OrgName:|City:|Country:|OriginAS:|NetRange:'
+      whois $j |ggrep -E -w 'OrgName:|City:|Country:|OriginAS:|NetRange:'
     done
   done
 }

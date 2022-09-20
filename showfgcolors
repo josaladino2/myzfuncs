@@ -12,7 +12,7 @@ showfgcolors () {
 						shift
 		esac
 	done
-	for i in $(get_fcn_list|egrep --color=never '^fg_'); do
+	for i in $(get_fcn_list|ggrep -E --color=never '^fg_'); do
 		if [[ ${#i} -gt $maxLength ]]; then
 			maxLength=${#i}
 		fi
@@ -20,7 +20,7 @@ showfgcolors () {
 #	echo "$maxLength"
 	((maxLength=maxLength+1))
 	local x=0
-	for i in $(get_fcn_list ${Sort}|egrep --color=never '^fg_'); do
+	for i in $(get_fcn_list ${Sort}|ggrep -E --color=never '^fg_'); do
 		if [[ ${i} = fg_sp ]] || [[ ${i} = fg_blink ]]; then
 			:
 		else

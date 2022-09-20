@@ -22,13 +22,13 @@ get_fcn_list () {
 		if [ -z ${ExText} ]; then
 			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | tocolumns ${Cols}
 		else
-			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | egrep "${ExText}" | tocolumns ${Cols}
+			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | ggrep -E "${ExText}" | tocolumns ${Cols}
 		fi
 	else
 		if [ -z ${ExText} ]; then
 			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | sort | tocolumns ${Cols}
 		else
-			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | egrep "${ExText}" | sort | tocolumns ${Cols}
+			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | ggrep -E "${ExText}" | sort | tocolumns ${Cols}
 		fi
 	fi
 }

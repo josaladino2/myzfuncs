@@ -7,7 +7,7 @@ gitalias () {
 			git aliases|most
 		else
 			echo "########## $(to_upper "${1}") ##########"
-			git aliases|egrep ${1}
+			git aliases|ggrep -E ${1}
 		fi
 	fi
 }
