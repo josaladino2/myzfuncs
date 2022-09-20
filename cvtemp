@@ -19,11 +19,11 @@ cvtemp () {
 		C ) # Celsius to Fahrenheit formula: Tf = (9/5)*Tc+32
 			cels=$temp
 			kelv="$(echo "scale=2;$cels + 273.15" | bc)"
-			farn="$(echo "scale=2;((9/5) * $cels) + 32" | bc)";;
+			farn="$(echo "scale=2;(((9/5) * $cels)) + 32" | bc)";;
 		K ) # Celsius = Kelvin + 273.15, then use Cels -> Fahr formula
 			kelv=$temp
 			cels="$(echo "scale=2; $kelv - 273.15" | bc)"
-			farn="$(echo "scale=2; ((9/5) * $cels) + 32" | bc)"
+			farn="$(echo "scale=2; (((9/5) * $cels)) + 32" | bc)"
 	esac
 	echo "Fahrenheit = $farn"
 	echo "Celsius    = $cels"

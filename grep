@@ -1,0 +1,3 @@
+grep () {
+    command ggrep -E "$@"
+}
