@@ -36,8 +36,8 @@ psinfo () {
 			-C) ps -C ${2} -o pid=  ;; # Show parent/child processes
 			-et) ps -eo comm,etime,user | ggrep -E "${2}" ;;  # Execution time
 			all) ps -U root -u root ;; # All processes
-			*)	ps -axww | head -1 # Old psinfo format
-					ps -axww | grep ${1} ;;
+			*)	ps -axww | ggrep -v 'grep' | head -1 # Old psinfo format
+					ps -axww | ggrep -v 'grep' | grep ${1} ;;
 		esac
 	fi
 }
