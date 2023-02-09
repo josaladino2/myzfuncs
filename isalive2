@@ -1,0 +1,9 @@
+isalive2 () {
+	if [ -z $1 ]; then
+		echo "Usage: ${Funcstack[1]} user@domain.com"
+		return 1
+	fi
+	IP=${1}
+	ServerStatus=$(ssh -o LogLevel=QUIET -tt joe@bs "date" > /dev/null && echo "up" || echo "down")
+	echo "Server: ${IP} is ${ServerStatus}."
+}
