@@ -1,32 +1,5 @@
 tocolumns () {
 	local NumCols=${1:-5}
 	local maxLength=${1:-25}
-#	local x=0
-#	local LST="$(cat -)"
 	cat - | columns --by-columns --columns ${NumCols} -W $COLUMNS -w ${maxLength}
-#	for i in $LST
-#	do
-#		if [[ ${#i} -gt $maxLength ]]; then
-#			maxLength=${#i}
-#		fi
-#	done
-#	for i in $LST
-#	do
-#		local rLength=$(expr length ${i})
-#		local spaces=$(printf "%.0s " $(seq $((maxLength-rLength)) ))
-#		printf "${i}${spaces}"
-#		((x=x+1))
-#		if [[ x -eq ${NumCols} ]]; then
-#			x=0
-#			echo
-#		fi
-#	done
-#
-#	echo "$line"
-#	for i in $LST
-#	do
-#	echo $LST
-#	echo $maxLength
-##	echo "${LST}"| /usr/local/bin/rs 0 ${NumCols}
-#	echo "${LST}" | columns -w 20 -W ${COLUMNS} --columns=${NumCols}
 }
