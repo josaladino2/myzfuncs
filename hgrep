@@ -4,5 +4,5 @@ hgrep () {
 "
 		return
 	fi
-	history | sed s/.*\ \ // | grep $@
+	history | sed s/.*\ \ // | ggrep -E $@
 }
