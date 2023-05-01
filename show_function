@@ -1,8 +1,9 @@
 show_function () {
-	if function_exists ${1}
-	then
-		echo -e "$(show_function_f ${1} 2>/dev/null || declare -pf ${1} || cat ${gitmyzfuncs}/${1})"
-	else
-		return 1
-	fi
+  local MyFunc=${1}
+  if function_exists ${MyFunc}; then
+    echo -e "$(show_function_f ${MyFunc} 2>/dev/null || declare -pf ${MyFunc} || cat ${gitmyzfuncs}/${MyFunc})"
+  else
+    return 1
+  fi
 }
+

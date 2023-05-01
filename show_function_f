@@ -1,6 +1,8 @@
 show_function_f () {
-	if [[ -n ${1} && -n $(sed -n "/^${1} \(\)/,/^}/p" ${myzfuncsfile}) ]]; then
-		sed -n "/^${1} \(\)/,/^}/p" ${myzfuncsfile}
+	local myzfuncsfile=${HOME}/.zsh_functions
+  local MyFunc=${1}
+	if [[ -n ${MyFunc} && -n $(sed -n "/^${MyFunc} \(\)/,/^}/p" ${myzfuncsfile}) ]]; then
+		sed -n "/^${MyFunc} \(\)/,/^}/p" ${myzfuncsfile}
 	else
 		return 1
 	fi
