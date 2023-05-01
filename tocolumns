@@ -1,5 +1,5 @@
 tocolumns () {
 	local NumCols=${1:-5}
-	local maxLength=${1:-25}
-	cat - | columns --by-columns --columns ${NumCols} -W $COLUMNS -w ${maxLength}
+	local maxLength=${2:-80}
+	cat - | rs -z -w${maxLength} 0 ${NumCols}
 }
