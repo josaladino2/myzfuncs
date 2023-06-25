@@ -1,4 +1,4 @@
 ipext () {
-	curl ipecho.net/plain ; echo
+	curl -s ipecho.net/plain ; echo
 #	dig +short myip.opendns.com @resolver1.opendns.com
 }
