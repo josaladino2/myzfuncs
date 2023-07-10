@@ -4,6 +4,6 @@ isalive () {
 		return 1
 	fi
 	IP=${1}
-	ServerStatus=$(ping -c1 -W1 ${IP} > /dev/null && echo "up" || echo "down")
+	ServerStatus=$(ping -c1 -W1 ${IP} >/dev/null 2>&1 && echo "up" || echo "down")
 	echo "Server: ${IP} is ${ServerStatus}."
 }
