@@ -1,4 +1,6 @@
 ipext () {
-	curl -s ipecho.net/plain ; echo
+	curl http://checkip.amazonaws.com
+#	dig +short myip.opendns.com @resolver1.opendns.com
+#	curl -s ipecho.net/plain ; eco
 #	dig +short myip.opendns.com @resolver1.opendns.com
 }
