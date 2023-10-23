@@ -1,6 +1,7 @@
 ipext () {
-	curl http://checkip.amazonaws.com
-#	dig +short myip.opendns.com @resolver1.opendns.com
+	curl -4 http://ifconfig.co
+	curl -6 http://ifconfig.co
+#	curl -6 http://checkip.amazonaws.com
 #	curl -s ipecho.net/plain ; eco
 #	dig +short myip.opendns.com @resolver1.opendns.com
 }
