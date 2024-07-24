@@ -1,7 +1,15 @@
 reboot () {
-	if [ $UID -ne 0 ]; then
-    sudo /usr/sbin/reboot
+	if [ "$(uname)" = "Darwin" ]; then
+		if [ $UID -ne 0 ]; then
+			sudo shutdown -r now
+		else
+			shutdown -r now
+		fi
 	else
+		if [ $UID -ne 0 ]; then
+    sudo /usr/sbin/reboot
+		else
     /usr/sbin/reboot
+		fi
 	fi
 }
