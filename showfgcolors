@@ -21,9 +21,9 @@ showfgcolors () {
 	((maxLength=maxLength+1))
 	local x=0
 	for i in $(get_fcn_list ${Sort}|ggrep -E --color=never '^fg_'); do
-		if [[ ${i} = fg_sp ]] || [[ ${i} = fg_blink ]]; then
-			:
-		else
+#		if [[ ${i} = fg_sp ]] || [[ ${i} = fg_blink ]]; then
+#			:
+#		else
 			local rLength=$(expr length ${i})
 			local spaces=$(printf "%.0s " $(seq $((maxLength-rLength)) ))
 			printf "$(${i} "${i}")${spaces}"
@@ -32,7 +32,7 @@ showfgcolors () {
 				x=0
 				echo
 			fi
-		fi
+#		fi
 	done
 	echo
 	popd >/dev/null 2>&1
