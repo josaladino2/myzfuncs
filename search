@@ -1,0 +1,3 @@
+search () {
+	mdfind -name $1
+}
