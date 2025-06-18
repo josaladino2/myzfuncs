@@ -1,7 +1,4 @@
 ipext () {
 	curl -4 http://ifconfig.co
-	curl -6 http://ifconfig.co
-#	curl -6 http://checkip.amazonaws.com
-#	curl -s ipecho.net/plain ; eco
-#	dig +short myip.opendns.com @resolver1.opendns.com
+	ifconfig en0|grep 'ether'|sed -e 's/ether //'|ltrim
 }
