@@ -5,5 +5,5 @@ ipmine () {
 	ifconfig $INTERFACE | awk '/inet / {print $2}' | grep -v '^127\.0\.0\.1$'
 	echo -e "
 IPv6 Addresses:"
-	ifconfig $INTERFACE | awk '/inet6 / {print $2}' | grep -v '^fe80::1$' | grep -v '^::1$'|grep 'en[01]'
+	ifconfig $INTERFACE | awk '/inet6 / {print $2}' | grep -v '^fe80::1$' | grep -v '^::1$'
 }
