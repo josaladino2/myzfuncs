@@ -54,13 +54,13 @@ Increment Version:$(fg_green "${OldVer}") to $(fg_red "${NewVer}") (Y/N)? ";
 							fg_yellow "	${DestUserHost}";
 							scp -Cp ${FileName} ${DestUserHost}:${RFolder} > /dev/null;
 							fg_green ".";
-							ssh ${DestUserHost} "/usr/local/bin/postcpallusrfiles ${RFolder} >/dev/null";
+							ssh ${DestUserHost} "${HOMEBREW_PREFIX}/bin/postcpallusrfiles ${RFolder} >/dev/null";
 							fg_green ".";
 							CatVersion=$(ssh ${DestUserHost} "cat ${RFolder}${VerFile}");
 							fg_green ".";
 							printf "($(fg_cyan "v:")${CatVersion})(skel)";
 							if [[ ${SITES2} =~ "${DestUserHost}" ]] && [ ${DestUser} = "root" ]; then
-								ssh ${DestUserHost} "/usr/local/bin/postcpallusrfiles ${SkelDir} >/dev/null";
+								ssh ${DestUserHost} "${HOMEBREW_PREFIX}/bin/postcpallusrfiles ${SkelDir} >/dev/null";
 								fg_green ".";
 								CatVersion=$(ssh ${DestUserHost} "cat ${SkelDir}${VerFile}");
 									fg_green ".";
