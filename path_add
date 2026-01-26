@@ -1,0 +1,5 @@
+path_add () {
+  if [[ -d $1 ]]; then
+    path=( $1 $path )
+  fi
+}
