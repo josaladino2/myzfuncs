@@ -1,5 +1,0 @@
-pathremove () {
-	PATH=${PATH//":$1:"/":"}    # delete all instances in the middle
-  PATH=${PATH#":$1:"}         # delete possible first one
-  PATH=${PATH%":$1"}          # delete possible last one
-}
