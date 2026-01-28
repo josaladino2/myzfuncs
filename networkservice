@@ -1,0 +1,26 @@
+networkservice () {
+    local iface service
+
+    # Get the interface that has the default route
+    iface=$(route get default | awk '/interface:/ {print $2}')
+
+    if [[ -z "$iface" ]]; then
+        echo "No default route found." >&2
+        return 1
+    fi
+
+    # Find the service name that corresponds to this interface
+    service=$(networksetup -listnetworkserviceorder |
+              awk -v dev="$iface" '
+                  $0 ~ dev { print prev; exit }
+                  { prev = $0 }
+              ' |
+              sed 's/^[[:space:]]*(//' | sed 's/).*//')
+
+    if [[ -n "$service" ]]; then
+        echo "$service"
+    else
+        echo "Unknown service for interface: $iface" >&2
+        return 1
+		fi
+}
