@@ -1,0 +1,5 @@
+cap-all () {
+  emulate -L zsh
+  local s="$1"
+  [[ -z "$s" || "$s" == "null" ]] && print -r -- "" || print -r -- ${(C)s}
+}
