@@ -1,13 +1,15 @@
 gitalias () {
-	if [ -z ${1} ]; then
+	if [ -z ${1} ]
+	then
 		echo "Usage: ${funcstack[1]} alias_category"
 	else
-		if [ "${1}" = "all" ]; then
+		if [ "${1}" = "all" ]
+		then
 			echo "########## ALL ##########"
-			git aliases|most
+			git aliases | most
 		else
 			echo "########## $(to_upper "${1}") ##########"
-			git aliases|ggrep -E ${1}
+			git aliases | ggrep -E ${1}
 		fi
 	fi
 }

@@ -1,5 +1,6 @@
 rtrim () {
-	if [ -n "$1" ]; then
+	if [ -n "$1" ]
+	then
 		echo $1 | sed 's/[[:space:]]*$//g'
 	else
 		cat - | sed 's/[[:space:]]*$//g'

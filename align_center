@@ -1,5 +1,5 @@
 align_center () {
-	STR=${1:-$(cat -)}
+	STR=${1:-$(cat -)} 
 	((STRLENGTH = ${#STR}))
 	((CENTER = COLUMNS / 2))
 	((CENTER = CENTER + ((STRLENGTH / 2))))

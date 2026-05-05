@@ -1,9 +1,11 @@
 halt () {
-	if [ $(hostname -s) != "dopey" ]; then
-		if [ $UID -ne 0 ]; then
-	    sudo shutdown -h now
+	if [ $(hostname -s) != "dopey" ]
+	then
+		if [ $UID -ne 0 ]
+		then
+			sudo shutdown -h now
 		else
-	    shutdown -h now
+			shutdown -h now
 		fi
 	else
 		printf "halt not available on $(hostname -s)

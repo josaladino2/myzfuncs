@@ -1,8 +1,10 @@
 path_remove () {
-  # Usage: path_remove /path/to/remove
-  if [[ -d "$1" ]]; then
-    path=(${path[@]/$1/})  # Remove all instances (zsh array magic)
-    export PATH="$path"
-    echo "✗ Removed $1 from PATH"
+	if [ -z ${1} ]
+	then
+		echo "Usage: ${funcstack[1]} PATH_To_Remove"
+	else
+		PATH=${PATH//":$1:"/":"} 
+		PATH=${PATH/#"$1:"/} 
+		PATH=${PATH/%":$1"/} 
 	fi
 }

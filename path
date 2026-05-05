@@ -1,31 +1,23 @@
 path () {
-  local action=$1
-  local varname=${2:-PATH}   # Default to PATH if not specified
-  shift 2
-
-  case $action in
-  add|append)
-    for dir; do
-    [[ -d "$dir" && ":${(P)varname}:" != *":$dir:"* ]] && \
-      typeset -g "$varname=${(P)varname:+$ {(P)varname}:}$dir"
-		done
-    ;;
-  prepend)
-    for dir; do
-    [[ -d "$dir" && ":${(P)varname}:" != *":$dir:"* ]] && \
-      typeset -g "$varname=$dir${(P)varname:+:${(P)varname}}"
-    done
-    ;;
-  remove)
-    for dir; do
-    typeset -g "$varname=${(P)varname//:$dir:/:}"
-    typeset -g "$varname=${(P)varname/#$dir:/}"
-    typeset -g "$varname=${(P)varname/%:$dir/}"
-    done
-    ;;
-  *)
-    echo "Usage: path {add|prepend|remove} [VARNAME=PATH] dir [dir...]"
-    return 1
-    ;;
-  esac
+	local action=$1 
+	local varname=${2:-PATH} 
+	shift 2
+	case $action in
+		(add | append) for dir
+			do
+				[[ -d "$dir" && ":${(P)varname}:" != *":$dir:"* ]] && typeset -g "$varname=${(P)varname:+$ {(P)varname}:}$dir"
+			done ;;
+		(prepend) for dir
+			do
+				[[ -d "$dir" && ":${(P)varname}:" != *":$dir:"* ]] && typeset -g "$varname=$dir${(P)varname:+:${(P)varname}}"
+			done ;;
+		(remove) for dir
+			do
+				typeset -g "$varname=${(P)varname//:$dir:/:}"
+				typeset -g "$varname=${(P)varname/#$dir:/}"
+				typeset -g "$varname=${(P)varname/%:$dir/}"
+			done ;;
+		(*) echo "Usage: path {add|prepend|remove} [VARNAME=PATH] dir [dir...]"
+			return 1 ;;
+	esac
 }

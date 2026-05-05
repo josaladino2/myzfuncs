@@ -1,5 +1,6 @@
 psinfo () {
-	if [ -z ${1} ]; then
+	if [ -z ${1} ]
+	then
 		echo "
 		Usage: psinfo 
 			-A|-e		: Everything in Linux/Unix Format
@@ -21,23 +22,23 @@ psinfo () {
 		return
 	else
 		case $1 in
-			-A|-e) ps -A|ggrep -E "${2}" ;; # Everything in Linux/Unix Format
-			au|aux) ps aux|ggrep -E "${2}" ;; # Everything in BSD Format
-			-ef) ps -ef|ggrep -E "${2}" ;; # Full format listing
-			-x) ps -x|ggrep -E "${2}" ;; # My Running Process
-			u) ps u|ggrep -E "${2}" ;; # Process by user id
-			-g) ps -fg ${2} ;; # Group
-			-t) ps -t ${2} ;; # Show ttys
-			-f) ps -e --forest ${2} ;; #Process tree
-			-ff) ps -e --forest -C ${2} ;; #Process tree
-			-L) ps -fL | ggrep -E "${2}" ;;  # Process Threads
-			-fL) ps -fL | ggrep -E "${2}" ;;  # Process Threads
-			-p) ps -eo pid,ppid,user,cmd | ggrep -E "${2}" ;;  # Custom pid,ppid,user,cmd
-			-C) ps -C ${2} -o pid=  ;; # Show parent/child processes
-			-et) ps -eo comm,etime,user | ggrep -E "${2}" ;;  # Execution time
-			all) ps -U root -u root ;; # All processes
-			*)	ps -axww | ggrep -v 'grep' | head -1 # Old psinfo format
-					ps -axww | ggrep -v 'grep' | grep ${1} ;;
+			(-A | -e) ps -A | ggrep -E "${2}" ;;
+			(au | aux) ps aux | ggrep -E "${2}" ;;
+			(-ef) ps -ef | ggrep -E "${2}" ;;
+			(-x) ps -x | ggrep -E "${2}" ;;
+			(u) ps u | ggrep -E "${2}" ;;
+			(-g) ps -fg ${2} ;;
+			(-t) ps -t ${2} ;;
+			(-f) ps -e --forest ${2} ;;
+			(-ff) ps -e --forest -C ${2} ;;
+			(-L) ps -fL | ggrep -E "${2}" ;;
+			(-fL) ps -fL | ggrep -E "${2}" ;;
+			(-p) ps -eo pid,ppid,user,cmd | ggrep -E "${2}" ;;
+			(-C) ps -C ${2} -o pid= ;;
+			(-et) ps -eo comm,etime,user | ggrep -E "${2}" ;;
+			(all) ps -U root -u root ;;
+			(*) ps -axww | ggrep -v 'grep' | head -1
+				ps -axww | ggrep -v 'grep' | grep ${1} ;;
 		esac
 	fi
 }
