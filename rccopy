@@ -1,60 +1,70 @@
 rccopy () {
 	local Progress
 	local ShowTime
-	local CMD="copyto"
-	while [[ ${1:0:1} = "-" ]]; do
-		if [ $1 = "-p" ]; then
-			Progress="--progress"
+	local CMD="copyto" 
+	while [[ ${1:0:1} = "-" ]]
+	do
+		if [ $1 = "-p" ]
+		then
+			Progress="--progress" 
 			shift
-		elif [ $1 = "-s" ]; then
-			CMD="sync"
+		elif [ $1 = "-s" ]
+		then
+			CMD="sync" 
 			shift
-		elif [ $1 = "-t" ]; then
-			ShowTime="Y"
+		elif [ $1 = "-t" ]
+		then
+			ShowTime="Y" 
 			shift
 		fi
 	done
-	if [ -z ${2} ]; then
+	if [ -z ${2} ]
+	then
 		echo "Usage: rccopy [-p -s -t] Src Remote"
 		exit 1
 	else
-	local Src=${1:-"/ncBackup"} # Full Path to Backup Directory
-	local Remote=${2:-"OneDrive:"}
-	local SECONDS2=$(date +%s)
-	local duration2
-	local DropBoxMode
-	if [ "$Remote" = "DropBox:" ]; then
-		DropBoxMode="--dropbox-batch-mode --dropbox-chunk-size 128M"
-	fi
-	cd ${Src}
-	ls -d */* > InFile
-	while read line
-	do
-		SECONDS2=$(date +%s)
-		echo -e "
-  rclone -t $line"
-		echo "    to"
-		if [ -z $Progress ]; then
-			printf "  ${Remote}/${line}..." #		--multi-thread-streams 6
-		else
-			echo "  ${Remote}/${line}..." #		--multi-thread-streams 6
+		local Src=${1:-"/ncBackup"} 
+		local Remote=${2:-"OneDrive:"} 
+		local SECONDS2=$(date +%s) 
+		local duration2
+		local DropBoxMode
+		if [ "$Remote" = "DropBox:" ]
+		then
+			DropBoxMode="--dropbox-batch-mode --dropbox-chunk-size 128M" 
 		fi
-		rclone ${CMD} ${line} ${Remote}/$(dirname ${line}) ${Progress} ${DropBoxMode} --cache-db-purge --create-empty-src-dirs
-		results=$?
-		if [[ $results -eq 0 ]]; then
-			echo "Done"
-		else
-			echo "Errors ($results)"
-		fi
-		duration2=$(($(date +%s)-SECONDS2))
-		if [ "$ShowTime" = "Y" ]; then
+		cd ${Src}
+		ls -d */* > InFile
+		while read line
+		do
+			SECONDS2=$(date +%s) 
 			echo -e "
+  rclone -t $line"
+			echo "    to"
+			if [ -z $Progress ]
+			then
+				printf "  ${Remote}/${line}..."
+			else
+				echo "  ${Remote}/${line}..."
+			fi
+			rclone ${CMD} ${line} ${Remote}/$(dirname ${line}) ${Progress} ${DropBoxMode} --cache-db-purge --create-empty-src-dirs
+			results=$? 
+			if [[ $results -eq 0 ]]
+			then
+				echo "Done"
+			else
+				echo "Errors ($results)"
+			fi
+			duration2=$(($(date +%s)-SECONDS2)) 
+			if [ "$ShowTime" = "Y" ]
+			then
+				echo -e "
   ** ${Remote}/${line} Upload
   completed in $(show_time ${duration2})"
-		fi
+			fi
 		done < InFile
-		results=$?
-		if [[ $results -eq 0 ]]; then
+		results=$? 
+		if [[ $results -eq 0 ]]
+		then
 			rm -f InFile
 		fi
 	fi

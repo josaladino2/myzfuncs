@@ -1,15 +1,15 @@
 nodupes () {
 	[ -z "$PATH" ] && return 0
-	local old_PATH="$PATH:" new_PATH="" entry
+	local old_PATH="$PATH:" new_PATH="" entry 
 	while [ -n "$old_PATH" ]
 	do
-		entry="${old_PATH%%:*}"
+		entry="${old_PATH%%:*}" 
 		case ":$new_PATH:" in
-		(*":$entry:"*)  ;;
-		(*) new_PATH="$new_PATH:$entry"  ;;
+			(*":$entry:"*)  ;;
+			(*) new_PATH="$new_PATH:$entry"  ;;
 		esac
-		old_PATH="${old_PATH#*:}"
+		old_PATH="${old_PATH#*:}" 
 	done
-	new_PATH="${new_PATH#:}"
-	export PATH="$new_PATH"
+	new_PATH="${new_PATH#:}" 
+	export PATH="$new_PATH" 
 }

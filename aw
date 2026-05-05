@@ -1,4 +1,4 @@
 aw () {
-	search=${1:-83642}
+	search=${1:-83642} 
 	forecast $search
 }

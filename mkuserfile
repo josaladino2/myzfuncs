@@ -1,20 +1,24 @@
 mkuserfile () {
-( pushd ${HOME} > /dev/null 2>&1
-	FileName="UserFiles.tgz"
-	BackupDir="ufBackup"
-	VerFile=".zsh_shver"
-	OldVer="$(< ${VerFile})"
-	SaveFileName="UserFiles.$(date +$j%M%S)-${OldVer}.tgz"
-	printf "Current $(fg_cyan "${FileName} ") Version: $(fg_green "${OldVer}")"
-	mv -f ${FileName} ${BackupDir}/${SaveFileName}
-	printf "  Moving... $(fg_cyan "${FileName}") to $(fg_cyan "${BackupDir}/${SaveFileName}")"
-	( cd ${BackupDir};ls -1tr | head -n -20 | rm -f -- )
-	rm -f ${HOME}/mkuserfile.* 2>/dev/null # Delete old .out/.err files
-	printf "Creating $(fg_cyan " UserFiles.tgz")..."
-	echo $PWD
-	tar -czhf UserFiles.tgz --wildcards -X UserFiles-Exclude -T UserFiles-Include
-	fg_white "Done"
-	popd > /dev/null 2>&1
-	dirs -c > /dev/null 2>&1
-) > ${HOME}/mkuserfiles.out 2>${HOME}/mkuserfiles.err
+	(
+		pushd ${HOME} > /dev/null 2>&1
+		FileName="UserFiles.tgz" 
+		BackupDir="ufBackup" 
+		VerFile=".zsh_shver" 
+		OldVer="$(< ${VerFile})" 
+		SaveFileName="UserFiles.$(date +$j%M%S)-${OldVer}.tgz" 
+		printf "Current $(fg_cyan "${FileName} ") Version: $(fg_green "${OldVer}")"
+		mv -f ${FileName} ${BackupDir}/${SaveFileName}
+		printf "  Moving... $(fg_cyan "${FileName}") to $(fg_cyan "${BackupDir}/${SaveFileName}")"
+		(
+			cd ${BackupDir}
+			ls -1tr | head -n -20 | rm -f --
+		)
+		rm -f ${HOME}/mkuserfile.* 2> /dev/null
+		printf "Creating $(fg_cyan " UserFiles.tgz")..."
+		echo $PWD
+		tar -czhf UserFiles.tgz --wildcards -X UserFiles-Exclude -T UserFiles-Include
+		fg_white "Done"
+		popd > /dev/null 2>&1
+		dirs -c > /dev/null 2>&1
+	) > ${HOME}/mkuserfiles.out 2> ${HOME}/mkuserfiles.err
 }

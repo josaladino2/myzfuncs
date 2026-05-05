@@ -1,5 +1,6 @@
 a2roman () {
-	if [ -z ${1} ]; then
+	if [ -z ${1} ]
+	then
 		printf "Usage: ${Funcstack[1]} 100
 "
 		return

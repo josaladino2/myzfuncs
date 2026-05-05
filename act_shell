@@ -1,6 +1,6 @@
 act_shell () {
-	local FileName=$(ps -p $$|awk -F " " '{print $NF}'|ggrep -E -v "CMD")
-	local base=${FileName##*/}
+	local FileName=$(ps -p $$|awk -F " " '{print $NF}'|ggrep -E -v "CMD") 
+	local base=${FileName##*/} 
 	printf "${base}
 "
 }

@@ -1,4 +1,3 @@
-generateqr ()
-{
-printf "$@" | curl -F-=\<- qrenco.de
+generateqr () {
+	printf "$@" | curl -F-=\<- qrenco.de
 }

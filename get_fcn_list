@@ -1,31 +1,31 @@
 get_fcn_list () {
-	local Cols=1
-	local Sort='Y'
-	local ExText=''
-	while [[ "${1:0:2}" =~ .*"-".* ]]; do
+	local Cols=1 
+	local Sort='Y' 
+	local ExText='' 
+	while [[ "${1:0:2}" =~ .*"-".* ]]
+	do
 		case ${1:0:2} in
-		'-h')	echo "$(fg_red1 \"Usage:\") ${funcstack[1]} [-h] [-c6] [-v'^bg_\|^fg_']"
-					return 0
-		;;
-		'-n')	Sort=''
-					shift
-		;;
-		'-c') Cols=${1:2}
-					shift
-		;;
-		'-s')	ExText="${1:2}"
-					shift
-		;;
+			('-h') echo "$(fg_red1 \"Usage:\") ${funcstack[1]} [-h] [-c6] [-v'^bg_\|^fg_']"
+				return 0 ;;
+			('-n') Sort='' 
+				shift ;;
+			('-c') Cols=${1:2} 
+				shift ;;
+			('-s') ExText="${1:2}" 
+				shift ;;
 		esac
 	done
-	if [ -z ${Sort} ]; then
-		if [ -z ${ExText} ]; then
+	if [ -z ${Sort} ]
+	then
+		if [ -z ${ExText} ]
+		then
 			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | tocolumns ${Cols}
 		else
 			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | ggrep -E "${ExText}" | tocolumns ${Cols}
 		fi
 	else
-		if [ -z ${ExText} ]; then
+		if [ -z ${ExText} ]
+		then
 			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | sort | tocolumns ${Cols}
 		else
 			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | ggrep -E "${ExText}" | sort | tocolumns ${Cols}
