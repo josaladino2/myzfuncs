@@ -1,0 +1,21 @@
+nodupes() {
+    # Skip if PATH is empty (rare, but prevents errors)
+    [ -z "$PATH" ] && return 0
+
+    # Initialize variables
+    local old_PATH="$PATH:" new_PATH="" entry
+
+    # Process each PATH entry
+    while [ -n "$old_PATH" ]; do
+        entry="${old_PATH%%:*}"  # Get the first entry
+        case ":$new_PATH:" in
+            *":$entry:"*) ;;     # Entry already exists, skip
+            *) new_PATH="$new_PATH:$entry" ;;  # Add unique entry
+        esac
+        old_PATH="${old_PATH#*:}"  # Remove processed entry
+    done
+
+    # Remove leading colon and export PATH
+    new_PATH="${new_PATH#:}"
+    export PATH="$new_PATH"
+}
