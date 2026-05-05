@@ -1,12 +1,11 @@
 formatdate () {
 	local FromDate
 	local ToFormat
-	local ans="" 
-	if [ "${1}" = "-auto" ]
-	then
-		local auto="Y" 
+	local ans=""
+	if [ "${1}" = "-auto" ]; then
+		local auto="Y"
 		shift
-		local ans="${1:-u}" 
+		local ans="${1:-u}"
 	else
 		echo -ne "
 															 $(fg_red1 "MAIN MENU")
@@ -45,48 +44,81 @@ formatdate () {
 		Choose an option: "
 		read -r ans
 	fi
-	if [ -z ${2} ]
-	then
-		FromDate="$(date)" 
+	if [ -z ${2} ]; then
+		FromDate="$(date)"
 	else
-		FromDate="${2}" 
+		FromDate="${2}"
 	fi
 	case ${ans} in
-		(1) ToFormat="%B %_d, %Y"  ;;
-		(2) ToFormat="%m/%d/%y"  ;;
-		(3) ToFormat="%d/%m/%y"  ;;
-		(4) ToFormat="%y/%m/%d"  ;;
-		(5) ToFormat="%m/%d/%Y"  ;;
-		(6) ToFormat="%d/%m/%Y"  ;;
-		(7) ToFormat="%Y/%m/%d"  ;;
-		(8) ToFormat="%m-%d-%y"  ;;
-		(9) ToFormat="%d-%m-%y"  ;;
-		(a) ToFormat="%y-%m-%d"  ;;
-		(b) ToFormat="%m-%d-%Y"  ;;
-		(c) ToFormat="%d-%m-%Y"  ;;
-		(d) ToFormat="%Y-%m-%d"  ;;
-		(e) ToFormat="%m%d%Y"  ;;
-		(f) ToFormat="%d%m%Y"  ;;
-		(g) ToFormat="%Y%m%d"  ;;
-		(h) ToFormat="%a%d%Y"  ;;
-		(i) ToFormat="%d%a%Y"  ;;
-		(j) ToFormat="%Y%a%d"  ;;
-		(k) ToFormat="%j/%Y"  ;;
-		(l) ToFormat="%Y/%j"  ;;
-		(m) ToFormat="%d %B, %Y"  ;;
-		(n) ToFormat="%Y, %B %_d"  ;;
-		(o) ToFormat="%b %_d, %Y"  ;;
-		(p) ToFormat="%d %b, %Y"  ;;
-		(q) ToFormat="%Y, %b %_d"  ;;
-		(r) ToFormat="%b-%d-%Y"  ;;
-		(s) ToFormat="%d-%b-%Y"  ;;
-		(t) ToFormat="%Y-%b-%d"  ;;
-		(u) ToFormat="%a %B %d %H:%M:%S %Z %Y"  ;;
-		(0) fg_green "Goodbye."
-			exit 0 ;;
-		(*) fg_red1 "Invalid Option."
-			exit 1 ;;
+	1) ToFormat="%B %_d, %Y"
+			;;
+	2) ToFormat="%m/%d/%y" 
+			;;
+	3) ToFormat="%d/%m/%y"
+			;;
+	4) ToFormat="%y/%m/%d"
+			;;
+	5) ToFormat="%m/%d/%Y" 
+			;;
+	6) ToFormat="%d/%m/%Y"
+			;;
+	7) ToFormat="%Y/%m/%d"
+			;;
+	8) ToFormat="%m-%d-%y" 
+			;;
+	9) ToFormat="%d-%m-%y"
+			;;
+	a) ToFormat="%y-%m-%d"
+			;;
+	b) ToFormat="%m-%d-%Y" 
+			;;
+	c) ToFormat="%d-%m-%Y"
+			;;
+	d) ToFormat="%Y-%m-%d"
+			;;
+	e) ToFormat="%m%d%Y"
+			;;
+	f) ToFormat="%d%m%Y"
+			;;
+	g) ToFormat="%Y%m%d"
+			;;
+	h) ToFormat="%a%d%Y"
+			;;
+	i) ToFormat="%d%a%Y"
+			;;
+	j) ToFormat="%Y%a%d"
+			;;
+	k) ToFormat="%j/%Y"
+			;;
+	l) ToFormat="%Y/%j"
+			;;
+	m) ToFormat="%d %B, %Y"
+			;;
+	n) ToFormat="%Y, %B %_d"
+			;;
+	o) ToFormat="%b %_d, %Y"
+			;;
+	p) ToFormat="%d %b, %Y"
+			;;
+	q) ToFormat="%Y, %b %_d"
+			;;
+	r) ToFormat="%b-%d-%Y"
+			;;
+	s) ToFormat="%d-%b-%Y"
+			;;
+	t) ToFormat="%Y-%b-%d"
+			;;
+	u) ToFormat="%a %B %d %H:%M:%S %Z %Y"
+			;;
+	0) fg_green "Goodbye."
+			exit 0
+			;;
+	*) fg_red1 "Invalid Option."
+			exit 1
+			;;
 	esac
+#	printf "From: ${FromDate} $(fg_green "to ")";
+#	FromDate="12/24/1946"; ToFormat="%m/%d/%Y %H:%M:%S"; gdate --date="$FromDate" +"${ToFormat}"
 	gdate --date="$FromDate" +"${ToFormat}"
 	echo
 }

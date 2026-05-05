@@ -1,5 +1,5 @@
 align_right () {
-	STR=${1:-$(cat -)} 
+	STR=${1:-$(cat -)}
 	printf "%${COLUMNS}s
 " "${STR}"
 }

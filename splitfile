@@ -1,34 +1,29 @@
 splitfile () {
-	if [ "$1" = "-t" ]
-	then
-		ShowTime="Y" 
+	# Assumes current directory
+	if [ "$1" = "-t" ]; then
+		ShowTime="Y"
 		shift
 	fi
-	if [ -z ${1} ]
-	then
+	if [ -z ${1} ]; then
 		echo "Usage: splitfile FileName 30G"
 		exit 1
 	else
-		local FileSize=${2:-30G} 
-		local SplitText=${3:-"** Checking File Size"} 
-		local fSize=$(echo ${FileSize} | numfmt --from=iec) 
-		local FileToCheck=${1} 
-		local ThisFileSize=$(stat -c %s "${FileToCheck}") 
-		local SECONDS2=$(date +%s) 
+		local FileSize=${2:-30G}
+		local SplitText=${3:-"** Checking File Size"}
+		local fSize=$(echo ${FileSize} | numfmt --from=iec)
+		local FileToCheck=${1}
+		local ThisFileSize=$(stat -c %s "${FileToCheck}")
+		local SECONDS2=$(date +%s)
 		local duration2
 		echo "${SplitText}"
-		if [ $ThisFileSize -gt $fSize ]
-		then
+		if [ $ThisFileSize -gt $fSize ]; then
 			echo "  ** File Size > ${FileSize}"
 			printf "  Spliting ${FileToCheck} into ${FileSize} parts..."
-			(
-				split -d -b ${FileSize} "${FileToCheck}" "${FileToCheck}.part"
-			)
-			results=$? 
-			if [ $results = 0 ]
-			then
+			( split -d -b ${FileSize} "${FileToCheck}" "${FileToCheck}.part" )
+			results=$?
+			if [ $results = 0 ]; then
 				echo "Done"
-				rm -f ${FileToCheck} > /dev/null 2>&1
+				rm -f ${FileToCheck} >/dev/null 2>&1
 			else
 				echo "Errors"
 				echo "  ${FileToCheck} NOT Removed!"
@@ -37,9 +32,8 @@ splitfile () {
 			ls -hl ${FileToCheck}* | indent
 			echo
 		fi
-		duration2=$(($(date +%s)-SECONDS2)) 
-		if [ "$ShowTime" = "Y" ]
-		then
+		duration2=$(($(date +%s)-SECONDS2))
+		if [ "$ShowTime" = "Y" ]; then
 			echo "  ** Spliting ${FileToCheck} completed in $(show_time ${duration2})"
 		fi
 	fi

@@ -1,6 +1,5 @@
 sqrt () {
-	if [ -z ${1} ]
-	then
+	if [ -z ${1} ]; then
 		printf "Usage: ${Funcstack[1]} number
 "
 		return

@@ -1,4 +1,6 @@
 ipmine () {
+	# Script to extract and display only IPv4 and IPv6 addresses from active network interfaces
+	# Usage: Save as show-ips.zsh, make executable (chmod +x show-ips.zsh), then run ./show-ips.zsh
 	echo "IPv4 Addresses:"
 	ifconfig $INTERFACE | awk '/inet / {print $2}' | grep -v '^127\.0\.0\.1$'
 	echo -e "
