@@ -1,0 +1,9 @@
+update-fnts () {
+	echo -e "
+$(fg_green "Updating fonts")"
+	(
+		cd ${HOME}/.fonts
+		git reset --hard
+		git pull origin master
+	)
+}
