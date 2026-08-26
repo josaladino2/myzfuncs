@@ -8,7 +8,7 @@ mkuserfile () {
 		SaveFileName="UserFiles.$(date +$j%M%S)-${OldVer}.tgz" 
 		printf "Current $(fg_cyan "${FileName} ") Version: $(fg_green "${OldVer}")"
 		mv -f ${FileName} ${BackupDir}/${SaveFileName}
-		printf "  Moving... $(fg_cyan "${FileName}") to $(fg_cyan "${BackupDir}/${SaveFileName}")"
+		printf "	Moving... $(fg_cyan "${FileName}") to $(fg_cyan "${BackupDir}/${SaveFileName}")"
 		(
 			cd ${BackupDir}
 			ls -1tr | head -n -20 | rm -f --

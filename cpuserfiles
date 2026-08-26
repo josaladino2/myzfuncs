@@ -35,7 +35,7 @@ Increment Version:$(fg_green "${OldVer}") to $(fg_red "${NewVer}:") (Y/N)? "
 				ThisVer="${NewVer}" 
 				echo ${ThisVer} > ${VerFile}
 				cp ${FileName} ${BackupDir}${FileName}-${OldVer}
-				printf "  Backup... $(fg_cyan "${FileName}") to $(fg_cyan "${FileName}-${OldVer}")"
+				printf "	Backup... $(fg_cyan "${FileName}") to $(fg_cyan "${FileName}-${OldVer}")"
 				(
 					cd ${BackupDir}
 					ls -1tr | head -n -20 | xargs -d '
@@ -62,7 +62,7 @@ Increment Version:$(fg_green "${OldVer}") to $(fg_red "${NewVer}:") (Y/N)? "
 "
 						if [ "${DestUserHost}" != "${ThisHost}" ]
 						then
-							printf "  $(fg_yellow "${DestUserHost}")"
+							printf "	$(fg_yellow "${DestUserHost}")"
 							scp -Cp ${FileName} ${DestUserHost}:${RFolder} > /dev/null
 							fg_green "."
 							ssh ${DestUserHost} "trash ${RFolder}.vim >/dev/null"

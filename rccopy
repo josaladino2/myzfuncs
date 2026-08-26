@@ -39,12 +39,12 @@ rccopy () {
 			SECONDS2=$(date +%s) 
 			echo -e "
   rclone -t $line"
-			echo "    to"
+			echo "		to"
 			if [ -z $Progress ]
 			then
-				printf "  ${Remote}/${line}..."
+				printf "	${Remote}/${line}..."
 			else
-				echo "  ${Remote}/${line}..."
+				echo "	${Remote}/${line}..."
 			fi
 			rclone ${CMD} ${line} ${Remote}/$(dirname ${line}) ${Progress} ${DropBoxMode} --cache-db-purge --create-empty-src-dirs
 			results=$? 
@@ -59,7 +59,7 @@ rccopy () {
 			then
 				echo -e "
   ** ${Remote}/${line} Upload
-  completed in $(show_time ${duration2})"
+	completed in $(show_time ${duration2})"
 			fi
 		done < InFile
 		results=$? 

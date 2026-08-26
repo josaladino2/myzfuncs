@@ -5,7 +5,7 @@ cvtemp () {
 		Usage: ${Funcstack[1]} temperature[F|C|K]
 		where the suffix:
 			F	indicates input is in Fahrenheit (default)
-	    C	indicates input is in Celsius
+			C	indicates input is in Celsius
 			K	indicates input is in Kelvin"
 	fi
 	unit="$(echo $1|sed -e 's/[-[[:digit:]]*//g' | \
@@ -23,6 +23,6 @@ cvtemp () {
 			farn="$(echo "scale=2; (((9/5) * $cels)) + 32" | bc)"  ;;
 	esac
 	echo "Fahrenheit = $farn"
-	echo "Celsius    = $cels"
-	echo "Kelvin     = $kelv"
+	echo "Celsius		 = $cels"
+	echo "Kelvin		 = $kelv"
 }

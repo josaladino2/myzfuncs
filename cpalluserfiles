@@ -7,7 +7,7 @@ cpalluserfiles () {
 		StartingHosts=" sneezy " 
 		LocalHost="$(hostname -s)" 
 		ThisHost="joe@${LocalHost}" 
-		SITES="joe@doc cissa@doc admin@doc root@doc joe@sleepy cissa@sleepy admin@sleepy root@sleepy joe@sneezy cissa@sneezy root@sneezy joe@spanky cissa@spanky admin@spanky root@spankys 	cissa@bashful joe@bashful garymartel@bashful root@bashful root@y4x.biz y4x@y4x.biz joe@y4x.biz amanda@y4x.biz bram@y4x.biz d4x@y4x.biz h4hm@y4x.biz joevnc@y4x.biz rejoice2018@y4x.biz t4xbiz@y4x.biz y4xvnc@y4x.biz" 
+		SITES="joe@doc cissa@doc admin@doc root@doc joe@sleepy cissa@sleepy admin@sleepy root@sleepy joe@sneezy cissa@sneezy root@sneezy joe@spanky cissa@spanky admin@spanky root@spankys	cissa@bashful joe@bashful garymartel@bashful root@bashful root@y4x.biz y4x@y4x.biz joe@y4x.biz amanda@y4x.biz bram@y4x.biz d4x@y4x.biz h4hm@y4x.biz joevnc@y4x.biz rejoice2018@y4x.biz t4xbiz@y4x.biz y4xvnc@y4x.biz" 
 		SITES2="root@sneezy root@y4x.biz" 
 		STARTY4X="root@y4x.biz" 
 		FileName="UserFiles.tgz" 
@@ -27,7 +27,7 @@ Increment Version:$(fg_green "${OldVer}") to $(fg_red "${NewVer}") (Y/N)? "
 			ThisVer="${NewVer}" 
 			echo "${ThisVer}" > ${VerFile}
 			cp ${FileName} ${BackupDir}${FileName}-${OldVer}
-			printf "  Backup... $(fg_cyan "${FileName}") to $(fg_cyan "${FileName}-${OldVer}")
+			printf "	Backup... $(fg_cyan "${FileName}") to $(fg_cyan "${FileName}-${OldVer}")
 "
 			(
 				cd ${BackupDir}
