@@ -1,0 +1,3 @@
+sshdopbram () {
+  ssh -C -t dop "su - bram -c 'cd /home/bram/mail/bram.net/joe && exec zsh -i'"
+}
