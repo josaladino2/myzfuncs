@@ -1,0 +1,4 @@
+mailkeeperR () {
+  "/Volumes/Ex-Data/Development/clients/joe/projects/mailkeeper/bin/mailkeeper" \
+    --account joe@bram.net --ssh dop "$@"
+}

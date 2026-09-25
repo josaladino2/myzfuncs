@@ -1,0 +1,4 @@
+mailkeeper () {
+  command python3.9 "$HOME/bin/mailkeeper.py" \
+    --account joe@bram.net "$@"
+}
