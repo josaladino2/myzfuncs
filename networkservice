@@ -1,8 +1,101 @@
 networkservice () {
     emulate -L zsh
     # Show hardware MACs, link status and the default IPv4 interface.
+    # Linux exposes interface addresses and link state through sysfs.
+    if [[ $OSTYPE == linux* ]]; then
+        local net device label mac permanent details state carrier assignment line
+        local default_device='' route_info='' address_kind
+        local -a labels addresses states match mbegin mend
+        local -i index width=0 failures=0 metric best_metric=-1
+        if (( $+commands[ip] )); then
+            # Mark the lowest-metric default in the main IPv4 routing table.
+            route_info=$(command ip -4 route show default 2>/dev/null)
+            for line in "${(@f)route_info}"; do
+                metric=0
+                if [[ $line =~ '(^|[[:space:]])metric[[:space:]]+([0-9]+)' ]]; then
+                    metric=$match[2]
+                fi
+                if (( best_metric < 0 || metric < best_metric )) && [[ $line =~ '(^|[[:space:]])dev[[:space:]]+([^[:space:]]+)' ]]; then
+                    default_device=$match[2]
+                    best_metric=$metric
+                fi
+            done
+        fi
+        for net in /sys/class/net/*(N); do
+            [[ -r $net/type && -r $net/address ]] || continue
+            [[ $(<$net/type) == 1 ]] || continue
+            device=${net:t}
+            if [[ -d $net/wireless || -e $net/phy80211 ]]; then
+                label="Wi-Fi ($device)"
+            elif [[ $device == zt* && ! -e $net/device ]]; then
+                # ZeroTier's standard Linux interface names start with zt.
+                label="ZeroTier ($device)"
+            elif [[ -d $net/bridge ]]; then
+                label="Virtual bridge ($device)"
+            elif [[ -e $net/device ]]; then
+                label="Ethernet ($device)"
+            else
+                label="Virtual Ethernet ($device)"
+            fi
+            mac=${(L)$(<$net/address)}
+            assignment=''
+            [[ -r $net/addr_assign_type ]] && assignment=$(<$net/addr_assign_type)
+            address_kind='Assigned MAC'
+            permanent=''
+            if [[ -e $net/device ]] && (( $+commands[ethtool] )); then
+                details=$(command ethtool -P "$device" 2>/dev/null)
+                if [[ $details =~ 'Permanent address:[[:space:]]+([[:xdigit:]]{2}(:[[:xdigit:]]{2}){5})' ]]; then
+                    permanent=${(L)match[1]}
+                    [[ $permanent == 00:00:00:00:00:00 || $permanent == ff:ff:ff:ff:ff:ff ]] && permanent=''
+                fi
+            fi
+            if [[ -n $permanent ]]; then
+                mac=$permanent
+                address_kind='Hardware MAC'
+            elif [[ -e $net/device && $assignment == 0 ]]; then
+                address_kind='Hardware MAC'
+            fi
+            if [[ ! $mac =~ '^[[:xdigit:]]{2}(:[[:xdigit:]]{2}){5}$' || $mac == 00:00:00:00:00:00 || $mac == ff:ff:ff:ff:ff:ff ]]; then
+                mac='unavailable'
+                (( ++failures ))
+            fi
+            state='unknown'
+            carrier=''
+            [[ -r $net/operstate ]] && state=$(<$net/operstate)
+            [[ -r $net/carrier ]] && carrier=$(command cat "$net/carrier" 2>/dev/null)
+            case $state in
+                up) state='Active' ;;
+                down|lowerlayerdown|notpresent) state='Inactive' ;;
+                dormant) state='Dormant' ;;
+                testing) state='Testing' ;;
+                *)
+                    case $carrier in
+                        1) state='Active' ;;
+                        0) state='Inactive' ;;
+                        *) state='Unknown' ;;
+                    esac ;;
+            esac
+            [[ $device == "$default_device" && -n $default_device ]] && state+=', Default'
+            labels+=("$label")
+            addresses+=("$mac")
+            states+=("$state | $address_kind")
+            (( ${#label} > width )) && width=${#label}
+        done
+        if (( ! ${#labels} )); then
+            print -u2 -r -- 'Could not find Wi-Fi or Ethernet interfaces in /sys/class/net.'
+            return 1
+        fi
+        for (( index=1; index<=${#labels}; ++index )); do
+            printf '%-*s : %-17s | %s\n' "$width" "$labels[$index]" "$addresses[$index]" "$states[$index]"
+        done
+        if (( failures )); then
+            print -u2 -r -- 'Linux did not provide a usable MAC for every listed interface.'
+            return 1
+        fi
+        return 0
+    fi
     if [[ $OSTYPE != darwin* ]]; then
-        print -u2 -r -- 'networkservice requires macOS.'
+        print -u2 -r -- 'networkservice requires macOS or Linux.'
         return 2
     fi
     if (( ! $+commands[networksetup] || ! $+commands[ifconfig] )); then
