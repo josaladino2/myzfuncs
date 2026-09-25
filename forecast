@@ -5,6 +5,6 @@ forecast () {
 	results=$? 
 	if [ $results != 0 ]
 	then
-		fg_red1 "Error."
+		fg_color red1 "Error."
 	fi
 }

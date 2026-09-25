@@ -1,4 +1,4 @@
 askany () {
-	printf "Press [$(fg_green "Any Key")] to continue..."
+	printf "Press [$(fg_color green "Any Key")] to continue..."
 	read -k1 -s
 }

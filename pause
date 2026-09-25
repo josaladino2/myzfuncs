@@ -1,4 +1,4 @@
 pause () {
-	printf "press [$(fg_green "Enter")] to continue..."
+	printf "press [$(fg_color green "Enter")] to continue..."
 	read -s
 }

@@ -3,7 +3,7 @@ indent () {
 	then
 		if [ "${1}" = "-h" ]
 		then
-			echo "$(fg_red1 \"Usage\"): ${funcstack[1]} [indentSize] [indentNum]"
+			echo "$(fg_color red1 \"Usage\"): ${funcstack[1]} [indentSize] [indentNum]"
 			echo "Default: ${funcstack[1]} 2 1"
 		fi
 		shift

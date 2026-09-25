@@ -11,9 +11,9 @@ fix_file_names () {
 		mv ${FileName} ${NFileName}
 		if [ $? -eq 0 ]
 		then
-			echo "${FileName} $(fg_green "to") ${NFileName}"
+			echo "${FileName} $(fg_color green "to") ${NFileName}"
 		else
-			echo "${Filename} change $(fg_red "failed")..."
+			echo "${Filename} change $(fg_color red "failed")..."
 		fi
 	done
 }

@@ -5,7 +5,7 @@ get_fcn_list () {
 	while [[ "${1:0:2}" =~ .*"-".* ]]
 	do
 		case ${1:0:2} in
-			('-h') echo "$(fg_red1 \"Usage:\") ${funcstack[1]} [-h] [-c6] [-v'^bg_\|^fg_']"
+			('-h') echo "$(fg_color red1 \"Usage:\") ${funcstack[1]} [-h] [-c6] [-v'^bg_\|^fg_']"
 				return 0 ;;
 			('-n') Sort='' 
 				shift ;;

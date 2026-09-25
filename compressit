@@ -9,10 +9,10 @@ compressit () {
 	printf "${@}"
 	ExtPWD="${2:-${PWD}}" 
 	shift
-	printf "Want to create $(fg_byellow "${FILE}") using $(fg_byellow "${ExtPWD}/") directory(s)?"
+	printf "Want to create $(fg_color yellow "${FILE}") using $(fg_color yellow "${ExtPWD}/") directory(s)?"
 	if ask
 	then
-		printf "Creating $(fg_byellow "${FILE}") using $(fg_byellow "${ExtPWD}/") directory(s).
+		printf "Creating $(fg_color yellow "${FILE}") using $(fg_color yellow "${ExtPWD}/") directory(s).
 "
 		case ${FILE} in
 			(*.bz2) tar cjf ${FILE} ${ExtPWD} ;;

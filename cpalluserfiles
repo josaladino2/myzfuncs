@@ -18,16 +18,16 @@ cpalluserfiles () {
 		NewVer="$(echo $OldVer + .001 | bc)" 
 		ThisVer="$OldVer" 
 		RFolder="~/" 
-		printf "Current $(fg_cyan "${FileName}") Version:$(fg_green "${OldVer}")"
+		printf "Current $(fg_color cyan "${FileName}") Version:$(fg_color green "${OldVer}")"
 		printf "
-Increment Version:$(fg_green "${OldVer}") to $(fg_red "${NewVer}") (Y/N)? "
+Increment Version:$(fg_color green "${OldVer}") to $(fg_color red "${NewVer}") (Y/N)? "
 		read answer
 		if echo "$answer" | grep --color=auto -i --color=auto -iq "^y"
 		then
 			ThisVer="${NewVer}" 
 			echo "${ThisVer}" > ${VerFile}
 			cp ${FileName} ${BackupDir}${FileName}-${OldVer}
-			printf "	Backup... $(fg_cyan "${FileName}") to $(fg_cyan "${FileName}-${OldVer}")
+			printf "	Backup... $(fg_color cyan "${FileName}") to $(fg_color cyan "${FileName}-${OldVer}")
 "
 			(
 				cd ${BackupDir}
@@ -39,12 +39,12 @@ Increment Version:$(fg_green "${OldVer}") to $(fg_red "${NewVer}") (Y/N)? "
 		else
 			ThisVer="${OldVer}" 
 		fi
-		printf "Update $(fg_cyan "${FileName}") (ver:$(fg_red "${ThisVer}") on $(fg_green "All Machines")? (Y/N) "
+		printf "Update $(fg_color cyan "${FileName}") (ver:$(fg_color red "${ThisVer}") on $(fg_color green "All Machines")? (Y/N) "
 		read answer
 		if echo "$answer" | grep --color=auto -i --color=auto -iq "^y"
 		then
 			SECONDS=0 
-			printf "Updating $(fg_cyan) "${FileName}") Version: $(fg_red "${ThisVer}") to:
+			printf "Updating $(fg_color cyan) "${FileName}") Version: $(fg_color red "${ThisVer}") to:
 
 "
 			for DestUserHost in ${SITES}
@@ -59,27 +59,27 @@ Increment Version:$(fg_green "${OldVer}") to $(fg_red "${NewVer}") (Y/N)? "
 						if [ ${DestUserHost} != "${ThisHost}" ]
 						then
 							DestUser=$(echo ${DestUserHost} | cut -d @ -f1) 
-							fg_yellow "	${DestUserHost}"
+							fg_color yellow "	${DestUserHost}"
 							scp -Cp ${FileName} ${DestUserHost}:${RFolder} > /dev/null
-							fg_green "."
+							fg_color green "."
 							ssh ${DestUserHost} "/usr/local/bin/postcpallusrfiles ${RFolder} >/dev/null"
-							fg_green "."
+							fg_color green "."
 							CatVersion=$(ssh ${DestUserHost} "cat ${RFolder}${VerFile}") 
-							fg_green "."
-							printf "($(fg_cyan "v:")${CatVersion})(skel)"
+							fg_color green "."
+							printf "($(fg_color cyan "v:")${CatVersion})(skel)"
 							if [[ ${SITES2} =~ "${DestUserHost}" ]] && [ ${DestUser} = "root" ]
 							then
 								ssh ${DestUserHost} "/usr/local/bin/postcpallusrfiles ${SkelDir} >/dev/null"
-								fg_green "."
+								fg_color green "."
 								CatVersion=$(ssh ${DestUserHost} "cat ${SkelDir}${VerFile}") 
-								fg_green "."
-								printf "($(fg_cyan "v:")${CatVersion})"
+								fg_color green "."
+								printf "($(fg_color cyan "v:")${CatVersion})"
 							else
-								fg_red " x"
+								fg_color red " x"
 							fi
 						else
-							fg_yellow "	${DestUserHost} "
-							printf "($(fg_red "Skipped"))"
+							fg_color yellow "	${DestUserHost} "
+							printf "($(fg_color red "Skipped"))"
 						fi
 					else
 						printf "Must be on \"$(printf "${StartingHosts}" | sed -e 's/ / or /')\" to update servers
@@ -87,10 +87,10 @@ Increment Version:$(fg_green "${OldVer}") to $(fg_red "${NewVer}") (Y/N)? "
 						exit 2
 					fi
 				else
-					fg_yellow "	${DestUserHost} "
-					printf "($(fg_red "Skipped") server down)"
+					fg_color yellow "	${DestUserHost} "
+					printf "($(fg_color red "Skipped") server down)"
 				fi
-				printf " ($(fg_yellow "$SECONDS sec."))
+				printf " ($(fg_color yellow "$SECONDS sec."))
 "
 			done
 		else
@@ -101,6 +101,6 @@ ${ScriptName} cancelled...
 		fi
 		duration=${SECONDS} 
 		printf "
-$(show_time ${duration} "$(fg_green "Total Update Time")")"
+$(show_time ${duration} "$(fg_color green "Total Update Time")")"
 	) 2> ${ScriptName}.err
 }

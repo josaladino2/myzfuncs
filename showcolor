@@ -8,8 +8,8 @@ showcolor () {
 				do
 					print -P %F{i}${i}%f
 				done ;;
-			([0-9].*) echo -e "$(fg_nc)$(tput setaf ${1}) - $1"
-				echo -e "$(fg_nc)$(tput setab ${1}) - $1" ;;
+			([0-9].*) echo -e "$(tput sgr0)$(tput setaf ${1}) - $1"
+				echo -e "$(tput sgr0)$(tput setab ${1}) - $1" ;;
 		esac
 	fi
 }
