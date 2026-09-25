@@ -1,47 +1,64 @@
 networkservice () {
     emulate -L zsh
-    # macOS: hardware-port name, device, and hardware MAC, one per line.
-    # Retain the original script's choice of the last active listed service.
+    # Show hardware MAC addresses for Wi-Fi and Ethernet, connected or not.
     if [[ $OSTYPE != darwin* ]]; then
         print -u2 -r -- 'networkservice requires macOS.'
         return 2
     fi
-    if (( ! $+commands[networksetup] || ! $+commands[ifconfig] )); then
-        print -u2 -r -- 'networkservice requires networksetup and ifconfig.'
+    if (( ! $+commands[networksetup] )); then
+        print -u2 -r -- 'networkservice requires networksetup.'
         return 2
     fi
-    local services line device port details mac_info
-    local currentservice='' currentdevice='' currentmac=''
-    local -a match mbegin mend
-    services=$(command networksetup -listnetworkserviceorder) || return 1
+    local hardware line port device label mac
+    local -a ports devices macs wifi wired labels addresses match mbegin mend
+    local -i record=0 index width=0 failures=0
+    hardware=$(command networksetup -listallhardwareports) || return 1
     while IFS= read -r line; do
-        if [[ $line =~ '^[[:space:]]*[(]Hardware Port: (.*), Device: ([^)]*)[)]$' ]]; then
-            port=$match[1]
-            device=$match[2]
-            [[ -n $device ]] || continue
-            details=$(command ifconfig "$device" 2>/dev/null) || continue
-            [[ $details == *'status: active'* ]] || continue
-            currentservice=$port
-            currentdevice=$device
+        if [[ $line =~ '^[[:space:]]*Hardware Port: (.*)$' ]]; then
+            ports+=("$match[1]")
+            devices+=('')
+            macs+=('')
+            (( ++record ))
+        elif (( record )) && [[ $line =~ '^[[:space:]]*Device:[[:space:]]*([^[:space:]]+)' ]]; then
+            devices[$record]=$match[1]
+        elif (( record )) && [[ $line =~ '^[[:space:]]*Ethernet Address:[[:space:]]*(.*)$' ]]; then
+            macs[$record]=$match[1]
         fi
-    done <<< "$services"
-    if [[ -z $currentservice ]]; then
-        print -u2 -r -- 'Could not find an active network service.'
+    done <<< "$hardware"
+    for (( index=1; index<=${#ports}; ++index )); do
+        case ${(L)ports[$index]} in
+            *wi-fi*|*wifi*|*airport*) wifi+=("$index") ;;
+            *ethernet*|*lan*) wired+=("$index") ;;
+        esac
+    done
+    for index in "${wifi[@]}" "${wired[@]}"; do
+        port=$ports[$index]
+        device=$devices[$index]
+        label=$port
+        if [[ -n $device && $port != *"($device)"* ]]; then
+            label+=" ($device)"
+        fi
+        mac=''
+        if [[ $macs[$index] =~ '^[[:space:]]*([[:xdigit:]]{2}(:[[:xdigit:]]{2}){5})[[:space:]]*$' ]]; then
+            mac=${(L)match[1]}
+        fi
+        if [[ -z $device || -z $mac || $mac == 00:00:00:00:00:00 || $mac == 02:00:00:00:00:00 || $mac == ff:ff:ff:ff:ff:ff ]]; then
+            mac='unavailable'
+            (( ++failures ))
+        fi
+        labels+=("$label")
+        addresses+=("$mac")
+        (( ${#label} > width )) && width=${#label}
+    done
+    if (( ${#labels} == 0 )); then
+        print -u2 -r -- 'Could not find Wi-Fi or Ethernet hardware.'
         return 1
     fi
-    # Read the hardware address, independently of private Wi-Fi addressing.
-    mac_info=$(command networksetup -getmacaddress "$currentdevice" 2>/dev/null) || {
-        print -u2 -r -- "Could not read the hardware MAC address for $currentdevice."
-        return 1
-    }
-    if [[ $mac_info =~ 'Ethernet Address:[[:space:]]*([[:xdigit:]]{2}(:[[:xdigit:]]{2}){5})([[:space:]]|$)' ]]; then
-        currentmac=${(L)match[1]}
-    fi
-    if [[ -z $currentmac || $currentmac == 00:00:00:00:00:00 || $currentmac == 02:00:00:00:00:00 || $currentmac == ff:ff:ff:ff:ff:ff ]]; then
-        print -u2 -r -- "macOS did not provide a usable hardware MAC address for $currentdevice."
+    for (( index=1; index<=${#labels}; ++index )); do
+        printf '%-*s : %s\n' "$width" "$labels[$index]" "$addresses[$index]"
+    done
+    if (( failures )); then
+        print -u2 -r -- 'macOS did not provide a usable hardware MAC for every listed interface.'
         return 1
     fi
-    print -r -- "$currentservice"
-    print -r -- "$currentdevice"
-    print -r -- "$currentmac"
 }
