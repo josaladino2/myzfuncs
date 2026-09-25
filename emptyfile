@@ -1,4 +1,4 @@
-emptyfile () {
+	emptyfile () {
 	if [ -z ${1} ]; then
 		echo "$(fg_color red1 "Usage"): ${funcstack[1]} Filename"
 		return 0

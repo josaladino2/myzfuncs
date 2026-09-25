@@ -1,4 +1,3 @@
 dirsize () {
-	printf "${1:-$(pwd)} $(ls -hs ${1} | head -1)
-"
+	printf "${1:-$(pwd)} $(ls -hs ${1} | head -1)\n"
 }

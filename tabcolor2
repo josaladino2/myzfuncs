@@ -1,3 +1,9 @@
 tabcolor2 () {
-	$(${1} "x")
+    emulate -L zsh
+    if (( $# != 1 )); then
+        print -u2 -- 'Usage: tabcolor2 color_function'
+        return 1
+    fi
+    # Display callback output directly; never execute it as shell commands.
+    "$1" $'x\b'
 }

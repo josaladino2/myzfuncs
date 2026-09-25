@@ -1,11 +1,17 @@
 tabcolor () {
-	case $1 in
-		(blue) printf "]6;1;bg;red;brightness;0]6;1;bg;green;brightness;218]6;1;bg;blue;brightness;255" ;;
-		(pink) printf "]6;1;bg;red;brightness;245]6;1;bg;green;brightness;66]6;1;bg;blue;brightness;239" ;;
-		(green) printf "]6;1;bg;red;brightness;57]6;1;bg;green;brightness;197]6;1;bg;blue;brightness;77" ;;
-		(red) printf "]6;1;bg;red;brightness;201]6;1;bg;green;brightness;42]6;1;bg;blue;brightness;42" ;;
-		(orange) printf "]6;1;bg;red;brightness;227]6;1;bg;green;brightness;143]6;1;bg;blue;brightness;10" ;;
-		(purple) printf "]6;1;bg;blue;brightness;255" ;;
-		(gray) printf "]6;1;bg;red;brightness;176]6;1;bg;green;brightness;181]6;1;bg;blue;brightness;175" ;;
+	case $1 in 
+	blue) printf "\033]6;1;bg;red;brightness;0\a\033]6;1;bg;green;brightness;218\a\033]6;1;bg;blue;brightness;255\a"
+	;;
+	pink)	printf "\033]6;1;bg;red;brightness;245\a\033]6;1;bg;green;brightness;66\a\033]6;1;bg;blue;brightness;239\a"
+	;;
+	green) printf "\033]6;1;bg;red;brightness;57\a\033]6;1;bg;green;brightness;197\a\033]6;1;bg;blue;brightness;77\a"
+	;;
+	red) printf "\033]6;1;bg;red;brightness;201\a\033]6;1;bg;green;brightness;42\a\033]6;1;bg;blue;brightness;42\a"
+	;;
+	orange) printf "\033]6;1;bg;red;brightness;227\a\033]6;1;bg;green;brightness;143\a\033]6;1;bg;blue;brightness;10\a"
+	;;
+	purple) printf "\033]6;1;bg;blue;brightness;255\a"
+	;;
+	gray)	printf "\033]6;1;bg;red;brightness;176\a\033]6;1;bg;green;brightness;181\a\033]6;1;bg;blue;brightness;175\a"
 	esac
 }

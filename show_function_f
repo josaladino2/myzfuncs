@@ -1,9 +1,19 @@
 show_function_f () {
-	local myzfuncsfile=${HOME}/.zsh_functions
-  local MyFunc=${1}
-	if [[ -n ${MyFunc} && -n $(sed -n "/^${MyFunc} \(\)/,/^}/p" ${myzfuncsfile}) ]]; then
-		sed -n "/^${MyFunc} \(\)/,/^}/p" ${myzfuncsfile}
-	else
-		return 1
-	fi
+    emulate -L zsh
+    local name=${1-} source_file=${myzfuncsfile:-$HOME/.zsh_functions}
+    if (( $# != 1 )) || [[ ! "$name" =~ '^[A-Za-z_][A-Za-z0-9_-]*$' ]]; then
+        print -u2 -- 'Usage: show_function_f function_name'
+        return 1
+    fi
+    [[ -r "$source_file" ]] || {
+        print -u2 -- "Cannot read function source: $source_file"
+        return 1
+    }
+    # The master uses one definition per block, with its final } at column one.
+    command awk -v wanted="$name" '
+        !found && $0 ~ "^[ \\t]*" wanted "[ \\t]*\\(\\)[ \\t]*($|\\{[ \\t]*(#.*)?$)" { found=1 }
+        found { text=text $0 "\n" }
+        found && /^}[[:space:]]*(#.*)?$/ { printf "%s", text; complete=1; exit }
+        END { if (!complete) exit 1 }
+    ' "$source_file"
 }

@@ -1,20 +1,12 @@
 showcolors2 () {
-	printf "Show Color commands:
-"
-	printf "	getColorCode background
-"
-	printf "	getColorCode foreground
-"
-	printf "	spectrum_ls
-"
-	printf "	showcolortags
-"
-	printf "	showbgcolors
-"
-	printf "	showfgcolors
-"
-	printf "	showzcolors
-"
+	printf "Show Color commands:\n"
+	printf "	getColorCode background\n"
+	printf "	getColorCode foreground\n"
+	printf "	spectrum_ls\n"
+	printf "	showcolortags\n"
+	printf "	showbgcolors\n"
+	printf "	showfgcolors\n"
+	printf "	showzcolors\n"
 	echo "ESC[ 38;5;⟨n⟩ m Select foreground color"
 	echo "ESC[ 48;5;⟨n⟩ m Select background color"
 	echo "0-	7:	standard colors (as in ESC [ 30–37 m)"

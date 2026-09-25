@@ -1,4 +1,10 @@
 mailkeeper () {
-  command python3.9 "$HOME/bin/mailkeeper.py" \
-    --account joe@bram.net "$@"
+    emulate -L zsh
+    local program="$HOME/bin/mailkeeper"
+    if [[ ! -x "$program" ]]; then
+        print -u2 -- "Mailkeeper is not installed: $program. Update your bin repository first."
+        return 1
+    fi
+    # Account YAML selects the server and mail root; --local/--ssh may override it.
+    "$program" --account joe@bram.net "$@"
 }

@@ -1,23 +1,40 @@
 path () {
-	local action=$1 
-	local varname=${2:-PATH} 
-	shift 2
-	case $action in
-		(add | append) for dir
-			do
-				[[ -d "$dir" && ":${(P)varname}:" != *":$dir:"* ]] && typeset -g "$varname=${(P)varname:+$ {(P)varname}:}$dir"
-			done ;;
-		(prepend) for dir
-			do
-				[[ -d "$dir" && ":${(P)varname}:" != *":$dir:"* ]] && typeset -g "$varname=$dir${(P)varname:+:${(P)varname}}"
-			done ;;
-		(remove) for dir
-			do
-				typeset -g "$varname=${(P)varname//:$dir:/:}"
-				typeset -g "$varname=${(P)varname/#$dir:/}"
-				typeset -g "$varname=${(P)varname/%:$dir/}"
-			done ;;
-		(*) echo "Usage: path {add|prepend|remove} [VARNAME=PATH] dir [dir...]"
-			return 1 ;;
-	esac
+    emulate -L zsh
+    local action=${1-} varname=PATH dir entry value
+    local -a entries kept
+    (( $# )) && shift
+    # Preserve the explicit VARNAME form; an absolute directory uses PATH.
+    if (( $# )) && [[ "$1" =~ '^[A-Za-z_][A-Za-z0-9_]*$' ]]; then
+        varname=$1
+        shift
+    fi
+    if (( ! $# )) || [[ "$action" != (add|append|prepend|remove) ]]; then
+        print -u2 -- 'Usage: path {add|append|prepend|remove} [VARNAME] dir [dir...]'
+        return 1
+    fi
+    if [[ ${(tP)varname} == *readonly* || ${(tP)varname} == *array* || ${(tP)varname} == *association* ]]; then
+        print -u2 -- "Not a writable scalar path variable: $varname"
+        return 1
+    fi
+    value=${(P)varname}
+    for dir in "$@"; do
+        case $action in
+            add|append|prepend)
+                [[ -d "$dir" ]] || continue
+                [[ ":$value:" == *":${dir}:"* ]] && continue
+                if [[ $action == prepend ]]; then
+                    value="$dir${value:+:$value}"
+                else
+                    value="${value:+$value:}$dir"
+                fi ;;
+            remove)
+                entries=("${(@s/:/)value}")
+                kept=()
+                for entry in "${entries[@]}"; do
+                    [[ "$entry" == "$dir" ]] || kept+=("$entry")
+                done
+                value=${(j/:/)kept} ;;
+        esac
+    done
+    typeset -g "$varname=$value"
 }

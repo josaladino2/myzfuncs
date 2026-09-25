@@ -1,8 +1,6 @@
 sqrt () {
-	if [ -z ${1} ]
-	then
-		printf "Usage: ${Funcstack[1]} number
-"
+	if [ -z ${1} ]; then
+		printf "Usage: ${Funcstack[1]} number\n"
 		return
 	fi
 	echo "sqrt ("$1")" | bc -l

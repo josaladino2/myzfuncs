@@ -1,13 +1,9 @@
 dec2asc () {
-	if [[ -n $1 ]]
-	then
-		if [ $(( $1 )) -gt 31 ]
-		then
-			printf "$(printf '\%o' $1)
-"
+	if [[ -n $1 ]]; then
+		if [ $(( $1 )) -gt 31 ]; then
+			printf "$(printf '\%o' $1)\n"
 		else
-			printf "Non-printable
-"
+			printf "Non-printable\n"
 		fi
 	fi
 }

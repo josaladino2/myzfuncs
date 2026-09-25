@@ -1,4 +1,4 @@
 showpath () {
 	export PATH
-	awk -v RS=: '{print}' <<< $PATH
+	awk -v RS=: '{print}' <<<$PATH
 }

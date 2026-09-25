@@ -1,4 +1,3 @@
 osver () {
-	printf "$(showdist) $(lsb_release -r -s)
-"
+	printf "$(showdist) $(lsb_release -r -s)\n"
 }

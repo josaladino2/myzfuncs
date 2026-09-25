@@ -1,11 +1,9 @@
 wordnet () {
-	if [ -z ${1} ]
-	then
-		printf "Usage: ${Funcstack[1]} word
-"
+	if [ -z ${1} ]; then
+		printf "Usage: ${Funcstack[1]} word\n"
 		return
 	fi
-	printf "${1}
-"
-	curl dict://dict.org/d:${1}#:wn 2> /dev/null | sed -e '/^[0-9]/d' | sed -e '/Xferd/d'
+	printf "${1}\n"
+	curl dict://dict.org/d:${1}#:wn 2>/dev/null | sed -e '/^[0-9]/d' \
+		| sed -e '/Xferd/d' 
 }

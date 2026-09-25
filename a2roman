@@ -1,8 +1,6 @@
 a2roman () {
-	if [ -z ${1} ]
-	then
-		printf "Usage: ${Funcstack[1]} 100
-"
+	if [ -z ${1} ]; then
+		printf "Usage: ${Funcstack[1]} 100\n"
 		return
 	fi
 	echo $1 | sed -e 's/1...$/M&/;s/2...$/MM&/;s/3...$/MMM&/;s/4...$/MMMM&/

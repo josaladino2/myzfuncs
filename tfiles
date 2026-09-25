@@ -1,4 +1,3 @@
 tfiles () {
-	printf "$(ls -a -1 | wc -l|sed 's/ //g')
-"
+	printf "$(ls -a -1 | wc -l|sed 's/ //g')\n"
 }

@@ -1,29 +1,19 @@
 url-info () {
-	doms=$@ 
-	if [[ $# -eq 0 ]]
-	then
-		echo -e "No domain given
-Try ${Funcstack[1]} domain.com domain2.org anyotherdomain.net"
+	doms=$@
+	if [[ $# -eq 0 ]]; then
+		echo -e "No domain given\nTry ${Funcstack[1]} domain.com domain2.org anyotherdomain.net"
 	fi
-	for i in $doms
-	do
-		_ip=$(host $i|grep 'has address'|awk {'print $4'}) 
-		if [ "$_ip" = "" ]
-		then
-			echo -e "
-ERROR: $i DNS error or not a valid domain
-"
+	for i in $doms; do
+		_ip=$(host $i|grep 'has address'|awk {'print $4'})
+		if [ "$_ip" = "" ]; then
+			echo -e "\nERROR: $i DNS error or not a valid domain\n"
 			continue
 		fi
-		ip=`echo ${_ip[*]}|tr " " "|"` 
-		echo -e "
-Information for domain: $i [ $ip ]
-Querying individual IPs"
-		for j in ${_ip[*]}
-		do
-			echo -e "
-$j results:"
-			whois $j | ggrep -E -w 'OrgName:|City:|Country:|OriginAS:|NetRange:'
+		ip=`echo ${_ip[*]}|tr " " "|"`
+		echo -e "\nInformation for domain: $i [ $ip ]\nQuerying individual IPs"
+		for j in ${_ip[*]}; do
+			echo -e "\n$j results:"
+			whois $j |ggrep -E -w 'OrgName:|City:|Country:|OriginAS:|NetRange:'
 		done
 	done
 }

@@ -1,6 +1,5 @@
 listallapps () {
-	if [ $(uname) = "Darwin" ]
-	then
+	if [ $(uname) = "Darwin" ]; then
 		echo "brew list"
 		echo "---------------------"
 		brew list
@@ -8,11 +7,10 @@ listallapps () {
 		echo "brew list --cask"
 		echo "---------------------"
 	else
-		if [ "${USER}" = "root" ]
-		then
-			yum list installed | most
+		if [ "${USER}" = "root" ]; then
+			yum list installed|most
 		else
-			sudo yum list installed | most
+			sudo yum list installed|most
 		fi
 	fi
 }
