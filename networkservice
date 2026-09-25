@@ -104,6 +104,9 @@ networkservice () {
     fi
     local hardware line port device label mac details route_info link_state
     local default_device=''
+    local zt_cli='' zt_output zt_info zt_node='Unknown' zt_id zt_device zt_mac zt_status
+    local -a zt_ids zt_devices zt_macs zt_statuses
+    local -A zt_seen
     local -a ports devices macs wifi wired labels addresses states match mbegin mend
     local -i record=0 index width=0 failures=0
     if (( $+commands[route] )); then
@@ -114,6 +117,43 @@ networkservice () {
                 break
             fi
         done
+    fi
+    # Ask ZeroTier which adapters it owns; feth alone is not proof of ownership.
+    if (( $+commands[zerotier-cli] )); then
+        zt_cli=$commands[zerotier-cli]
+    elif [[ -x /usr/local/bin/zerotier-cli ]]; then
+        zt_cli=/usr/local/bin/zerotier-cli
+    fi
+    if [[ -n $zt_cli ]]; then
+        if zt_output=$("$zt_cli" listnetworks 2>/dev/null); then
+            for line in "${(@f)zt_output}"; do
+                # Match from both ends: network names may contain spaces.
+                if [[ $line =~ '^200 listnetworks ([[:xdigit:]]{16}) (.*) ([[:xdigit:]]{2}(:[[:xdigit:]]{2}){5}) ([A-Z_]+) (PRIVATE|PUBLIC) ([a-zA-Z0-9_.-]+) ([^[:space:]]+)[[:space:]]*$' ]]; then
+                    zt_id=$match[1]
+                    zt_mac=${(L)match[3]}
+                    zt_status=$match[5]
+                    zt_device=$match[7]
+                    [[ -n ${zt_seen[$zt_id]-} ]] && continue
+                    zt_seen[$zt_id]=1
+                    zt_ids+=("$zt_id")
+                    zt_devices+=("$zt_device")
+                    zt_macs+=("$zt_mac")
+                    zt_statuses+=("$zt_status")
+                elif [[ $line == '200 listnetworks '* && $line != '200 listnetworks <nwid>'* ]]; then
+                    print -u2 -r -- 'Could not interpret a ZeroTier network entry.'
+                    (( ++failures ))
+                fi
+            done
+            if (( ${#zt_ids} )); then
+                zt_info=$("$zt_cli" info 2>/dev/null)
+                if [[ $zt_info =~ '^200 info [[:xdigit:]]+ [^[:space:]]+ (ONLINE|OFFLINE|TUNNELED)([[:space:]]|$)' ]]; then
+                    zt_node=$match[1]
+                fi
+            fi
+        else
+            print -u2 -r -- 'ZeroTier status unavailable; could not query the local service.'
+            (( ++failures ))
+        fi
     fi
     hardware=$(command networksetup -listallhardwareports) || return 1
     while IFS= read -r line; do
@@ -137,6 +177,7 @@ networkservice () {
     for index in "${wifi[@]}" "${wired[@]}"; do
         port=$ports[$index]
         device=$devices[$index]
+        (( ${zt_devices[(Ie)$device]} )) && continue
         label=$port
         if [[ -n $device && $port != *"($device)"* ]]; then
             label+=" ($device)"
@@ -167,15 +208,44 @@ networkservice () {
         states+=("$link_state")
         (( ${#label} > width )) && width=${#label}
     done
+    for (( index=1; index<=${#zt_ids}; ++index )); do
+        device=$zt_devices[$index]
+        mac=$zt_macs[$index]
+        label="ZeroTier ($device)"
+        link_state='Unknown'
+        if [[ $device == '-' ]]; then
+            label="ZeroTier ($zt_ids[$index])"
+            link_state='No interface'
+        elif details=$(command ifconfig "$device" 2>/dev/null); then
+            for line in "${(@f)details}"; do
+                if [[ $line =~ '^[[:space:]]*status:[[:space:]]+(active|inactive)[[:space:]]*$' ]]; then
+                    case $match[1] in
+                        active) link_state='Active' ;;
+                        inactive) link_state='Inactive' ;;
+                    esac
+                    break
+                fi
+            done
+        fi
+        if [[ $mac == 00:00:00:00:00:00 || $mac == ff:ff:ff:ff:ff:ff ]]; then
+            mac='unavailable'
+            (( ++failures ))
+        fi
+        [[ $device == "$default_device" && -n $default_device ]] && link_state+=', Default'
+        labels+=("$label")
+        addresses+=("$mac")
+        states+=("$link_state | Assigned MAC | Network $zt_statuses[$index], Node $zt_node")
+        (( ${#label} > width )) && width=${#label}
+    done
     if (( ${#labels} == 0 )); then
-        print -u2 -r -- 'Could not find Wi-Fi or Ethernet hardware.'
+        print -u2 -r -- 'Could not find Wi-Fi, Ethernet or ZeroTier interfaces.'
         return 1
     fi
     for (( index=1; index<=${#labels}; ++index )); do
         printf '%-*s : %-17s | %s\n' "$width" "$labels[$index]" "$addresses[$index]" "$states[$index]"
     done
     if (( failures )); then
-        print -u2 -r -- 'macOS did not provide a usable hardware MAC for every listed interface.'
+        print -u2 -r -- 'Some interface addresses or ZeroTier status could not be verified.'
         return 1
     fi
 }
