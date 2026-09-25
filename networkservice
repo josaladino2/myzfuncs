@@ -1,17 +1,27 @@
 networkservice () {
     emulate -L zsh
-    # Show hardware MAC addresses for Wi-Fi and Ethernet, connected or not.
+    # Show hardware MACs, link status and the default IPv4 interface.
     if [[ $OSTYPE != darwin* ]]; then
         print -u2 -r -- 'networkservice requires macOS.'
         return 2
     fi
-    if (( ! $+commands[networksetup] )); then
-        print -u2 -r -- 'networkservice requires networksetup.'
+    if (( ! $+commands[networksetup] || ! $+commands[ifconfig] )); then
+        print -u2 -r -- 'networkservice requires networksetup and ifconfig.'
         return 2
     fi
-    local hardware line port device label mac
-    local -a ports devices macs wifi wired labels addresses match mbegin mend
+    local hardware line port device label mac details route_info link_state
+    local default_device=''
+    local -a ports devices macs wifi wired labels addresses states match mbegin mend
     local -i record=0 index width=0 failures=0
+    if (( $+commands[route] )); then
+        route_info=$(command route -n get default 2>/dev/null)
+        for line in "${(@f)route_info}"; do
+            if [[ $line =~ '^[[:space:]]*interface:[[:space:]]+([^[:space:]]+)' ]]; then
+                default_device=$match[1]
+                break
+            fi
+        done
+    fi
     hardware=$(command networksetup -listallhardwareports) || return 1
     while IFS= read -r line; do
         if [[ $line =~ '^[[:space:]]*Hardware Port: (.*)$' ]]; then
@@ -46,8 +56,22 @@ networkservice () {
             mac='unavailable'
             (( ++failures ))
         fi
+        link_state='Unknown'
+        if [[ -n $device ]] && details=$(command ifconfig "$device" 2>/dev/null); then
+            for line in "${(@f)details}"; do
+                if [[ $line =~ '^[[:space:]]*status:[[:space:]]+(active|inactive)[[:space:]]*$' ]]; then
+                    case $match[1] in
+                        active) link_state='Active' ;;
+                        inactive) link_state='Inactive' ;;
+                    esac
+                    break
+                fi
+            done
+        fi
+        [[ $device == "$default_device" && -n $default_device ]] && link_state+=', Default'
         labels+=("$label")
         addresses+=("$mac")
+        states+=("$link_state")
         (( ${#label} > width )) && width=${#label}
     done
     if (( ${#labels} == 0 )); then
@@ -55,7 +79,7 @@ networkservice () {
         return 1
     fi
     for (( index=1; index<=${#labels}; ++index )); do
-        printf '%-*s : %s\n' "$width" "$labels[$index]" "$addresses[$index]"
+        printf '%-*s : %-17s | %s\n' "$width" "$labels[$index]" "$addresses[$index]" "$states[$index]"
     done
     if (( failures )); then
         print -u2 -r -- 'macOS did not provide a usable hardware MAC for every listed interface.'
