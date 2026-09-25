@@ -1,3 +1,1 @@
-bg_purple1 () {
-	print -P %K{093}$*%k
-}
+_joe_color_legacy

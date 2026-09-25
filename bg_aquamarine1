@@ -1,3 +1,1 @@
-bg_aquamarine1 () {
-	print -P %K{086}$*%k
-}
+_joe_color_legacy

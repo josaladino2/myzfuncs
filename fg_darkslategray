@@ -1,3 +1,1 @@
-fg_darkslategray () {
-	print -P %F{116}$*%f
-}
+_joe_color_legacy

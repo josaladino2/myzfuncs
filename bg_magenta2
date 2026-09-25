@@ -1,3 +1,1 @@
-bg_magenta2 () {
-	print -P %K{165}$*%k
-}
+_joe_color_legacy

@@ -1,3 +1,1 @@
-fg_lightgoldenrod () {
-	print -P %F{227}$*%f
-}
+_joe_color_legacy

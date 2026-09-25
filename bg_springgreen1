@@ -1,3 +1,1 @@
-bg_springgreen1 () {
-	print -P %K{047}$*%k
-}
+_joe_color_legacy

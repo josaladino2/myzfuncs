@@ -1,38 +1,25 @@
 showfgcolors () {
-	pushd ~/.myzfuncs > /dev/null 2>&1
-	local maxLength=0 
-	local Sort='' 
-	local Cols=5 
-	while [[ "${1:0:2}" =~ .*"-".* ]]
-	do
-		case ${1:0:2} in
-			('-n') Sort='-n' 
-				shift ;;
-			('-c') Cols=${1:2} 
-				shift ;;
-		esac
-	done
-	for i in $(get_fcn_list|ggrep -E --color=never '^fg_')
-	do
-		if [[ ${#i} -gt $maxLength ]]
-		then
-			maxLength=${#i} 
-		fi
-	done
-	((maxLength=maxLength+1))
-	local x=0 
-	for i in $(get_fcn_list ${Sort}|ggrep -E --color=never '^fg_')
-	do
-		local rLength=$(expr length ${i}) 
-		local spaces=$(printf "%.0s " $(seq $((maxLength-rLength)) )) 
-		printf "$(${i} "${i}")${spaces}"
-		((x=x+1))
-		if [[ x -eq ${Cols} ]]
-		then
-			x=0 
-			echo
-		fi
-	done
-	echo
-	popd > /dev/null 2>&1
+    emulate -L zsh
+    # Keep the older -n / -cN palette-browser options working.
+    local -i columns=0
+    while (( $# )); do
+        case $1 in
+            -n) shift ;;
+            -c[1-9]|-c[1-9][0-9]) columns=${1#-c}; shift ;;
+            *) print -u2 -r -- 'Usage: showfgcolors [-n] [-c3..6]'; return 2 ;;
+        esac
+    done
+    autoload -Uz _joe_color_palette fg_color
+    (( ${+_joe_color_names} )) || _joe_color_palette
+    if (( columns )); then
+        (( columns < 3 )) && columns=3
+        (( columns > 6 )) && columns=6
+        local shade
+        local -i width=0
+        for shade in "${(@k)_joe_color_names}"; do
+            (( ${#shade} > width )) && width=${#shade}
+        done
+        local COLUMNS=$(( (width + 2) * columns ))
+    fi
+    fg_color
 }

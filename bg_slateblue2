@@ -1,3 +1,1 @@
-bg_slateblue2 () {
-	print -P %K{061}$*%k
-}
+_joe_color_legacy

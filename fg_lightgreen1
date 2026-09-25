@@ -1,3 +1,1 @@
-fg_lightgreen1 () {
-	print -P %F{119}$*%f
-}
+_joe_color_legacy

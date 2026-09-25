@@ -1,3 +1,1 @@
-fg_khaki () {
-	print -P %F{228}$*%f
-}
+_joe_color_legacy

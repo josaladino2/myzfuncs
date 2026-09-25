@@ -1,3 +1,1 @@
-fg_plum3 () {
-	print -P %F{096}$*%f
-}
+_joe_color_legacy

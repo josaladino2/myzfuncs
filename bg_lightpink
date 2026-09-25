@@ -1,3 +1,1 @@
-bg_lightpink () {
-	print -P %K{217}$*%k
-}
+_joe_color_legacy

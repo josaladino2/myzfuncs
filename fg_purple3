@@ -1,3 +1,1 @@
-fg_purple3 () {
-	print -P %F{055}$*%f
-}
+_joe_color_legacy

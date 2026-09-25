@@ -1,3 +1,1 @@
-bg_mediumorchid () {
-	print -P %K{134}$*%k
-}
+_joe_color_legacy

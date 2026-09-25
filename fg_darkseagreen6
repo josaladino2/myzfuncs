@@ -1,3 +1,1 @@
-fg_darkseagreen6 () {
-	print -P %F{150}$*%f
-}
+_joe_color_legacy

@@ -1,3 +1,1 @@
-fg_magenta () {
-	print -P %F{201}$*%f
-}
+_joe_color_legacy

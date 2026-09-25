@@ -1,3 +1,1 @@
-bg_lightcoral () {
-	print -P %K{210}$*%k
-}
+_joe_color_legacy

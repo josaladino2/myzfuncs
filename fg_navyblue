@@ -1,3 +1,1 @@
-fg_navyblue () {
-	print -P %F{017}$*%f
-}
+_joe_color_legacy

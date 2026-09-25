@@ -1,3 +1,1 @@
-fg_slateblue2 () {
-	print -P %F{061}$*%f
-}
+_joe_color_legacy

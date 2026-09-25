@@ -1,3 +1,1 @@
-fg_seagreen2 () {
-	print -P %F{084}$*%f
-}
+_joe_color_legacy

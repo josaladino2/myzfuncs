@@ -1,3 +1,1 @@
-fg_thistle () {
-	print -P %F{182}$*%f
-}
+_joe_color_legacy

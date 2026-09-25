@@ -1,3 +1,1 @@
-bg_mistyrose1 () {
-	print -P %K{181}$*%k
-}
+_joe_color_legacy

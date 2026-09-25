@@ -1,3 +1,1 @@
-bg_lightsteelblue () {
-	print -P %K{147}$*%k
-}
+_joe_color_legacy

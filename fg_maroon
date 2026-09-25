@@ -1,3 +1,1 @@
-fg_maroon () {
-	print -P %F{001}$*%f
-}
+_joe_color_legacy

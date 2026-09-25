@@ -1,3 +1,1 @@
-fg_indianred () {
-	print -P %F{131}$*%f
-}
+_joe_color_legacy

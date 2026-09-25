@@ -1,3 +1,1 @@
-fg_orchid1 () {
-	print -P %F{213}$*%f
-}
+_joe_color_legacy

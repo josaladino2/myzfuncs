@@ -1,3 +1,1 @@
-bg_grey85 () {
-	print -P %K{253}$*%k
-}
+_joe_color_legacy

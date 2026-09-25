@@ -1,3 +1,1 @@
-fg_rosybrown () {
-	print -P %F{138}$*%f
-}
+_joe_color_legacy

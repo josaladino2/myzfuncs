@@ -1,3 +1,1 @@
-bg_darkolivegreen4 () {
-	print -P %K{113}$*%k
-}
+_joe_color_legacy

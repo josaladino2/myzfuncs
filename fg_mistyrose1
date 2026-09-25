@@ -1,3 +1,1 @@
-fg_mistyrose1 () {
-	print -P %F{181}$*%f
-}
+_joe_color_legacy

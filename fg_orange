@@ -1,3 +1,1 @@
-fg_orange () {
-	print -P %F{214}$*%f
-}
+_joe_color_legacy

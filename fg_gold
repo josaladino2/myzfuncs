@@ -1,3 +1,1 @@
-fg_gold () {
-	print -P %F{220}$*%f
-}
+_joe_color_legacy

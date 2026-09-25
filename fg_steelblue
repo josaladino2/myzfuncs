@@ -1,3 +1,1 @@
-fg_steelblue () {
-	print -P %F{067}$*%f
-}
+_joe_color_legacy

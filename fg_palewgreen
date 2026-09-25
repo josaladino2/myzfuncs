@@ -1,3 +1,1 @@
-fg_palewgreen () {
-	print -P %F{077}$*%f
-}
+_joe_color_legacy

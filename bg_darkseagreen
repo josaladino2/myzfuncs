@@ -1,3 +1,1 @@
-bg_darkseagreen () {
-	print -P %K{108}$*%k
-}
+_joe_color_legacy

@@ -1,3 +1,1 @@
-fg_cornflowerblue () {
-	print -P %F{069}$*%f
-}
+_joe_color_legacy

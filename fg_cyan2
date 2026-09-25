@@ -1,3 +1,1 @@
-fg_cyan2 () {
-	print -P %F{043}$*%f
-}
+_joe_color_legacy

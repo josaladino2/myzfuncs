@@ -1,3 +1,1 @@
-fg_red1 () {
-	print -P %F{196}$*%f
-}
+_joe_color_legacy

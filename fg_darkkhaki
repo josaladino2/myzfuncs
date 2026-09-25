@@ -1,3 +1,1 @@
-fg_darkkhaki () {
-	print -P %F{143}$*%f
-}
+_joe_color_legacy

@@ -1,3 +1,1 @@
-fg_green () {
-	print -P %F{002}"$*"%f
-}
+_joe_color_legacy

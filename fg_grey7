@@ -1,3 +1,1 @@
-fg_grey7 () {
-	print -P %F{233}$*%f
-}
+_joe_color_legacy

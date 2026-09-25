@@ -1,3 +1,1 @@
-fg_palevioletred () {
-	print -P %F{211}$*%f
-}
+_joe_color_legacy

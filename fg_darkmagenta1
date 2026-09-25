@@ -1,3 +1,1 @@
-fg_darkmagenta1 () {
-	print -P %F{090}$*%f
-}
+_joe_color_legacy

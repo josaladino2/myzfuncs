@@ -1,3 +1,1 @@
-fg_mediumpurple4 () {
-	print -P %F{097}$*%f
-}
+_joe_color_legacy

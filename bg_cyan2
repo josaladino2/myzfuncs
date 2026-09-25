@@ -1,3 +1,1 @@
-bg_cyan2 () {
-	print -P %K{043}$*%k
-}
+_joe_color_legacy

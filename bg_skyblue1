@@ -1,3 +1,1 @@
-bg_skyblue1 () {
-	print -P %K{111}$*%k
-}
+_joe_color_legacy

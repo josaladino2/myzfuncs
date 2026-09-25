@@ -1,0 +1,16 @@
+_joe_count_entries () {
+    emulate -L zsh
+    local entry
+    local -i directories=0 hidden=0 files=0 links=0
+    for entry in *(DN); do
+        [[ $entry == .* ]] && (( ++hidden ))
+        if [[ -L $entry ]]; then
+            (( ++links ))
+        elif [[ -d $entry ]]; then
+            (( ++directories ))
+        elif [[ -f $entry ]]; then
+            (( ++files ))
+        fi
+    done
+    REPLY="d${directories}/h${hidden}/f${files}/l${links}"
+}

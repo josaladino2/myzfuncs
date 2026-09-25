@@ -1,3 +1,1 @@
-bg_lightsalmon2 () {
-	print -P %K{137}$*%k
-}
+_joe_color_legacy

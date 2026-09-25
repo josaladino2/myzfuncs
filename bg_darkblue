@@ -1,3 +1,1 @@
-bg_darkblue () {
-	print -P %K{018}$*%k
-}
+_joe_color_legacy

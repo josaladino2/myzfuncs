@@ -1,3 +1,1 @@
-fg_dodgerblue2 () {
-	print -P %F{026}$*%f
-}
+_joe_color_legacy

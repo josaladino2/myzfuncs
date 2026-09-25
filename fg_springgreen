@@ -1,3 +1,1 @@
-fg_springgreen () {
-	print -P %F{048}$*%f
-}
+_joe_color_legacy

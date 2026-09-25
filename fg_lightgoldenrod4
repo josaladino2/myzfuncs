@@ -1,3 +1,1 @@
-fg_lightgoldenrod4 () {
-	print -P %F{179}$*%f
-}
+_joe_color_legacy

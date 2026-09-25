@@ -1,3 +1,1 @@
-fg_teal () {
-	print -P %F{006}$*%f
-}
+_joe_color_legacy

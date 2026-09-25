@@ -1,3 +1,1 @@
-bg_chartreuse2 () {
-	print -P %K{082}$*%k
-}
+_joe_color_legacy

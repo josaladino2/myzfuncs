@@ -1,3 +1,1 @@
-bg_deeppink6 () {
-	print -P %K{089}$*%k
-}
+_joe_color_legacy

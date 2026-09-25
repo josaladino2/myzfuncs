@@ -1,3 +1,1 @@
-fg_cornsilk () {
-	print -P %F{230}$*%f
-}
+_joe_color_legacy

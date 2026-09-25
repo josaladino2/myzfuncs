@@ -1,3 +1,1 @@
-bg_palegreen () {
-	print -P %K{156}$*%k
-}
+_joe_color_legacy

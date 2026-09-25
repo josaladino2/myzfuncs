@@ -1,3 +1,1 @@
-fg_deeppink () {
-	print -P %F{199}$*%f
-}
+_joe_color_legacy

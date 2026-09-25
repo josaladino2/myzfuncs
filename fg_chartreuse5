@@ -1,3 +1,1 @@
-fg_chartreuse5 () {
-	print -P %F{076}$*%f
-}
+_joe_color_legacy

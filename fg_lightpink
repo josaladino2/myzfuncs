@@ -1,3 +1,1 @@
-fg_lightpink () {
-	print -P %F{217}$*%f
-}
+_joe_color_legacy

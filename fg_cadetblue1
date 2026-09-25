@@ -1,3 +1,1 @@
-fg_cadetblue1 () {
-	print -P %F{072}$*%f
-}
+_joe_color_legacy

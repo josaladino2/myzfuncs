@@ -1,0 +1,5 @@
+fg_color () {
+    emulate -L zsh
+    autoload -Uz _joe_color
+    _joe_color fg "$@"
+}

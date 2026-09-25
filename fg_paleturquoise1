@@ -1,3 +1,1 @@
-fg_paleturquoise1 () {
-	print -P %F{066}$*%f
-}
+_joe_color_legacy

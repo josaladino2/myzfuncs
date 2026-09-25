@@ -1,3 +1,1 @@
-fg_black () {
-	print -P %F{000}$*%f
-}
+_joe_color_legacy

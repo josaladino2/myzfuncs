@@ -1,3 +1,1 @@
-fg_lightsalmon2 () {
-	print -P %F{137}$*%f
-}
+_joe_color_legacy

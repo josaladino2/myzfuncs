@@ -1,3 +1,1 @@
-fg_wheat () {
-	print -P %F{101}$*%f
-}
+_joe_color_legacy

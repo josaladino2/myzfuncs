@@ -1,3 +1,1 @@
-bg_lightgoldenrod2 () {
-	print -P %K{221}$*%k
-}
+_joe_color_legacy

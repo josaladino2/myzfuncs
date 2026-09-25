@@ -1,3 +1,1 @@
-bg_darkmagenta () {
-	print -P %K{091}$*%k
-}
+_joe_color_legacy

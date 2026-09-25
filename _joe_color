@@ -1,0 +1,55 @@
+_joe_color () {
+    emulate -L zsh
+    local mode=$1
+    shift
+    if (( ! ${+_joe_color_names} )); then
+        autoload -Uz _joe_color_palette
+        _joe_color_palette
+    fi
+    local prefix suffix
+    case $mode in
+        fg) prefix=F; suffix=f ;;
+        bg) prefix=K; suffix=k ;;
+        *) print -u2 -r -- 'Invalid color mode.'; return 2 ;;
+    esac
+    local shade index start finish="%${suffix}"
+    if (( $# == 0 )); then
+        print -r -- "Usage: ${mode}_color COLOR [TEXT ...]"
+        print -r -- "       ${mode}_color  (list available colors)"
+        print
+        local -a shades=( ${(ok)_joe_color_names} )
+        local -i width=0 columns count=0
+        for shade in "${shades[@]}"; do
+            (( ${#shade} > width )) && width=${#shade}
+        done
+        (( width += 2 ))
+        (( columns = ${COLUMNS:-80} / width ))
+        (( columns < 3 )) && columns=3
+        (( columns > 6 )) && columns=6
+        for shade in "${shades[@]}"; do
+            index=${_joe_color_names[$shade]}
+            start="%${prefix}{${index}}"
+            print -rn -- "${(%)start}${shade}${(%)finish}"
+            (( ++count ))
+            if (( count % columns == 0 || count == ${#shades} )); then
+                print
+            else
+                printf '%*s' $(( width - ${#shade} )) ''
+            fi
+        done
+        return 0
+    fi
+    shade=${(L)1}
+    shift
+    if (( ${+_joe_color_names[$shade]} )); then
+        index=${_joe_color_names[$shade]}
+    elif [[ $shade == <0-255> && ${#shade} -le 3 ]]; then
+        index=$(( 10#$shade ))
+    else
+        print -u2 -r -- "Unknown color: ${shade}. Run ${mode}_color without arguments to list names."
+        return 2
+    fi
+    start="%${prefix}{${index}}"
+    # Expand only our validated color sequence; message text stays literal.
+    print -r -- "${(%)start}$*${(%)finish}"
+}

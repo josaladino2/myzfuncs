@@ -1,3 +1,1 @@
-fg_deepskyblue6 () {
-	print -P %F{023}$*%f
-}
+_joe_color_legacy

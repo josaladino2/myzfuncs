@@ -1,3 +1,1 @@
-bg_navy () {
-	print -P %K{004}$*%k
-}
+_joe_color_legacy

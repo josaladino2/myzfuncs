@@ -1,3 +1,1 @@
-bg_green4 () {
-	print -P %K{028}$*%k
-}
+_joe_color_legacy

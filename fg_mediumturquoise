@@ -1,3 +1,1 @@
-fg_mediumturquoise () {
-	print -P %F{080}$*%f
-}
+_joe_color_legacy

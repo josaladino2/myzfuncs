@@ -1,3 +1,1 @@
-bg_darkolivegreen5 () {
-	print -P %K{107}$*%k
-}
+_joe_color_legacy

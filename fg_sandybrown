@@ -1,3 +1,1 @@
-fg_sandybrown () {
-	print -P %F{215}$*%f
-}
+_joe_color_legacy

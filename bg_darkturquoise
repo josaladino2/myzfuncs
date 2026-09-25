@@ -1,3 +1,1 @@
-bg_darkturquoise () {
-	print -P %K{044}$*%k
-}
+_joe_color_legacy

@@ -1,3 +1,1 @@
-fg_navajowhite1 () {
-	print -P %F{223}$*%f
-}
+_joe_color_legacy

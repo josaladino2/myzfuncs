@@ -1,0 +1,11 @@
+# Shared autoload body reached through legacy fg_* / bg_* symlinks.
+emulate -L zsh
+# Keep old calls working during a coordinated pull before new autoload links exist.
+local -a fpath=("$HOME/myzfuncs" $fpath)
+local color_function=${funcstack[1]}
+autoload -Uz fg_color bg_color
+case $color_function in
+    fg_*) fg_color "${color_function#fg_}" "$@" ;;
+    bg_*) bg_color "${color_function#bg_}" "$@" ;;
+    *) print -u2 -r -- 'Use fg_color or bg_color.'; return 2 ;;
+esac

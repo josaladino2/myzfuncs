@@ -1,3 +1,1 @@
-fg_hotpink3 () {
-	print -P %F{168}$*%f
-}
+_joe_color_legacy
