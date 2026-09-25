@@ -1,6 +1,6 @@
 networkservice () {
     emulate -L zsh
-    # macOS: hardware-port name, device, and MAC, each on its own line.
+    # macOS: hardware-port name, device, and hardware MAC, one per line.
     # Retain the original script's choice of the last active listed service.
     if [[ $OSTYPE != darwin* ]]; then
         print -u2 -r -- 'networkservice requires macOS.'
@@ -10,7 +10,7 @@ networkservice () {
         print -u2 -r -- 'networkservice requires networksetup and ifconfig.'
         return 2
     fi
-    local services line device port details item mac
+    local services line device port details mac_info
     local currentservice='' currentdevice='' currentmac=''
     local -a match mbegin mend
     services=$(command networksetup -listnetworkserviceorder) || return 1
@@ -21,20 +21,24 @@ networkservice () {
             [[ -n $device ]] || continue
             details=$(command ifconfig "$device" 2>/dev/null) || continue
             [[ $details == *'status: active'* ]] || continue
-            mac=''
-            for item in "${(@f)details}"; do
-                if [[ $item =~ '^[[:space:]]*ether[[:space:]]+([^[:space:]]+)' ]]; then
-                    mac=$match[1]
-                    break
-                fi
-            done
             currentservice=$port
             currentdevice=$device
-            currentmac=$mac
         fi
     done <<< "$services"
     if [[ -z $currentservice ]]; then
         print -u2 -r -- 'Could not find an active network service.'
+        return 1
+    fi
+    # Read the hardware address, independently of private Wi-Fi addressing.
+    mac_info=$(command networksetup -getmacaddress "$currentdevice" 2>/dev/null) || {
+        print -u2 -r -- "Could not read the hardware MAC address for $currentdevice."
+        return 1
+    }
+    if [[ $mac_info =~ 'Ethernet Address:[[:space:]]*([[:xdigit:]]{2}(:[[:xdigit:]]{2}){5})([[:space:]]|$)' ]]; then
+        currentmac=${(L)match[1]}
+    fi
+    if [[ -z $currentmac || $currentmac == 00:00:00:00:00:00 || $currentmac == 02:00:00:00:00:00 || $currentmac == ff:ff:ff:ff:ff:ff ]]; then
+        print -u2 -r -- "macOS did not provide a usable hardware MAC address for $currentdevice."
         return 1
     fi
     print -r -- "$currentservice"
