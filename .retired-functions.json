@@ -3,5 +3,7 @@
   "ipext",
   "ipall",
   "ips",
-  "networkservice"
+  "networkservice",
+  "to_upper",
+  "to_lower"
 ]
