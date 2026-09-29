@@ -3,5 +3,8 @@
   "ipext",
   "ipall",
   "ips",
-  "networkservice"
+  "networkservice",
+  "trim",
+  "ltrim",
+  "rtrim"
 ]
