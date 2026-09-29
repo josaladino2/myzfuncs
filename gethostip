@@ -1,9 +1,14 @@
 gethostip () {
-	#	alias ggrep -E="/usr/local/bin/ggrep -E"
-		DomIP=$(arp -a|ggrep -E "${1}" | ggrep -E -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
-		if [ -n "${DomIP}" ]; then
-				echo ${DomIP}
-	else
-		dig +short ${1:-$(ipext)}
-	fi
+    local DomIP
+    if (( $# == 0 )) || [[ -z ${1-} ]]; then
+        command ipinfo --external --raw -f 4
+        return $?
+    fi
+    DomIP=$(command arp -a 2>/dev/null | command grep -F -- "$1" |
+        command grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
+    if [[ -n $DomIP ]]; then
+        print -r -- "$DomIP"
+    else
+        command dig +short "$1"
+    fi
 }

@@ -1,4 +1,0 @@
-ipext () {
-	curl -4 http://ifconfig.co
-	ifconfig en0|grep 'ether'|sed -e 's/ether //'|ltrim
-}
