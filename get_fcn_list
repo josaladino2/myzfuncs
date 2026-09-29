@@ -1,4 +1,5 @@
 get_fcn_list () {
+    command -v textfmt >/dev/null 2>&1 || { print -u2 "textfmt is required"; return 127; }
 	local Cols=1
 	local Sort='Y'
 	local ExText=''
@@ -20,15 +21,15 @@ get_fcn_list () {
 	done
 	if [ -z ${Sort} ]; then
 		if [ -z ${ExText} ]; then
-			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | tocolumns ${Cols}
+			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | command textfmt --columns --count "${Cols}" --width 80
 		else
-			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | ggrep -E "${ExText}" | tocolumns ${Cols}
+			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | ggrep -E "${ExText}" | command textfmt --columns --count "${Cols}" --width 80
 		fi
 	else
 		if [ -z ${ExText} ]; then
-			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | sort | tocolumns ${Cols}
+			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | sort | command textfmt --columns --count "${Cols}" --width 80
 		else
-			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | ggrep -E "${ExText}" | sort | tocolumns ${Cols}
+			awk '/^[a-z|0-9].*\(\)/{print $1}' ${myzfuncsfile} | ggrep -E "${ExText}" | sort | command textfmt --columns --count "${Cols}" --width 80
 		fi
 	fi
 }

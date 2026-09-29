@@ -1,14 +1,13 @@
 indent () {
-	# Usage: [indentSize=2] [multiplier=1]
-	if [[ "${1}" =~ .*"-".* ]]; then
-		if [ "${1}" = "-h" ]; then
-			echo "$(fg_color red1 \"Usage\"): ${funcstack[1]} [indentSize] [indentNum]"
-			echo "Default: ${funcstack[1]} 2 1"
-		fi
-		shift
-	else
-		local indentSize=${1:-2}
-		local indentNum=${2:-1}
-		pr -to $((indentSize * indentNum))
-	fi
+    if [[ ${1-} == -h || ${1-} == --help ]]; then
+        print -r -- 'Usage: indent [spaces=2] [multiplier=1] < input'
+        return 0
+    fi
+    local spaces=${1:-2} multiplier=${2:-1}
+    if [[ $spaces != <-> || $multiplier != <-> ]] ||
+       (( ${#spaces} > 3 || ${#multiplier} > 3 || spaces > 84 || multiplier > 84 )); then
+        print -u2 -r -- 'indent: spaces and multiplier must be integers from 0 to 84.'
+        return 2
+    fi
+    command textfmt --indent --spaces "$(( 10#$spaces * 10#$multiplier ))"
 }

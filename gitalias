@@ -1,4 +1,5 @@
 gitalias () {
+    command -v textcase >/dev/null 2>&1 || { print -u2 "textcase is required"; return 127; }
 	if [ -z ${1} ]; then
 		echo "Usage: ${funcstack[1]} alias_category"
 	else
@@ -6,7 +7,7 @@ gitalias () {
 			echo "########## ALL ##########"
 			git aliases|most
 		else
-			echo "########## $(to_upper "${1}") ##########"
+			echo "########## $(command textcase --upper -- "${1}") ##########"
 			git aliases|ggrep -E ${1}
 		fi
 	fi

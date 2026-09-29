@@ -1,8 +1,7 @@
 repeat_char () {
-	if [ -z ${1} ]; then
-		echo "Usage: ${funcstack[1]} character num"
-	else
-		printf "${1}%.0s" {1..${2}}
-		echo ""
-	fi
+    if (( $# != 2 )); then
+        print -u2 -r -- 'Usage: repeat_char TEXT COUNT'
+        return 2
+    fi
+    command textfmt --count "$2" --repeat="$1"
 }

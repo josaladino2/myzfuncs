@@ -1,5 +1,3 @@
 tocolumns () {
-	local NumCols=${1:-5}
-	local maxLength=${2:-80}
-	cat - | rs -z -w${maxLength} 0 ${NumCols}
+    command textfmt --columns --count "${1:-5}" --width "${2:-80}"
 }

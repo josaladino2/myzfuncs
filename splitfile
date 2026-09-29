@@ -1,4 +1,5 @@
 splitfile () {
+    command -v textfmt >/dev/null 2>&1 || { print -u2 "textfmt is required"; return 127; }
 	# Assumes current directory
 	if [ "$1" = "-t" ]; then
 		ShowTime="Y"
@@ -29,7 +30,7 @@ splitfile () {
 				echo "	${FileToCheck} NOT Removed!"
 			fi
 			echo
-			ls -hl ${FileToCheck}* | indent
+			ls -hl ${FileToCheck}* | command textfmt --indent
 			echo
 		fi
 		duration2=$(($(date +%s)-SECONDS2))
