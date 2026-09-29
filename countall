@@ -1,7 +1,7 @@
 countall () {
     emulate -L zsh
     local REPLY
-    autoload -Uz _joe_count_entries
-    _joe_count_entries
+    autoload -Uz _count_entries
+    _count_entries
     print -r -- "$REPLY"
 }

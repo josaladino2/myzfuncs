@@ -1,3 +1,6 @@
 tfiles () {
-	printf "$(ls -a -1 | wc -l|sed 's/ //g')\n"
+    emulate -L zsh
+    local count
+    count=$(command fdlinfo --counts . --raw) || return $?
+    print -r -- "$(( count + 2 ))"
 }
