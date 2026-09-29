@@ -1,3 +1,17 @@
 dirsize () {
-	printf "${1:-$(pwd)} $(ls -hs ${1} | head -1)\n"
+    emulate -L zsh
+    if (( $# == 1 )) && [[ $1 == --help || $1 == -h ]]; then
+        print -r -- 'Usage: dirsize [DIR]'
+        print -r -- 'Recursive allocated regular-file total, including hidden files; default .'
+        print -r -- 'Requires fdlinfo 1.1.0+. Hard links count once; symlinks are not followed.'
+        print -r -- 'Use fdlinfo directly for logical bytes, exact bytes or --follow.'
+        return 0
+    fi
+    if (( $# > 1 )); then
+        print -u2 -r -- 'Usage: dirsize [DIR]'
+        return 2
+    fi
+    local directory=${1-.}
+    [[ $directory == -* ]] && directory=./$directory
+    command fdlinfo --allocated --human --recursive "$directory"
 }
