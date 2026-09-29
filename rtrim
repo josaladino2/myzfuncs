@@ -1,0 +1,3 @@
+rtrim () {
+    command texttrim --right -- "$@"
+}
